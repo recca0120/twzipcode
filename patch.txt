@@ -1,0 +1,22 @@
+diff --git a/src/Twzipcode.php b/src/Twzipcode.php
+index bc925002a9880fc9b86584ac3685e62af1d043e0..ed6d2202d09da6289aa73d5f740908d33b4f70a5 100644
+--- a/src/Twzipcode.php
++++ b/src/Twzipcode.php
+@@ -119,7 +119,7 @@ class Twzipcode
+     /**
+      * toArray.
+      *
+-     * @param  bool $fullWidth
++     * @param bool $fullWidth
+      *
+      * @return array
+      */
+@@ -138,7 +138,7 @@ class Twzipcode
+     /**
+      * toJson.
+      *
+-     * @param  bool $fullWidth
++     * @param bool $fullWidth
+      *
+      * @return string
+      */

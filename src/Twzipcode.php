@@ -117,6 +117,37 @@ class Twzipcode
     }
 
     /**
+     * toArray.
+     *
+     * @param bool $fullWidth
+     *
+     * @return array
+     */
+    public function toArray($fullWidth = false)
+    {
+        $attributes = $this->attributes;
+        if ($fullWidth === true) {
+            foreach ($attributes as $key => $attribute) {
+                $attributes[$key] = Converter::toFull($attribute);
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * toJson.
+     *
+     * @param bool $fullWidth
+     *
+     * @return string
+     */
+    public function toJson($fullWidth = false)
+    {
+        return json_encode($this->toArray($fullWidth));
+    }
+
+    /**
      * __call.
      *
      * @param string $method
