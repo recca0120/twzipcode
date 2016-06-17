@@ -16,4 +16,11 @@ $twzipcode->getCounty(); // 新北市
 $twzipcode->getDistrict(); // 萬里區
 $twzipcode->getAddress(); // 新北市萬里區中正路100號
 $twzipcode->getShortAddress(); // 中正路100號
+
+# 取得全形字串
+$twzipcode->getZipcode(true); // '２０７'
+$twzipcode->getCounty(true); // '新北市'
+$twzipcode->getDistrict(true); // '萬里區'
+$twzipcode->getAddress(true); // '新北市萬里區龜港村中正路１００號'
+$twzipcode->getShortAddress(true); // '龜港村中正路１００號'
 ```
