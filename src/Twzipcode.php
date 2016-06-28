@@ -159,11 +159,11 @@ class Twzipcode
     {
         if (strpos($method, 'get') !== false) {
             $attribute = lcfirst(str_replace('get', '', $method));
-            if (isset($this->attributes[$attribute]) === true) {
+            if (array_key_exists($attribute, $this->attributes) == true) {
                 return call_user_func_array([$this, 'getAttribute'], array_merge([$attribute], $parameters));
             }
         }
 
-        throw new BadMethodCallException("Call to undefined method {$className}::{$method}()");
+        throw new BadMethodCallException('Call to undefined method '.static::class.'::'.$method.'()');
     }
 }
