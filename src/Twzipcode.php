@@ -166,4 +166,16 @@ class Twzipcode
 
         throw new BadMethodCallException('Call to undefined method '.static::class.'::'.$method.'()');
     }
+
+    /**
+     * __toString.
+     *
+     * @method __toString
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getAttribute('address');
+    }
 }
