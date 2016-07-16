@@ -10,19 +10,19 @@ class Normalizer
      * @var array
      */
     private static $countyNameMap = [
-        '台北縣' => '新北市',
-        '北市'  => '台北市',
+        '臺北縣' => '新北市',
+        '北市'  => '臺北市',
         '北縣'  => '新北市',
-        '台南縣' => '台南市',
-        '南市'  => '台南市',
-        '南縣'  => '台南市',
-        '台中縣' => '台中市',
-        '中市'  => '台中市',
-        '中縣'  => '台中市',
+        '臺南縣' => '臺南市',
+        '南市'  => '臺南市',
+        '南縣'  => '臺南市',
+        '臺中縣' => '臺中市',
+        '中市'  => '臺中市',
+        '中縣'  => '臺中市',
         '高雄縣' => '高雄市',
         '高縣'  => '高雄市',
         '高市'  => '高雄市',
-        // '台東市' => '臺東市',
+        '台東市' => '臺東市',
     ];
 
     /**
@@ -736,11 +736,11 @@ class Normalizer
         return preg_replace_callback('/^('.implode('|', array_keys(self::$countyNameMap)).')/', function ($m) {
             return self::$countyNameMap[$m[1]];
         }, strtr($address, [
-            '臺北'  => '台北',
-            '臺南'  => '台南',
-            '臺中'  => '台中',
-            '臺東市' => '台東市',
-            '臺東縣' => '台東縣',
+            '台北'  => '臺北',
+            '台南'  => '臺南',
+            '台中'  => '臺中',
+            '台東市' => '臺東市',
+            '台東縣' => '臺東縣',
         ]));
     }
 
@@ -766,8 +766,8 @@ class Normalizer
     private function normalizeStreetName($address)
     {
         $counties = [
-            '台中市',
-            '台南市',
+            '臺中市',
+            '臺南市',
             '高雄市',
         ];
 
@@ -785,10 +785,71 @@ class Normalizer
      */
     public function getAddress()
     {
+        return $address;
+    }
+
+    /**
+     * toArray.
+     *
+     * @method toArray
+     *
+     * @return array
+     */
+    public function toArray()
+    {
         $address = $this->normalizeCountyName($this->address);
         $address = $this->normalizeDistrictName($address);
         $address = $this->normalizeStreetName($address);
 
-        return $address;
+        $zipcode = null;
+        $county = null;
+        $district = null;
+        $town = null;
+        $lin = null;
+        $road = null;
+        $sec = null;
+        $len = null;
+        $non = null;
+        $no = null;
+        $floor = null;
+        $at = null;
+        $shortAddress = null;
+
+        if (preg_match('/(?<zipcode>(^\d{5}|^\d{3})?)(?<county>\D{2}[縣市])?(?<district>\D+[鄉鎮市區])?(?<town>\D+[村里])?(?<lin>.+[鄰])?(?<road>\D+[路街大道])?(?<sec>.+[段])?(?<len>.+[巷])?(?<non>.+[弄])?(?<no>.+[號])?(?<floor>.+[樓Ff])?(?<at>[之-].+)?/u', $address, $matches) !== 0) {
+            $zipcode = $this->arrayGet($matches, 'zipcode');
+            $county = $this->arrayGet($matches, 'county');
+            $district = $this->arrayGet($matches, 'district');
+            $town = $this->arrayGet($matches, 'town');
+            $lin = $this->arrayGet($matches, 'lin');
+            $road = $this->arrayGet($matches, 'road');
+            $sec = $this->arrayGet($matches, 'sec');
+            $len = $this->arrayGet($matches, 'zipcode');
+            $non = $this->arrayGet($matches, 'non');
+            $no = $this->arrayGet($matches, 'no');
+            $floor = $this->arrayGet($matches, 'floor');
+            $at = $this->arrayGet($matches, 'at');
+
+            // $sec = preg_replace_callback('/(\d+)段/', function ($m) {
+            //     return Converter::toFull($m[0]);
+            // }, $sec);
+        }
+
+        return compact('county', 'district', 'town', 'lin', 'road', 'sec', 'len', 'non', 'no', 'floor', 'at');
+    }
+
+    /**
+     * arrayGet.
+     *
+     * @method arrayGet
+     *
+     * @param array  $arr
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    protected function arrayGet($arr, $key, $default = null)
+    {
+        return (isset($arr[$key]) === true) ? $arr[$key] : $default;
     }
 }

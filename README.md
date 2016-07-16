@@ -24,3 +24,8 @@ $twzipcode->getDistrict(true); // '萬里區'
 $twzipcode->getAddress(true); // '新北市萬里區龜港村中正路１００號'
 $twzipcode->getShortAddress(true); // '龜港村中正路１００號'
 ```
+
+
+# To Do
+
+Zipcode 3 + 2

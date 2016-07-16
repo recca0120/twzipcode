@@ -26,10 +26,9 @@ class Twzipcode
      * @param string $address
      * @param bool   $normalize (false: 不用轉為新5都)
      */
-    public function __construct($address, $normalize = true)
+    public function __construct($address)
     {
         self::loadTwzipcodeData();
-        $address = $this->normalizeAddress($address, $normalize);
         $this->attributes = $this->parse($address);
     }
 
@@ -61,23 +60,31 @@ class Twzipcode
      */
     private function parse($address)
     {
-        $county = null;
-        $district = null;
-        $zipcode = null;
-        $shortAddress = null;
+        $normalizer = new Normalizer(preg_replace('/^\d+/', '', Converter::toHalf($address)));
+        $data = $normalizer->toArray();
 
-        if (preg_match('/'.implode('|', array_keys(self::$twzipcodeData)).'/', $address, $countyMatch)) {
-            $county = $countyMatch[0];
-            $districts = self::$twzipcodeData[$county];
-            $shortAddress = preg_replace('/^'.$county.'/', '', $address);
-            if (preg_match('/'.implode('|', array_keys($districts)).'/', $address, $districtMatch)) {
-                $district = $districtMatch[0];
-                $zipcode = $districts[$district];
-                $shortAddress = preg_replace('/^'.$district.'/', '', $shortAddress);
-            }
+        if ($data['county'] === null) {
+            return;
         }
 
-        return compact('county', 'district', 'zipcode', 'shortAddress', 'address');
+        $shortAddress = implode('', [
+            $data['town'],
+            $data['lin'],
+            $data['road'],
+            $data['sec'],
+            $data['len'],
+            $data['non'],
+            $data['no'],
+            $data['floor'],
+            $data['at'],
+        ]);
+        $address = implode($data);
+
+        return array_merge($data, [
+            'zipcode'      => self::$twzipcodeData[$data['county']][$data['district']]['zipcode'],
+            'shortAddress' => $shortAddress,
+            'address'      => $address,
+        ]);
     }
 
     /**
@@ -88,7 +95,7 @@ class Twzipcode
     private static function loadTwzipcodeData()
     {
         if (is_null(self::$twzipcodeData) === true) {
-            self::$twzipcodeData = json_decode(file_get_contents(__DIR__.'/twzipcode.json'), true);
+            self::$twzipcodeData = unserialize(gzuncompress(file_get_contents(__DIR__.'/../data/twzipcode.gz')));
         }
 
         return self::$twzipcodeData;
