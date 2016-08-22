@@ -64,7 +64,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function test_taipei_datong_district_civic_blvd()
+    public function test_normailize_taipei_datong_district_civic_blvd()
     {
         $normalizer = new Normalizer('台北市大同區市民大道一段209號5樓');
         $this->assertSame($normalizer->toArray(), [
@@ -82,7 +82,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function test_district_only_two_words()
+    public function test_normailize_district_only_two_words()
     {
         $normalizer = new Normalizer('新竹市東區西大路323號8樓');
         $this->assertSame($normalizer->toArray(), [
@@ -100,7 +100,7 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function test_kaohsiung_qianzhen()
+    public function test_normailize_kaohsiung_qianzhen()
     {
         $normalizer = new Normalizer('高雄市前鎮區中華五路789號');
         $this->assertSame($normalizer->toArray(), [
@@ -114,6 +114,24 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
             'non'      => '',
             'no'       => '789號',
             'floor'    => null,
+            'at'       => null,
+        ]);
+    }
+
+    public function test_normailize_kinmen()
+    {
+        $normalizer = new Normalizer('金門縣金湖鎮新市里太湖路二段198號6樓');
+        $this->assertSame($normalizer->toArray(), [
+            'county'   => '金門縣',
+            'district' => '金湖鎮',
+            'town'     => '新市里',
+            'lin'      => '',
+            'road'     => '太湖路',
+            'sec'      => '二段',
+            'len'      => '',
+            'non'      => '',
+            'no'       => '198號',
+            'floor'    => '6樓',
             'at'       => null,
         ]);
     }
