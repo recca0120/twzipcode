@@ -815,7 +815,7 @@ class Normalizer
         $at = null;
         $shortAddress = null;
 
-        if (preg_match('/(?<zipcode>(^\d{5}|^\d{3})?)(?<county>\D{2}[縣市])?(?<district>\D+[鄉鎮市區])?(?<town>\D+[村里])?(?<lin>.+[鄰])?(?<road>\D+[路街大道])?(?<sec>.+[段])?(?<len>.+[巷])?(?<non>.+[弄])?(?<no>.+[號])?(?<floor>.+[樓Ff])?(?<at>[之-].+)?/u', $address, $matches) !== 0) {
+        if (preg_match('/(?<zipcode>(^\d{5}|^\d{3})?)(?<county>\D{2}[縣市])?(?<district>(\D+[^鄉鎮市區](鄉|鎮|市|區)|\D+(鄉|鎮|市|區)))?(?<town>\D+[村里])?(?<lin>.+[鄰])?(?<road>\D+[路街大道])?(?<sec>.+[段])?(?<len>.+[巷])?(?<non>.+[弄])?(?<no>.+[號])?(?<floor>.+[樓Ff])?(?<at>[之-].+)?/u', $address, $matches) !== 0) {
             $zipcode = $this->arrayGet($matches, 'zipcode');
             $county = $this->arrayGet($matches, 'county');
             $district = $this->arrayGet($matches, 'district');
