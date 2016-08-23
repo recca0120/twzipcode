@@ -57,4 +57,20 @@ class TwzipcodeTest extends PHPUnit_Framework_TestCase
         $this->assertSame($twzipcode->getAddress(true), '臺東縣臺東市中正路１００號');
         $this->assertSame($twzipcode->getShortAddress(true), '中正路１００號');
     }
+
+    public function test_taipei_datong_district_civic_blvd()
+    {
+        $twzipcode = new Twzipcode('台北市大同區市民大道一段209號5樓');
+        $this->assertSame($twzipcode->getZipcode(), '103');
+        $this->assertSame($twzipcode->getCounty(), '臺北市');
+        $this->assertSame($twzipcode->getDistrict(), '大同區');
+        $this->assertSame($twzipcode->getAddress(), '臺北市大同區市民大道一段209號5樓');
+        $this->assertSame($twzipcode->getShortAddress(), '市民大道一段209號5樓');
+
+        $this->assertSame($twzipcode->getZipcode(true), '１０３');
+        $this->assertSame($twzipcode->getCounty(true), '臺北市');
+        $this->assertSame($twzipcode->getDistrict(true), '大同區');
+        $this->assertSame($twzipcode->getAddress(true), '臺北市大同區市民大道一段２０９號５樓');
+        $this->assertSame($twzipcode->getShortAddress(true), '市民大道一段２０９號５樓');
+    }
 }
