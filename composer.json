@@ -8,9 +8,9 @@
         "php": ">=5.5.9"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*",
-        "nesbot/carbon": "~1.20",
-        "phpunit/phpunit": "~4.0"
+        "mockery/mockery": "~0.9.4",
+        "phpunit/phpunit": "~5.4",
+        "nesbot/carbon": "~1.20"
     },
     "autoload": {
         "psr-4": {
