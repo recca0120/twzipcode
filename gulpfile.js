@@ -1,5 +1,7 @@
-var elixir = require('laravel-elixir');
-var path = require('path');
+const gulpUtil = require('gulp-util');
+gulpUtil.env.production = true;
+const path = require('path');
+const elixir = require('laravel-elixir');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,9 +14,6 @@ var path = require('path');
  |
  */
 
-elixir(function(mix) {
-    mix.phpUnit([
-        'src/**/*.php',
-        'tests/**/*'
-    ], path.normalize('vendor/bin/phpunit') + ' --verbose');
+elixir((mix) => {
+    mix.phpUnit();
 });
