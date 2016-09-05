@@ -80,8 +80,19 @@ class Twzipcode
         ]);
         $address = implode($data);
 
+        $zipcode = null;
+        $county = $data['county'];
+        $district = $data['district'];
+        if (
+            isset(self::$twzipcodeData[$county]) === true &&
+            isset(self::$twzipcodeData[$county][$district]) === true &&
+            isset(self::$twzipcodeData[$county][$district]['zipcode']) === true
+        ) {
+            $zipcode = self::$twzipcodeData[$data['county']][$data['district']]['zipcode'];
+        }
+
         return array_merge($data, [
-            'zipcode'      => self::$twzipcodeData[$data['county']][$data['district']]['zipcode'],
+            'zipcode'      => $zipcode,
             'shortAddress' => $shortAddress,
             'address'      => $address,
         ]);
