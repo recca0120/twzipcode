@@ -21,8 +21,8 @@ while (($line = fgets($fp)) !== false) {
 
     $data[$county][$district]['zipcode'] = substr($zipcode, 0, 3);
     $data[$county][$district]['streets'][] = [
-        'zipcode'   => $zipcode,
-        'street'    => $street,
+        'zipcode' => $zipcode,
+        'street' => $street,
         'condition' => $condition,
     ];
 }

@@ -1,8 +1,8 @@
 <?php
 
 use Symfony\CS\Config\Config;
-use Symfony\CS\FixerInterface;
 use Symfony\CS\Finder\DefaultFinder;
+use Symfony\CS\FixerInterface;
 
 $fixers = [
     'blankline_after_open_tag',
