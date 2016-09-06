@@ -10,6 +10,18 @@ class TwzipcodeTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
+    /**
+     * @expectedException BadMethodCallException
+     */
+    public function test_functions()
+    {
+        $twzipcode = new Twzipcode('北 縣　萬里鄉龜港村中正路100號');
+        $twzipcode->toJson(true);
+        $twzipcode->__toString();
+        $this->assertNull($twzipcode->getAttribute('abc'));
+        $twzipcode->a();
+    }
+
     public function test_zipcode()
     {
         $twzipcode = new Twzipcode('北 縣　萬里鄉龜港村中正路100號');

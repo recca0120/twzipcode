@@ -33,25 +33,6 @@ class Twzipcode
     }
 
     /**
-     * normalizeAddress.
-     *
-     * @param string $address
-     * @param bool   $normalize
-     *
-     * @return string
-     */
-    public function normalizeAddress($address, $normalize = true)
-    {
-        $address = preg_replace('/^\d+/', '', Converter::toHalf($address));
-        if ($normalize === false) {
-            return $address;
-        }
-        $normalizer = new Normalizer($address);
-
-        return $normalizer->getAddress();
-    }
-
-    /**
      * parse description.
      *
      * @param string $address
@@ -62,10 +43,6 @@ class Twzipcode
     {
         $normalizer = new Normalizer(preg_replace('/^\d+/', '', Converter::toHalf($address)));
         $data = $normalizer->toArray();
-
-        if ($data['county'] === null) {
-            return;
-        }
 
         $shortAddress = implode('', [
             $data['town'],
@@ -92,9 +69,9 @@ class Twzipcode
         }
 
         return array_merge($data, [
-            'zipcode'      => $zipcode,
+            'zipcode' => $zipcode,
             'shortAddress' => $shortAddress,
-            'address'      => $address,
+            'address' => $address,
         ]);
     }
 
