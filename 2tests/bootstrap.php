@@ -26,8 +26,3 @@ use Carbon\Carbon;
 */
 date_default_timezone_set('UTC');
 Carbon::setTestNow(Carbon::now());
-
-function dump($value)
-{
-    echo mb_convert_encoding(var_export($value, true), 'big5', 'utf8');
-}
