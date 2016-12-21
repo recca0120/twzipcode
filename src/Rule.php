@@ -4,7 +4,7 @@ namespace Recca0120\Twzipcode;
 
 class Rule extends Address
 {
-    const RULE_TOKEN_RE = [
+    public static $ruleTokenRe = [
         '及以上附號|含附號以下|含附號全|含附號',
         '|',
         '以下|以上',
@@ -13,7 +13,6 @@ class Rule extends Address
         '|',
         '[連至單雙全](?=[\d全]|$)',
     ];
-
 
     protected $ruleTokens = [];
 
@@ -49,19 +48,19 @@ class Rule extends Address
             $i -= 1;
         }
 
-        $addressTokenPoint = $address->getTokenPoint($lastestTokenPoint+1);
+        $addressTokenPoint = $address->getTokenPoint($lastestTokenPoint + 1);
 
         if (count($this->ruleTokens) > 0 && $addressTokenPoint === [0, 0]) {
             return false;
         }
 
-        $rangeStartPoint = $this->getTokenPoint(count($this->tokens)-1);
-        $rangeEndPoint = $this->getTokenPoint(count($this->tokens)-2);
+        $rangeStartPoint = $this->getTokenPoint(count($this->tokens) - 1);
+        $rangeEndPoint = $this->getTokenPoint(count($this->tokens) - 2);
 
         foreach ($this->ruleTokens as $ruleToken) {
             if (
-                ($ruleToken === '單' && !!(($addressTokenPoint[0] & 1) === 1) === false) ||
-                ($ruleToken === '雙' && !!(($addressTokenPoint[0] & 1) === 0) === false) ||
+                ($ruleToken === '單' && (bool) (($addressTokenPoint[0] & 1) === 1) === false) ||
+                ($ruleToken === '雙' && (bool) (($addressTokenPoint[0] & 1) === 0) === false) ||
                 ($ruleToken === '以上' && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '>=') === false) ||
                 ($ruleToken === '以下' && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '<=') === false) ||
                 ($ruleToken === '至' && (
@@ -87,8 +86,8 @@ class Rule extends Address
     {
         $rule = Str::normalizeAddress($rule);
 
-        return preg_replace_callback('/'.implode('', static::RULE_TOKEN_RE).'/u', function ($m) {
-            $token =& $m[0];
+        return preg_replace_callback('/'.implode('', static::$ruleTokenRe).'/u', function ($m) {
+            $token = &$m[0];
             $retval = '';
 
             if ($token === '連') {

@@ -4,7 +4,7 @@ namespace Recca0120\Twzipcode;
 
 class Str
 {
-    const FULL_CASE_CHAR_MAP = [
+    public static $fullCaseCharMap = [
         '　' => ' ',
         '！' => '!',
         '＂' => '"',
@@ -102,13 +102,13 @@ class Str
         '～' => '~',
     ];
 
-    const TO_REPLACE_RE = [
+    public static $toReplaceRe = [
         '[ 　,，台~-]',
         '[０-９]',
-        '[一二三四五六七八九]?十?[一二三四五六七八九](?=[段路街巷弄號樓])'
+        '[一二三四五六七八九]?十?[一二三四五六七八九](?=[段路街巷弄號樓])',
     ];
 
-    const TO_REPLACE_MAP = [
+    public static $toReplaceMap = [
         '-' => '之',
         '~' => '之',
         '台' => '臺',
@@ -133,7 +133,7 @@ class Str
         '九' => '9',
     ];
 
-    const CHINESE_NUMBERS = [
+    public static $chineseNumbers = [
         '一' => '1',
         '二' => '2',
         '三' => '3',
@@ -148,25 +148,25 @@ class Str
 
     public static function full($value)
     {
-        return strtr($value, array_flip(static::FULL_CASE_CHAR_MAP));
+        return strtr($value, array_flip(static::$fullCaseCharMap));
     }
 
     public static function half($value)
     {
-        return strtr($value, static::FULL_CASE_CHAR_MAP);
+        return strtr($value, static::$fullCaseCharMap);
     }
 
     public static function number($value)
     {
-        if (preg_match_all('/'.implode('|', array_flip(static::CHINESE_NUMBERS)).'/u', $value, $m) !== false) {
-            $token =& $m[0];
+        if (preg_match_all('/'.implode('|', array_flip(static::$chineseNumbers)).'/u', $value, $m) !== false) {
+            $token = &$m[0];
             $length = count($token);
             switch ($length) {
                 case 2:
-                    return '1'.static::CHINESE_NUMBERS[$token[1]];
+                    return '1'.static::$chineseNumbers[$token[1]];
                     break;
                 case 3:
-                    return static::CHINESE_NUMBERS[$token[0]].static::CHINESE_NUMBERS[$token[2]];
+                    return static::$chineseNumbers[$token[0]].static::$chineseNumbers[$token[2]];
                     break;
             }
         }
@@ -176,10 +176,10 @@ class Str
 
     public static function normalizeAddress($value)
     {
-        return preg_replace_callback('/'.implode('|', static::TO_REPLACE_RE).'/u', function ($m) {
-            $token =& $m[0];
-            if (isset(static::TO_REPLACE_MAP[$token]) === true) {
-                return static::TO_REPLACE_MAP[$token];
+        return preg_replace_callback('/'.implode('|', static::$toReplaceRe).'/u', function ($m) {
+            $token = &$m[0];
+            if (isset(static::$toReplaceMap[$token]) === true) {
+                return static::$toReplaceMap[$token];
             }
 
             if (($number = Str::number($token)) !== false) {

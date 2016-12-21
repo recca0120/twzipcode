@@ -9,9 +9,9 @@ class Address
     const NAME = 2;
     const UNIT = 3;
 
-    const TOKEN_RE = [
+    public static $tokenRe = [
         '(?:(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓]|$)|(?P<name>.+?))',
-        '(?:(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))'
+        '(?:(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
     ];
 
     protected $address;
@@ -37,10 +37,10 @@ class Address
             static::NO => 'no',
             static::SUBNO => 'subno',
             static::NAME => 'name',
-            static::UNIT => 'unit'
+            static::UNIT => 'unit',
         ];
 
-        if (preg_match_all('/'.implode('', static::TOKEN_RE).'/u', $address, $matches, PREG_SET_ORDER) !== false) {
+        if (preg_match_all('/'.implode('', static::$tokenRe).'/u', $address, $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $value) {
                 $temp = [];
                 foreach ($units as $key => $unit) {

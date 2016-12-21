@@ -18,7 +18,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $strArray = array_flip(Str::FULL_CASE_CHAR_MAP);
+        $strArray = array_flip(Str::$fullCaseCharMap);
 
         /*
         |------------------------------------------------------------
@@ -45,7 +45,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $strArray = Str::FULL_CASE_CHAR_MAP;
+        $strArray = Str::$fullCaseCharMap;
 
         /*
         |------------------------------------------------------------
@@ -90,7 +90,6 @@ class StrTest extends PHPUnit_Framework_TestCase
         $this->assertSame('3號', Str::normalizeAddress('三號'));
         $this->assertSame('18號', Str::normalizeAddress('十八號'));
         $this->assertSame('38號', Str::normalizeAddress('三十八號'));
-
 
         $this->assertSame('3段', Str::normalizeAddress('三段'));
         $this->assertSame('18路', Str::normalizeAddress('十八路'));
