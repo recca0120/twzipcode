@@ -5,7 +5,8 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=5.5.9",
+        "ext-zlib": "*",
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
@@ -16,6 +17,17 @@
         "psr-4": {
             "Recca0120\\Twzipcode\\": "src"
         }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php data/Converter.php"
+        ],
+        "post-install-cmd": [
+            "php data/Converter.php"
+        ],
+        "post-update-cmd": [
+            "php data/Converter.php"
+        ]
     },
     "config": {
         "preferred-install": "dist"

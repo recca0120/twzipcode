@@ -29,5 +29,5 @@ Carbon::setTestNow(Carbon::now());
 
 function dump($value)
 {
-    echo mb_convert_encoding(var_export($value, true), 'big5', 'utf8');
+    echo mb_convert_encoding(var_export($value, true), 'big5', 'utf8')."\n";
 }

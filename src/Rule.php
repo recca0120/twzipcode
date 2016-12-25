@@ -2,77 +2,91 @@
 
 namespace Recca0120\Twzipcode;
 
-class Rule extends Address
-{
-    public static $ruleTokenRe = [
-        '及以上附號|含附號以下|含附號全|含附號',
-        '|',
-        '以下|以上',
-        '|',
-        '附號全',
-        '|',
-        '[連至單雙全](?=[\d全]|$)',
-    ];
+use ArrayObject;
+use Closure;
 
-    protected $ruleTokens = [];
+class Rule{
+    public $zipcode;
 
-    public function __construct($rule)
-    {
-        $address = $this->parseRule($rule);
-        parent::__construct($address);
+    public $address;
+
+    public $tokens;
+
+    public function __construct($rule) {
+        if (preg_match('/^(\d+),?(.*)/', $rule, $m)) {
+            $this->zipcode = $m[1];
+            $rule = $m[2];
+        }
+
+        $this->tokens = $this->tokenize(
+            Normalizer::make($rule)
+                ->regularize()
+                ->digitize()
+                ->value(),
+            function($address) {
+                $this->address = new Address($address);
+            }
+        );
     }
 
-    public function ruleTokens()
+    public function getZipcode()
     {
-        return $this->ruleTokens;
+        return $this->zipcode;
     }
 
-    public function match(Address $address)
+    public function getTokens()
     {
-        $addressTokens = $address->tokens();
-        $tokens = $this->tokens;
+        return $this->tokens;
+    }
 
-        $lastestTokenPoint = count($this->tokens) - 1;
-        $lastestTokenPoint -= count($this->ruleTokens) > 0 && in_array('全', $this->ruleTokens, true) === false;
-        $lastestTokenPoint -= in_array('至', $this->ruleTokens, true);
+    public function match($address)
+    {
+        $address = is_a($address, Address::class) === true ? $address : new Address($address);
 
-        if ($lastestTokenPoint >= count($addressTokens)) {
+        $addrTokens = $address->getTokens();
+
+        $tokens = $this->address->getTokens();
+        $cur = count($tokens)-1;
+        $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
+        $cur -= in_array('至', $this->tokens, true);
+
+        if ($cur >= count($addrTokens)) {
             return false;
         }
 
-        $i = $lastestTokenPoint;
+        $i = $cur;
         while ($i >= 0) {
-            if ($this->tokens[$i] !== $addressTokens[$i]) {
+            if ($tokens[$i] !== $addrTokens[$i]) {
                 return false;
             }
             $i -= 1;
         }
 
-        $addressTokenPoint = $address->getTokenPoint($lastestTokenPoint + 1);
+        $addrPoint = $address->getPoint($cur+1);
 
-        if (count($this->ruleTokens) > 0 && $addressTokenPoint === [0, 0]) {
+        if (count($this->tokens) > 0 && $addrPoint->isEmpty() === true) {
             return false;
         }
 
-        $rangeStartPoint = $this->getTokenPoint(count($this->tokens) - 1);
-        $rangeEndPoint = $this->getTokenPoint(count($this->tokens) - 2);
+        $left = $this->address->getPoint(count($tokens) - 1);
+        $right = $this->address->getPoint(count($tokens) - 2);
 
-        foreach ($this->ruleTokens as $ruleToken) {
+        foreach ($this->tokens as $token) {
             if (
-                ($ruleToken === '單' && (bool) (($addressTokenPoint[0] & 1) === 1) === false) ||
-                ($ruleToken === '雙' && (bool) (($addressTokenPoint[0] & 1) === 0) === false) ||
-                ($ruleToken === '以上' && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '>=') === false) ||
-                ($ruleToken === '以下' && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '<=') === false) ||
-                ($ruleToken === '至' && (
-                    $this->comparePoint($rangeEndPoint, $addressTokenPoint, '<=') && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '<=') ||
-                    in_array('含附號全', $this->ruleTokens, true) === true && ($addressTokenPoint[0] == $rangeStartPoint[0])
+                ($token === '單' && (bool) (($addrPoint->x & 1) === 1) === false) ||
+                ($token === '雙' && (bool) (($addrPoint->x & 1) === 0) === false) ||
+                ($token === '以上' && $addrPoint->compare($left, '>=') === false) ||
+                ($token === '以下' && $addrPoint->compare($left, '<=') === false) ||
+                ($token === '至' && (
+                    $right->compare($addrPoint, '<=') && $addrPoint->compare($left, '<=') ||
+                    in_array('含附號全', $this->tokens, true) === true && ($addrPoint->x == $left->x)
                 ) === false) ||
-                ($ruleToken == '含附號' && ($addressTokenPoint[0] === $rangeStartPoint[0]) === false) ||
-                ($ruleToken == '附號全' && ($addressTokenPoint[0] === $rangeStartPoint[0] && $addressTokenPoint[1] > 0) === false) ||
-                ($ruleToken == '及以上附號' && $this->comparePoint($addressTokenPoint, $rangeStartPoint, '>=') === false) ||
-                ($ruleToken == '含附號以下' && (
-                    $this->comparePoint($addressTokenPoint, $rangeStartPoint, '<=') ||
-                    $addressTokenPoint[0] === $rangeStartPoint[0]
+                ($token == '含附號' && ($addrPoint->x === $left->x) === false) ||
+                ($token == '附號全' && ($addrPoint->x === $left->x && $addrPoint->y > 0) === false) ||
+                ($token == '及以上附號' && $addrPoint->compare($left, '>=') === false) ||
+                ($token == '含附號以下' && (
+                    $addrPoint->compare($left, '<=') ||
+                    $addrPoint->x === $left->x
                 ) === false)
             ) {
                 return false;
@@ -82,45 +96,28 @@ class Rule extends Address
         return true;
     }
 
-    protected function parseRule($rule)
+    protected function tokenize($rule, Closure $addressResolver)
     {
-        $rule = Str::normalizeAddress($rule);
+        $tokens = new ArrayObject;
 
-        return preg_replace_callback('/'.implode('', static::$ruleTokenRe).'/u', function ($m) {
-            $token = &$m[0];
-            $retval = '';
+        $pattern = [
+            '及以上附號|含附號以下|含附號全|含附號',
+            '以下|以上',
+            '附號全',
+            '[連至單雙全](?=[\d全]|$)',
+        ];
 
+        $addressResolver(preg_replace_callback('/'.implode('|', $pattern).'/u', function($m) use ($tokens) {
+            $token =& $m[0];
             if ($token === '連') {
-                $token = '';
-            } elseif ($token === '附號全') {
-                $retval = '號';
+                return;
             }
 
-            if (empty($token) === false) {
-                $this->ruleTokens[] = $token;
-            }
+            $tokens->append($token);
 
-            return $retval;
-        }, $rule);
-    }
+            return $token === '附號全' ? '號' : '';
+        }, $rule));
 
-    protected function comparePoint($originPoint, $targetPoint, $operator = '=')
-    {
-        switch ($operator) {
-            case '>':
-                return $originPoint[0] > $targetPoint[0] || ($originPoint[0] == $targetPoint[0] && $originPoint[1] > $targetPoint[1]);
-                break;
-            case '>=':
-                return $originPoint[0] > $targetPoint[0] || ($originPoint[0] == $targetPoint[0] && $originPoint[1] >= $targetPoint[1]);
-                break;
-            case '<':
-                return $originPoint[0] < $targetPoint[0] || ($originPoint[0] == $targetPoint[0] && $originPoint[1] < $targetPoint[1]);
-                break;
-            case '<=':
-                return $originPoint[0] < $targetPoint[0] || ($originPoint[0] == $targetPoint[0] && $originPoint[1] <= $targetPoint[1]);
-                break;
-        }
-
-        return $originPoint[0] == $targetPoint[0] && $originPoint[1] == $targetPoint[1];
+        return $tokens->getArrayCopy();
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Str;
+use Recca0120\Twzipcode\Moskytw\Helper;
 
-class StrTest extends PHPUnit_Framework_TestCase
+class MoskytwHelperTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -18,7 +18,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $strArray = array_flip(Str::$fullCaseCharMap);
+        $strArray = array_flip(Helper::$fullCaseCharMap);
 
         /*
         |------------------------------------------------------------
@@ -33,7 +33,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($strArray as $half => $full) {
-            $this->assertSame((string) $half, Str::half($full));
+            $this->assertSame((string) $half, Helper::half($full));
         }
     }
 
@@ -45,7 +45,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $strArray = Str::$fullCaseCharMap;
+        $strArray = Helper::$fullCaseCharMap;
 
         /*
         |------------------------------------------------------------
@@ -60,7 +60,7 @@ class StrTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($strArray as $full => $half) {
-            $this->assertSame((string) $full, Str::full($half));
+            $this->assertSame((string) $full, Helper::full($half));
         }
     }
 
@@ -84,19 +84,19 @@ class StrTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('八德路', Str::normalizeAddress('八德路'));
-        $this->assertSame('三元街', Str::normalizeAddress('三元街'));
+        $this->assertSame('八德路', Helper::normalizeAddress('八德路'));
+        $this->assertSame('三元街', Helper::normalizeAddress('三元街'));
 
-        $this->assertSame('3號', Str::normalizeAddress('三號'));
-        $this->assertSame('18號', Str::normalizeAddress('十八號'));
-        $this->assertSame('38號', Str::normalizeAddress('三十八號'));
+        $this->assertSame('3號', Helper::normalizeAddress('三號'));
+        $this->assertSame('18號', Helper::normalizeAddress('十八號'));
+        $this->assertSame('38號', Helper::normalizeAddress('三十八號'));
 
-        $this->assertSame('3段', Str::normalizeAddress('三段'));
-        $this->assertSame('18路', Str::normalizeAddress('十八路'));
-        $this->assertSame('38街', Str::normalizeAddress('三十八街'));
+        $this->assertSame('3段', Helper::normalizeAddress('三段'));
+        $this->assertSame('18路', Helper::normalizeAddress('十八路'));
+        $this->assertSame('38街', Helper::normalizeAddress('三十八街'));
 
-        $this->assertSame('信義路1段', Str::normalizeAddress('信義路一段'));
-        $this->assertSame('敬業1路', Str::normalizeAddress('敬業一路'));
-        $this->assertSame('愛富3街', Str::normalizeAddress('愛富三街'));
+        $this->assertSame('信義路1段', Helper::normalizeAddress('信義路一段'));
+        $this->assertSame('敬業1路', Helper::normalizeAddress('敬業一路'));
+        $this->assertSame('愛富3街', Helper::normalizeAddress('愛富三街'));
     }
 }
