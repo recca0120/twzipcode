@@ -27,7 +27,7 @@ class Address
             ->digitize()
             ->value();
 
-        $this->tokens = $this->tokenize($this->address);
+        $this->tokens = $this->tokenize();
 
         return $this;
     }
@@ -56,7 +56,16 @@ class Address
         );
     }
 
-    protected function tokenize($address)
+    public function flat($length = null)
+    {
+        $length = is_null($length) === true ? count($length) : $length;
+
+        return implode('', array_map(function ($token) {
+            return implode('', $token);
+        }, array_slice($this->tokens, 0, $length)));
+    }
+
+    protected function tokenize()
     {
         $tokens = [];
 
@@ -72,7 +81,7 @@ class Address
             '(?:(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
         ]);
 
-        if (preg_match_all('/'.$pattern.'/u', $address, $matches, PREG_SET_ORDER) !== false) {
+        if (preg_match_all('/'.$pattern.'/u', $this->address, $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $values) {
                 $temp = [];
                 foreach ($units as $key => $unit) {

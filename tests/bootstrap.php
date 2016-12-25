@@ -15,6 +15,7 @@ require __DIR__.'/../vendor/autoload.php';
 use Carbon\Carbon;
 use Recca0120\Twzipcode\Address;
 use Recca0120\Twzipcode\Rule;
+use Recca0120\Twzipcode\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,24 @@ class MoskytwAddress
     {
         $this->address = new Address($address);
         $this->tokens = $this->address->getTokens();
+    }
+
+    public function normalize()
+    {
+        return $this->flat();
+    }
+
+    public function flat($length = null)
+    {
+        if (is_null($length) === true) {
+            $length = count($this->tokens);
+        } elseif ($length < 0) {
+            $length = count($this->tokens) + $length;
+        }
+
+        return implode('', array_map(function ($token) {
+            return implode('', $token);
+        }, array_slice($this->tokens, 0, $length)));
     }
 
     public function tokens()
@@ -87,5 +106,19 @@ class MoskytwRule
     }
 }
 
+class MoskytwDirectory
+{
+    public function __construct($root)
+    {
+        $this->storage = new Storage($root);
+    }
+
+    public function __call($method, $argments)
+    {
+        return call_user_func_array([$this->storage, $method], $argments);
+    }
+}
+
 class_alias('MoskytwAddress', 'Recca0120\Twzipcode\Moskytw\Address');
 class_alias('MoskytwRule', 'Recca0120\Twzipcode\Moskytw\Rule');
+class_alias('MoskytwDirectory', 'Recca0120\Twzipcode\Moskytw\Directory');

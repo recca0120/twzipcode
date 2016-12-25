@@ -49,6 +49,10 @@ class MoskytwRuleTest extends PHPUnit_Framework_TestCase
         $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['47', '', '', '號']], $rule->tokens());
         $this->assertSame(['附號全'], $rule->ruleTokens());
 
+        $rule = new Rule('臺北市,大同區,哈密街,雙  68巷至  70號含附號全');
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['68', '', '', '巷'], ['70', '', '', '號']], $rule->tokens());
+        $this->assertSame(['雙', '至', '含附號全'], $rule->ruleTokens());
+
         $rule = new Rule('桃園縣,中壢市,普義,連  49號含附號以下');
         $this->assertSame([['', '', '桃園', '縣'], ['', '', '中壢', '市'], ['', '', '普義', ''], ['49', '', '', '號']], $rule->tokens());
         $this->assertSame(['含附號以下'], $rule->ruleTokens());

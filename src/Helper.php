@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode;
 
-class Compresser
+class Helper
 {
     public static function compress($plainText)
     {
@@ -18,7 +18,7 @@ class Compresser
     {
         $method = 'gzuncompress';
         if (function_exists($method) === true) {
-            return call_user_func($method, $data);
+            return call_user_func($method, $compressed);
         }
 
         return $compressed;

@@ -25,13 +25,13 @@ class Normalizer
 
     public function regularize()
     {
-        return new static(strtr(Str::half($this->attribute), [
+        return new static(trim(strtr(Str::half($this->attribute), [
             ' ' => '',
             ',' => '',
             '~' => '之',
             '-' => '之',
             '台' => '臺',
-        ]));
+        ])));
     }
 
     public function digitize()

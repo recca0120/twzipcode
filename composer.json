@@ -10,7 +10,8 @@
     "require-dev": {
         "mockery/mockery": "~0.9.4",
         "phpunit/phpunit": "~4.8|~5.4",
-        "nesbot/carbon": "~1.20"
+        "nesbot/carbon": "~1.20",
+        "mikey179/vfsStream": "^1.6"
     },
     "autoload": {
         "psr-4": {
@@ -19,13 +20,13 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php resources/Converter.php"
+            "php resources/converter.php"
         ],
         "post-install-cmd": [
-            "php resources/Converter.php"
+            "php resources/converter.php"
         ],
         "post-update-cmd": [
-            "php resources/Converter.php"
+            "php resources/converter.php"
         ]
     },
     "config": {
