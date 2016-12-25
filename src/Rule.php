@@ -21,10 +21,7 @@ class Rule
         }
 
         $this->tokens = $this->tokenize(
-            Normalizer::make($rule)
-                ->regularize()
-                ->digitize()
-                ->value(),
+            $this->normalize($rule),
             function ($address) {
                 $this->address = new Address($address);
             }
@@ -90,7 +87,8 @@ class Rule
         return true;
     }
 
-    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur) {
+    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
+    {
         if ($cur >= count($addressTokens)) {
             return false;
         }
@@ -104,6 +102,28 @@ class Rule
         }
 
         return true;
+    }
+
+    protected function normalize($rule)
+    {
+        $rule = Normalizer::make($rule, true)->value();
+
+        $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
+
+        return preg_replace_callback('/'.$pattern.'/u', function ($m) {
+            $prefix = ':left:unit至:right:unit';
+            if (empty($m['no']) === false) {
+                $prefix = ':no之:left:unit至:no之:right:unit';
+            }
+
+            return strtr($prefix, [
+                ':no' => $m['no'],
+                ':left' => $m['left'],
+                ':right' => $m['right'],
+                ':unit' => $m['unit'],
+            ]);
+        }, $rule);
+
     }
 
     protected function tokenize($rule, Closure $addressResolver)

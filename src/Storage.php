@@ -60,10 +60,6 @@ class Storage
 
     public function generate($source)
     {
-        if (is_dir($this->path) === false) {
-            mkdir($this->path, 0777, true);
-        }
-
         $rules = $this->prepareSource($source);
 
         $this

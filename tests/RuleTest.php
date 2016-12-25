@@ -20,14 +20,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10058,臺北市,中正區,八德路１段,全';
-        $zipcode = '10058';
-        $tokens = ['全'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '八德', '路'],
-            ['', '', '1', '段']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -43,9 +35,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10058', $rule->getZipcode());
+        $this->assertSame(['全'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '八德', '路'],
+            ['', '', '1', '段'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_single_all()
@@ -57,13 +54,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10079,臺北市,中正區,三元街,單全';
-        $zipcode = '10079';
-        $tokens = ['單', '全'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '三元', '街']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -79,9 +69,13 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10079', $rule->getZipcode());
+        $this->assertSame(['單', '全'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '三元', '街'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_double_48_below()
@@ -93,14 +87,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10070,臺北市,中正區,三元街,雙  48號以下';
-        $zipcode = '10070';
-        $tokens = ['雙', '以下'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '三元', '街'],
-            ['48', '', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -116,9 +102,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10070', $rule->getZipcode());
+        $this->assertSame(['雙', '以下'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '三元', '街'],
+            ['48', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_single_15_above()
@@ -130,14 +121,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10068,臺北市,中正區,大埔街,單  15號以上';
-        $zipcode = '10068';
-        $tokens = ['單', '以上'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '大埔', '街'],
-            ['15', '', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -153,9 +136,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10068', $rule->getZipcode());
+        $this->assertSame(['單', '以上'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '大埔', '街'],
+            ['15', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_single_25_3_below()
@@ -167,15 +155,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10043,臺北市,中正區,中華路１段,單  25之   3號以下';
-        $zipcode = '10043';
-        $tokens = ['單', '以下'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '中華', '路'],
-            ['', '', '1', '段'],
-            ['25', '之3', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -191,9 +170,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10043', $rule->getZipcode());
+        $this->assertSame(['單', '以下'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '中華', '路'],
+            ['', '', '1', '段'],
+            ['25', '之3', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_single_27_to_47()
@@ -205,16 +190,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '26142,宜蘭縣,頭城鎮,宜三路１段,單  27號至  47號';
-        $zipcode = '26142';
-        $tokens = ['單', '至'];
-        $addressTokens = [
-            ['', '', '宜蘭', '縣'],
-            ['', '', '頭城', '鎮'],
-            ['', '', '宜3', '路'],
-            ['', '', '1', '段'],
-            ['27', '', '', '號'],
-            ['47', '', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -230,9 +205,16 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('26142', $rule->getZipcode());
+        $this->assertSame(['單', '至'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '宜蘭', '縣'],
+            ['', '', '頭城', '鎮'],
+            ['', '', '宜3', '路'],
+            ['', '', '1', '段'],
+            ['27', '', '', '號'],
+            ['47', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_and_2_4_above()
@@ -244,15 +226,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10052,臺北市,中正區,仁愛路１段,連   2之   4號以上';
-        $zipcode = '10052';
-        $tokens = ['以上'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '仁愛', '路'],
-            ['', '', '1', '段'],
-            ['2', '之4', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -268,9 +241,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10052', $rule->getZipcode());
+        $this->assertSame(['以上'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '仁愛', '路'],
+            ['', '', '1', '段'],
+            ['2', '之4', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_14_subno()
@@ -282,15 +261,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10060,臺北市,中正區,杭州南路１段,　  14號含附號';
-        $zipcode = '10060';
-        $tokens = ['含附號'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '中正', '區'],
-            ['', '', '杭州南', '路'],
-            ['', '', '1', '段'],
-            ['14', '', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -306,9 +276,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10060', $rule->getZipcode());
+        $this->assertSame(['含附號'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '杭州南', '路'],
+            ['', '', '1', '段'],
+            ['14', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_47_subno_all()
@@ -320,14 +296,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10371,臺北市,大同區,哈密街,　  47附號全';
-        $zipcode = '10371';
-        $tokens = ['附號全'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '大同', '區'],
-            ['', '', '哈密', '街'],
-            ['47', '', '', '號']
-        ];
 
         /*
         |------------------------------------------------------------
@@ -343,9 +311,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10371', $rule->getZipcode());
+        $this->assertSame(['附號全'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '大同', '區'],
+            ['', '', '哈密', '街'],
+            ['47', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_double_68_alley_70_subno_all()
@@ -357,15 +330,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '10367,臺北市,大同區,哈密街,雙  68巷至  70號含附號全';
-        $zipcode = '10367';
-        $tokens = ['雙', '至', '含附號全'];
-        $addressTokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '大同', '區'],
-            ['', '', '哈密', '街'],
-            ['68', '', '', '巷'],
-            ['70', '', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -381,12 +345,16 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('10367', $rule->getZipcode());
+        $this->assertSame(['雙', '至', '含附號全'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '大同', '區'],
+            ['', '', '哈密', '街'],
+            ['68', '', '', '巷'],
+            ['70', '', '', '號'],
+        ], $rule->address->getTokens());
     }
-
-
 
     public function test_get_tokens_with_49_and_subno_below()
     {
@@ -397,14 +365,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '32083,桃園市,中壢區,普義,連  49號含附號以下';
-        $zipcode = '32083';
-        $tokens = ['含附號以下'];
-        $addressTokens = [
-            ['', '', '桃園', '市'],
-            ['', '', '中壢', '區'],
-            ['', '', '普義', ''],
-            ['49', '', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -420,9 +380,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('32083', $rule->getZipcode());
+        $this->assertSame(['含附號以下'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '桃園', '市'],
+            ['', '', '中壢', '區'],
+            ['', '', '普義', ''],
+            ['49', '', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_1_3_and_subno_above()
@@ -434,16 +399,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '40763,臺中市,西屯區,西屯路３段西平南巷,　   1之   3號及以上附號';
-        $zipcode = '40763';
-        $tokens = ['及以上附號'];
-        $addressTokens = [
-            ['', '', '臺中', '市'],
-            ['', '', '西屯', '區'],
-            ['', '', '西屯', '路'],
-            ['', '', '3', '段'],
-            ['', '', '西平南', '巷'],
-            ['1', '之3', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -459,9 +414,16 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('40763', $rule->getZipcode());
+        $this->assertSame(['及以上附號'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺中', '市'],
+            ['', '', '西屯', '區'],
+            ['', '', '西屯', '路'],
+            ['', '', '3', '段'],
+            ['', '', '西平南', '巷'],
+            ['1', '之3', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_tricky_double_268_1_below()
@@ -473,14 +435,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '23553,新北市,中和區,連城路,雙 268之   1號以下';
-        $zipcode = '23553';
-        $tokens = ['雙', '以下'];
-        $addressTokens = [
-            ['', '', '新北', '市'],
-            ['', '', '中和', '區'],
-            ['', '', '連城', '路'],
-            ['268', '之1', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -496,9 +450,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('23553', $rule->getZipcode());
+        $this->assertSame(['雙', '以下'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '新北', '市'],
+            ['', '', '中和', '區'],
+            ['', '', '連城', '路'],
+            ['268', '之1', '', '號'],
+        ], $rule->address->getTokens());
     }
 
     public function test_get_tokens_with_tricky_full()
@@ -510,13 +469,6 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $rule = '24341,新北市,泰山區,全興路,全';
-        $zipcode = '24341';
-        $tokens = ['全'];
-        $addressTokens = [
-            ['', '', '新北', '市'],
-            ['', '', '泰山', '區'],
-            ['', '', '全興', '路'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -532,144 +484,812 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($zipcode, $rule->getZipcode());
-        $this->assertSame($tokens, $rule->getTokens());
-        $this->assertSame($addressTokens, $rule->address->getTokens());
+        $this->assertSame('24341', $rule->getZipcode());
+        $this->assertSame(['全'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '新北', '市'],
+            ['', '', '泰山', '區'],
+            ['', '', '全興', '路'],
+        ], $rule->address->getTokens());
     }
 
-    // public function test_match()
-    // {
-    //     $address = '臺北市大安區市府路5號';
+    public function test_get_tokens_to_without_unit()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
 
-    //     // 全單雙
-    //     $this->assertTrue((new Rule('臺北市大安區市府路全'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路單全'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路雙全'))->match($address));
+        $rule = '10017,臺北市,中正區,徐州路,　   5號 5至 9樓';
 
-    //     // 以上 & 以下
-    //     $this->assertFalse((new Rule('臺北市大安區市府路6號以上'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路6號以下'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號以上'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號以下'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路4號以上'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路4號以下'))->match($address));
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
 
-    //     // 至
-    //     $this->assertFalse((new Rule('臺北市大安區市府路1號至4號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路1號至5號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號至9號'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路6號至9號'))->match($address));
+        $rule = new Rule($rule);
 
-    //     // 附號
-    //     $this->assertFalse((new Rule('臺北市大安區市府路6號及以上附號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路6號含附號以下'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號及以上附號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號含附號'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路5附號全'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路5號含附號以下'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路4號及以上附號'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路4號含附號以下'))->match($address));
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
 
-    //     // 單雙 x 以上, 至, 以下
-    //     $this->assertTrue((new Rule('臺北市大安區市府路單5號以上'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路雙5號以上'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路單1號至5號'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路雙1號至5號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路單5號至9號'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路雙5號至9號'))->match($address));
-    //     $this->assertTrue((new Rule('臺北市大安區市府路單5號以下'))->match($address));
-    //     $this->assertFalse((new Rule('臺北市大安區市府路雙5號以下'))->match($address));
+        $this->assertSame('10017', $rule->getZipcode());
+        $this->assertSame(['至'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '中正', '區'],
+            ['', '', '徐州', '路'],
+            ['5', '', '', '號'],
+            ['5', '', '', '樓'],
+            ['9', '', '', '樓'],
+        ], $rule->address->getTokens());
+    }
 
-    //      // standard rule w/ gradual addresses
-    //     $rule = new Rule('臺北市中正區丹陽街全');
-    //     $this->assertFalse($rule->match('臺北市'));
-    //     $this->assertFalse($rule->match('臺北市中正區'));
-    //     $this->assertFalse($rule->match('臺北市中正區仁愛路１段'));
-    //     $this->assertFalse($rule->match('臺北市中正區仁愛路１段1號'));
+    public function test_get_tokens_to_subno_without_unit()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
 
-    //     $rule = new Rule('臺北市,中正區,仁愛路１段,　   1號');
-    //     $this->assertFalse($rule->match('臺北市'));
-    //     $this->assertFalse($rule->match('臺北市中正區'));
-    //     $this->assertFalse($rule->match('臺北市中正區仁愛路１段'));
-    //     $this->assertTrue($rule->match('臺北市中正區仁愛路１段1號'));
+        $rule = '26843,宜蘭縣,五結鄉,學進路,　  82之   1至之  20號';
 
-    //     // Be careful of the 全! It will bite you!
-    //     $rule = new Rule('臺北市,中正區,八德路１段,全');
-    //     $this->assertTrue($rule->match('臺北市中正區八德路１段1號'));
-    //     $this->assertTrue($rule->match('臺北市中正區八德路１段9號'));
-    //     $this->assertFalse($rule->match('臺北市中正區八德路２段1號'));
-    //     $this->assertFalse($rule->match('臺北市中正區八德路２段9號'));
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
 
-    //     $rule = new Rule('臺北市,中正區,三元街,單全');
-    //     $this->assertTrue($rule->match('臺北市中正區三元街1號'));
-    //     $this->assertFalse($rule->match('臺北市中正區三元街2號'));
-    //     $this->assertFalse($rule->match('臺北市中正區大埔街1號'));
+        $rule = new Rule($rule);
 
-    //     $rule = new Rule('臺北市,大同區,哈密街,　  45巷全');
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街45巷1號'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街45巷9號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街46巷1號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街46巷9號'));
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
 
-    //     // The address matched by it must have a even number.
-    //     $rule = new Rule('信義路一段雙全');
+        $this->assertSame('26843', $rule->getZipcode());
+        $this->assertSame(['至'], $rule->getTokens());
+        $this->assertSame([
+            ['', '', '宜蘭', '縣'],
+            ['', '', '五結', '鄉'],
+            ['', '', '學進', '路'],
+            ['82', '之1', '', '號'],
+            ['82', '之20', '', '號'],
+        ], $rule->address->getTokens());
+    }
 
-    //     $addr1 = '信義路一段';
-    //     $addr2 = '信義路一段1號';
-    //     $addr3 = '信義路一段2號';
+    public function test_match_the_same()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
 
-    //     $this->assertFalse($rule->match($addr1));
-    //     $this->assertFalse($rule->match($addr2));
-    //     $this->assertTrue($rule->match($addr3));
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
 
-    //     $rule = new Rule('臺北市,中正區,杭州南路１段,　  14號含附號');
-    //     $this->assertFalse($rule->match('臺北市中正區杭州南路1段13號'));
-    //     $this->assertFalse($rule->match('臺北市中正區杭州南路1段13-1號'));
-    //     $this->assertTrue($rule->match('臺北市中正區杭州南路1段14號'));
-    //     $this->assertTrue($rule->match('臺北市中正區杭州南路1段14-1號'));
-    //     $this->assertFalse($rule->match('臺北市中正區杭州南路1段15號'));
-    //     $this->assertFalse($rule->match('臺北市中正區杭州南路1段15-1號'));
+        $rule = new Rule('10087,臺北市,中正區,水源路臨,　   2號');
 
-    //     $rule = new Rule('臺北市,大同區,哈密街,　  47附號全');
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街46號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街46-1號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街47號'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街47-1號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街48號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街48-1號'));
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
 
-    //     $rule = new Rule('臺北市,大同區,哈密街,雙  68巷至  70號含附號全');
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街66號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街66-1巷'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街67號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街67-1巷'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街68巷'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街68-1號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街69號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街69-1巷'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街70號'));
-    //     $this->assertTrue($rule->match('臺北市大同區哈密街70-1號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街71號'));
-    //     $this->assertFalse($rule->match('臺北市大同區哈密街71-1號'));
+        $this->assertTrue($rule->match('臺北市中正區水源路臨2號'));
+        $this->assertFalse($rule->match('臺北市中正區水源路臨3號'));
+    }
 
-    //     $rule = new Rule('桃園縣,中壢市,普義,連  49號含附號以下');
-    //     $this->assertTrue($rule->match('桃園縣中壢市普義48號'));
-    //     $this->assertTrue($rule->match('桃園縣中壢市普義48-1號'));
-    //     $this->assertTrue($rule->match('桃園縣中壢市普義49號'));
-    //     $this->assertTrue($rule->match('桃園縣中壢市普義49-1號'));
-    //     $this->assertFalse($rule->match('桃園縣中壢市普義50號'));
-    //     $this->assertFalse($rule->match('桃園縣中壢市普義50-1號'));
+    public function test_match_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
 
-    //     $rule = new Rule('臺中市,西屯區,西屯路３段西平南巷,　   2之   3號及以上附號');
-    //     $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷1號'));
-    //     $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷1-1號'));
-    //     $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷2號'));
-    //     $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷2-2號'));
-    //     $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷2-3號'));
-    //     $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷3號'));
-    //     $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷3-1號'));
-    //     $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷4號'));
-    //     $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷4-1號'));
-    // }
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10058,臺北市,中正區,八德路１段,全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區八德路１段1號'));
+        $this->assertTrue($rule->match('臺北市中正區八德路１段9號'));
+
+        $this->assertFalse($rule->match('臺北市中正區八德路２段1號'));
+        $this->assertFalse($rule->match('臺北市中正區八德路２段9號'));
+    }
+
+    public function test_match_alley_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10067,臺北市,中正區,汀州路１段,　  92巷全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區汀州路１段92巷1號'));
+        $this->assertTrue($rule->match('臺北市中正區汀州路１段92巷1號'));
+
+        $this->assertFalse($rule->match('臺北市中正區汀州路１段93巷1號'));
+        $this->assertFalse($rule->match('臺北市中正區汀州路１段93巷1號'));
+    }
+
+    public function test_match_single_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10079,臺北市,中正區,三元街,單全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區三元街5號'));
+        $this->assertFalse($rule->match('臺北市中正區三元街6號'));
+        $this->assertFalse($rule->match('臺北市中正區大埔街1號'));
+    }
+
+    public function test_match_double_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10051,臺北市,中正區,市民大道２段,雙全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區市民大道２段6號'));
+        $this->assertFalse($rule->match('臺北市中正區市民大道２段5號'));
+    }
+
+    public function test_match_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10055,臺北市,中正區,徐州路,　   5號10樓以上');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號10樓'));
+        $this->assertFalse($rule->match('臺北市中正區徐州路5號9樓'));
+    }
+
+    public function test_match_single_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10068,臺北市,中正區,大埔街,單  15號以上');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區大埔街15號'));
+        $this->assertTrue($rule->match('臺北市中正區大埔街17號'));
+
+        $this->assertFalse($rule->match('臺北市中正區大埔街13號'));
+        $this->assertFalse($rule->match('臺北市中正區大埔街14號'));
+    }
+
+    public function test_match_double_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10079,臺北市,中正區,三元街,雙  50號以上');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區三元街50號'));
+        $this->assertTrue($rule->match('臺北市中正區三元街52號'));
+
+        $this->assertFalse($rule->match('臺北市中正區三元街48號'));
+        $this->assertFalse($rule->match('臺北市中正區三元街49號'));
+        $this->assertFalse($rule->match('臺北市中正區三元街51號'));
+    }
+
+    public function test_match_below()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10055,臺北市,中正區,徐州路,　   5號 4樓以下');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號4樓'));
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號3樓'));
+
+        $this->assertFalse($rule->match('臺北市中正區徐州路5號5樓'));
+        $this->assertFalse($rule->match('臺北市中正區徐州路5號6樓'));
+    }
+
+    public function test_match_single_below()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10051,臺北市,中正區,中山南路,單   5號以下');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區中山南路3號'));
+        $this->assertTrue($rule->match('臺北市中正區中山南路5號'));
+
+        $this->assertFalse($rule->match('臺北市大安區市府路4號'));
+        $this->assertFalse($rule->match('臺北市大安區市府路6號'));
+        $this->assertFalse($rule->match('臺北市大安區市府路7號'));
+    }
+
+    public function test_match_double_below()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10070,臺北市,中正區,三元街,雙  48號以下');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區三元街46號'));
+        $this->assertTrue($rule->match('臺北市中正區三元街48號'));
+
+        $this->assertFalse($rule->match('臺北市中正區三元街47號'));
+        $this->assertFalse($rule->match('臺北市中正區三元街49號'));
+    }
+
+    public function test_match_subno()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        $address = '臺北市大安區市府路5-1號';
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue((new Rule('臺北市大安區市府路5號含附號'))->match($address));
+    }
+
+    public function test_match_subno_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        $address = '臺北市大安區市府路5-1號';
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue((new Rule('臺北市大安區市府路5號及以上附號'))->match($address));
+        $this->assertTrue((new Rule('臺北市大安區市府路4號及以上附號'))->match($address));
+        $this->assertFalse((new Rule('臺北市大安區市府路6號及以上附號'))->match($address));
+    }
+
+    public function test_match_subno_below()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        $address = '臺北市大安區市府路5-1號';
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue((new Rule('臺北市大安區市府路6號含附號以下'))->match($address));
+        $this->assertTrue((new Rule('臺北市大安區市府路5號含附號以下'))->match($address));
+        $this->assertFalse((new Rule('臺北市大安區市府路4號含附號以下'))->match($address));
+    }
+
+    public function test_match_to()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10017,臺北市,中正區,徐州路,　   5號 5至 9樓');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號5樓'));
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號6樓'));
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號7樓'));
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號8樓'));
+        $this->assertTrue($rule->match('臺北市中正區徐州路5號9樓'));
+
+        $this->assertFalse($rule->match('臺北市中正區徐州路5號4樓'));
+        $this->assertFalse($rule->match('臺北市中正區徐州路5號10樓'));
+    }
+
+    public function test_match_double_to()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10068,臺北市,中正區,汀州路１段,雙  20號至  80號');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區汀州路１段20號'));
+        $this->assertTrue($rule->match('臺北市中正區汀州路１段22號'));
+
+        $this->assertFalse($rule->match('臺北市中正區汀州路１段18號'));
+        $this->assertFalse($rule->match('臺北市中正區汀州路１段19號'));
+        $this->assertFalse($rule->match('臺北市中正區汀州路１段21號'));
+    }
+
+    public function test_match_to_subno()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10508,臺北市,松山區,敦化北路,　 201之   1至之  39號');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市松山區敦化北路201-1號'));
+        $this->assertTrue($rule->match('臺北市松山區敦化北路201-5號'));
+        $this->assertTrue($rule->match('臺北市松山區敦化北路201-39號'));
+
+        $this->assertFalse($rule->match('臺北市松山區敦化北路201-40號'));
+        $this->assertFalse($rule->match('臺北市松山區敦化北路201-41號'));
+    }
+
+    public function test_match_and_subno()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10060,臺北市,中正區,杭州南路１段,　  14號含附號');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區杭州南路1段14號'));
+        $this->assertTrue($rule->match('臺北市中正區杭州南路1段14-1號'));
+
+        $this->assertFalse($rule->match('臺北市中正區杭州南路1段13號'));
+        $this->assertFalse($rule->match('臺北市中正區杭州南路1段13-1號'));
+        $this->assertFalse($rule->match('臺北市中正區杭州南路1段15號'));
+        $this->assertFalse($rule->match('臺北市中正區杭州南路1段15-1號'));
+    }
+
+    public function test_match_subno_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10371,臺北市,大同區,哈密街,　  47附號全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市大同區哈密街47-1號'));
+
+        $this->assertFalse($rule->match('臺北市大同區哈密街46號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街46-1號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街47號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街48號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街48-1號'));
+    }
+
+    public function test_match_double_to_and_subno_all()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10367,臺北市,大同區,哈密街,雙  68巷至  70號含附號全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市大同區哈密街68巷'));
+        $this->assertTrue($rule->match('臺北市大同區哈密街68-1號'));
+        $this->assertTrue($rule->match('臺北市大同區哈密街70號'));
+        $this->assertTrue($rule->match('臺北市大同區哈密街70-1號'));
+
+        $this->assertFalse($rule->match('臺北市大同區哈密街66號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街66-1巷'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街67號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街67-1巷'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街69號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街69-1巷'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街71號'));
+        $this->assertFalse($rule->match('臺北市大同區哈密街71-1號'));
+    }
+
+    public function test_match_and_subno_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('32083,桃園市,中壢區,普義,連  49號含附號以下');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('桃園市中壢區普義48號'));
+        $this->assertTrue($rule->match('桃園市中壢區普義48-1號'));
+        $this->assertTrue($rule->match('桃園市中壢區普義49號'));
+        $this->assertTrue($rule->match('桃園市中壢區普義49-1號'));
+        $this->assertFalse($rule->match('桃園市中壢區普義50號'));
+        $this->assertFalse($rule->match('桃園市中壢區普義50-1號'));
+    }
+
+    public function test_match_to_and_subno_above()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('40763,臺中市,西屯區,西屯路３段西平南巷,　   2之   3號及以上附號');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷2-3號'));
+        $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷3號'));
+        $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷3-1號'));
+        $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷4號'));
+        $this->assertTrue($rule->match('臺中市西屯區西屯路3段西平南巷4-1號'));
+
+        $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷1號'));
+        $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷1-1號'));
+        $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷2號'));
+        $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷2-2號'));
+    }
+
+    public function test_match_gradual()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10051,臺北市,中正區,仁愛路１段,　   1號');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('臺北市中正區仁愛路１段1號'));
+
+        $this->assertFalse($rule->match('臺北市'));
+        $this->assertFalse($rule->match('臺北市中正區'));
+        $this->assertFalse($rule->match('臺北市中正區仁愛路１段'));
+    }
+
+    public function test_match_gradual_full()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('10055,臺北市,中正區,丹陽街,全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertFalse($rule->match('臺北市'));
+        $this->assertFalse($rule->match('臺北市中正區'));
+        $this->assertFalse($rule->match('臺北市中正區仁愛路１段'));
+        $this->assertFalse($rule->match('臺北市中正區仁愛路１段1號'));
+    }
+
+    public function test_match_gradual_double_full()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $rule = new Rule('信義路一段雙全');
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertTrue($rule->match('信義路一段2號'));
+
+        $this->assertFalse($rule->match('信義路一段'));
+        $this->assertFalse($rule->match('信義路一段1號'));
+    }
 }

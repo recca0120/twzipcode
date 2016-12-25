@@ -10,11 +10,20 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
+    public function setUp()
+    {
+        $this->units = ['段', '路', '街', '巷', '弄', '號', '樓'];
+    }
+
     public function test_normalize()
     {
-        $expected = '臺北市大安區市府路1之1號';
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
 
-        $rows = [
+        $data = [
             '台北市大安區市府路1之1號',
             '臺北市大安區市府路１之１號',
             '臺北市　大安區　市府路 1 之 1 號',
@@ -24,59 +33,151 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
             '臺北市, 大安區, 市府路 1 - 1 號',
         ];
 
-        foreach ($rows as $address) {
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($data as $address) {
             $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->regularize()->value());
+            $this->assertSame('臺北市大安區市府路1之1號', (string) $normalizer->regularize());
         }
     }
 
     public function test_digitize_9()
     {
-        foreach (['段', '路', '街', '巷', '弄', '號', '樓'] as $unit) {
-            $address = '四'.$unit;
-            $expected = '4'.$unit;
-            $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->digitize()->value());
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($this->units as $unit) {
+            $normalizer = new Normalizer('四'.$unit);
+            $this->assertSame('4'.$unit, (string) $normalizer->digitize());
         }
     }
 
     public function test_digitize_14()
     {
-        foreach (['段', '路', '街', '巷', '弄', '號', '樓'] as $unit) {
-            $address = '十四'.$unit;
-            $expected = '14'.$unit;
-            $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->digitize()->value());
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($this->units as $unit) {
+            $normalizer = new Normalizer('十四'.$unit);
+            $this->assertSame('14'.$unit, (string) $normalizer->digitize());
         }
     }
 
     public function test_digitize_94()
     {
-        foreach (['段', '路', '街', '巷', '弄', '號', '樓'] as $unit) {
-            $address = '九十四'.$unit;
-            $expected = '94'.$unit;
-            $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->digitize()->value());
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($this->units as $unit) {
+            $normalizer = new Normalizer('九十四'.$unit);
+            $this->assertSame('94'.$unit, (string) $normalizer->digitize());
         }
     }
 
     public function test_digitize_947()
     {
-        foreach (['段', '路', '街', '巷', '弄', '號', '樓'] as $unit) {
-            $address = '九百四十七'.$unit;
-            $expected = '947'.$unit;
-            $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->digitize()->value());
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($this->units as $unit) {
+            $normalizer = new Normalizer('九百四十七'.$unit);
+            $this->assertSame('947'.$unit, (string) $normalizer->digitize());
         }
     }
 
     public function test_digitize_9478()
     {
-        foreach (['段', '路', '街', '巷', '弄', '號', '樓'] as $unit) {
-            $address = '九千四百七十八'.$unit;
-            $expected = '9478'.$unit;
-            $normalizer = new Normalizer($address);
-            $this->assertSame($expected, $normalizer->digitize()->value());
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        foreach ($this->units as $unit) {
+            $normalizer = new Normalizer('九千四百七十八'.$unit);
+            $this->assertSame('9478'.$unit, (string) $normalizer->digitize());
         }
     }
 }

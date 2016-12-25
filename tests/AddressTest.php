@@ -19,12 +19,6 @@ class AddressTest extends PHPUnit_Framework_TestCase
         */
 
         $address = '臺北市大安區市府路1號';
-        $tokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '大安', '區'],
-            ['', '', '市府', '路'],
-            ['1', '', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -40,7 +34,44 @@ class AddressTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($tokens, $address->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '大安', '區'],
+            ['', '', '市府', '路'],
+            ['1', '', '', '號'],
+        ], $address->getTokens());
+    }
+
+    public function test_get_tokens_with_zipcode()
+    {
+        /*
+        |------------------------------------------------------------
+        | Arrange
+        |------------------------------------------------------------
+        */
+
+        $address = '11008臺北市大安區市府路1號';
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $address = new Address($address);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '大安', '區'],
+            ['', '', '市府', '路'],
+            ['1', '', '', '號'],
+        ], $address->getTokens());
     }
 
     public function test_get_tokens_with_subno()
@@ -52,12 +83,6 @@ class AddressTest extends PHPUnit_Framework_TestCase
         */
 
         $address = '臺北市大安區市府路1之1號';
-        $tokens = [
-            ['', '', '臺北', '市'],
-            ['', '', '大安', '區'],
-            ['', '', '市府', '路'],
-            ['1', '之1', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -73,7 +98,12 @@ class AddressTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($tokens, $address->getTokens());
+        $this->assertSame([
+            ['', '', '臺北', '市'],
+            ['', '', '大安', '區'],
+            ['', '', '市府', '路'],
+            ['1', '之1', '', '號'],
+        ], $address->getTokens());
     }
 
     public function test_get_tokens_with_tricky()
@@ -85,12 +115,6 @@ class AddressTest extends PHPUnit_Framework_TestCase
         */
 
         $address = '桃園縣中壢市普義10號';
-        $tokens = [
-            ['', '', '桃園', '縣'],
-            ['', '', '中壢', '市'],
-            ['', '', '普義', ''],
-            ['10', '', '', '號'],
-        ];
 
         /*
         |------------------------------------------------------------
@@ -106,6 +130,11 @@ class AddressTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame($tokens, $address->getTokens());
+        $this->assertSame([
+            ['', '', '桃園', '縣'],
+            ['', '', '中壢', '市'],
+            ['', '', '普義', ''],
+            ['10', '', '', '號'],
+        ], $address->getTokens());
     }
 }
