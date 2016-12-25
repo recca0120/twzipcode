@@ -5,14 +5,16 @@ namespace Recca0120\Twzipcode;
 use ArrayObject;
 use Closure;
 
-class Rule{
+class Rule
+{
     public $zipcode;
 
     public $address;
 
     public $tokens;
 
-    public function __construct($rule) {
+    public function __construct($rule)
+    {
         if (preg_match('/^(\d+),?(.*)/', $rule, $m)) {
             $this->zipcode = $m[1];
             $rule = $m[2];
@@ -23,7 +25,7 @@ class Rule{
                 ->regularize()
                 ->digitize()
                 ->value(),
-            function($address) {
+            function ($address) {
                 $this->address = new Address($address);
             }
         );
@@ -46,7 +48,7 @@ class Rule{
         $addrTokens = $address->getTokens();
 
         $tokens = $this->address->getTokens();
-        $cur = count($tokens)-1;
+        $cur = count($tokens) - 1;
         $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
         $cur -= in_array('至', $this->tokens, true);
 
@@ -62,7 +64,7 @@ class Rule{
             $i -= 1;
         }
 
-        $addrPoint = $address->getPoint($cur+1);
+        $addrPoint = $address->getPoint($cur + 1);
 
         if (count($this->tokens) > 0 && $addrPoint->isEmpty() === true) {
             return false;
@@ -98,7 +100,7 @@ class Rule{
 
     protected function tokenize($rule, Closure $addressResolver)
     {
-        $tokens = new ArrayObject;
+        $tokens = new ArrayObject();
 
         $pattern = [
             '及以上附號|含附號以下|含附號全|含附號',
@@ -107,8 +109,8 @@ class Rule{
             '[連至單雙全](?=[\d全]|$)',
         ];
 
-        $addressResolver(preg_replace_callback('/'.implode('|', $pattern).'/u', function($m) use ($tokens) {
-            $token =& $m[0];
+        $addressResolver(preg_replace_callback('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
+            $token = &$m[0];
             if ($token === '連') {
                 return;
             }

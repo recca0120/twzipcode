@@ -2,7 +2,8 @@
 
 namespace Recca0120\Twzipcode;
 
-class Str {
+class Str
+{
     public static $fullCaseCharMap = [
         '　' => ' ',
         '！' => '!',

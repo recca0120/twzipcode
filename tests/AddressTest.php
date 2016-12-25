@@ -10,7 +10,8 @@ class AddressTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_token() {
+    public function test_token()
+    {
         $expected = [['', '', '臺北', '市'], ['', '', '大安', '區'], ['', '', '市府', '路'], ['1', '', '', '號']];
         $this->assertSame($expected, (new Address('臺北市大安區市府路1號'))->getTokens());
 

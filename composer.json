@@ -5,8 +5,7 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=5.5.9",
-        "ext-zlib": "*",
+        "php": ">=5.5.9"
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
@@ -20,13 +19,13 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php data/Converter.php"
+            "php resources/Converter.php"
         ],
         "post-install-cmd": [
-            "php data/Converter.php"
+            "php resources/Converter.php"
         ],
         "post-update-cmd": [
-            "php data/Converter.php"
+            "php resources/Converter.php"
         ]
     },
     "config": {

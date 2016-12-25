@@ -8,7 +8,7 @@ class Compresser
     {
         $method = 'gzcompress';
         if (function_exists($method) === true) {
-            return call_user_func($method, $data);
+            return call_user_func($method, $plainText);
         }
 
         return $plainText;

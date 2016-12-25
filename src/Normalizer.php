@@ -2,11 +2,12 @@
 
 namespace Recca0120\Twzipcode;
 
-class Normalizer {
-
+class Normalizer
+{
     public $attribute;
 
-    public function __construct($attribute = '') {
+    public function __construct($attribute = '')
+    {
         $this->attribute = $attribute;
     }
 
@@ -29,14 +30,14 @@ class Normalizer {
             ',' => '',
             '~' => '之',
             '-' => '之',
-            '台' => '臺'
+            '台' => '臺',
         ]));
     }
 
     public function digitize()
     {
         return new static(preg_replace_callback('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
-            $chineseNumber =& $m[0];
+            $chineseNumber = &$m[0];
 
             return strtr(strtr($chineseNumber, [
                 '十' => mb_strlen($chineseNumber) === 2 ? '1' : '',
@@ -56,14 +57,16 @@ class Normalizer {
         }, $this->attribute));
     }
 
-    public function normalize() {
+    public function normalize()
+    {
         return $this
             ->regularize()
             ->digitize()
             ->value();
     }
 
-    public static function make($attribute) {
+    public static function make($attribute)
+    {
         return new static($attribute);
     }
 

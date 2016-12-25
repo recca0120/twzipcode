@@ -2,8 +2,8 @@
 
 namespace Recca0120\Twzipcode;
 
-class Address {
-
+class Address
+{
     const NO = 0;
     const SUBNO = 1;
     const NAME = 2;
@@ -13,7 +13,8 @@ class Address {
 
     public $tokens = [];
 
-    public function __construct($address = '') {
+    public function __construct($address = '')
+    {
         if (empty($address) === false) {
             $this->set($address);
         }
@@ -31,7 +32,7 @@ class Address {
         return $this;
     }
 
-    public function get()
+    public function value()
     {
         return $this->address;
     }
@@ -41,7 +42,8 @@ class Address {
         return $this->tokens;
     }
 
-    public function getPoint($index) {
+    public function getPoint($index)
+    {
         if (isset($this->tokens[$index]) === false) {
             return new Point(0, 0);
         }
@@ -81,5 +83,10 @@ class Address {
         }
 
         return $tokens;
+    }
+
+    public function __toString()
+    {
+        return $this->value();
     }
 }
