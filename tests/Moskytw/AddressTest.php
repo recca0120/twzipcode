@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Moskytw\Address;
+use Moskytw\Address;
 
 class MoskytwAddressTest extends PHPUnit_Framework_TestCase
 {

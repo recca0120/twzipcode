@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Moskytw\Directory;
+use Moskytw\Directory;
 use org\bovigo\vfs\vfsStream;
 
 class MoskytwDirectoryTest extends PHPUnit_Framework_TestCase

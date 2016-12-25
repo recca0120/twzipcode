@@ -2,8 +2,8 @@
 
 namespace Recca0120\Twzipcode;
 
-use ArrayObject;
 use Closure;
+use ArrayObject;
 
 class Rule
 {
@@ -45,54 +45,62 @@ class Rule
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
 
-        $addrTokens = $address->getTokens();
+        $addressTokens = $address->getTokens();
+        $ruleAddressTokens = $this->address->getTokens();
 
-        $tokens = $this->address->getTokens();
-        $cur = count($tokens) - 1;
+        $cur = count($ruleAddressTokens) - 1;
         $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
         $cur -= in_array('至', $this->tokens, true);
 
-        if ($cur >= count($addrTokens)) {
+        if ($this->equalsToken($ruleAddressTokens, $addressTokens, $cur) === false) {
+            return false;
+        }
+
+        $addressPoint = $address->getPoint($cur + 1);
+
+        if (count($this->tokens) > 0 && $addressPoint->isEmpty() === true) {
+            return false;
+        }
+
+        $left = $this->address->getPoint(count($ruleAddressTokens) - 1);
+        $right = $this->address->getPoint(count($ruleAddressTokens) - 2);
+
+        foreach ($this->tokens as $token) {
+            if (
+                ($token === '單' && (bool) (($addressPoint->x & 1) === 1) === false) ||
+                ($token === '雙' && (bool) (($addressPoint->x & 1) === 0) === false) ||
+                ($token === '以上' && $addressPoint->compare($left, '>=') === false) ||
+                ($token === '以下' && $addressPoint->compare($left, '<=') === false) ||
+                ($token === '至' && (
+                    $right->compare($addressPoint, '<=') && $addressPoint->compare($left, '<=') ||
+                    in_array('含附號全', $this->tokens, true) === true && ($addressPoint->x == $left->x)
+                ) === false) ||
+                ($token == '含附號' && ($addressPoint->x === $left->x) === false) ||
+                ($token == '附號全' && ($addressPoint->x === $left->x && $addressPoint->y > 0) === false) ||
+                ($token == '及以上附號' && $addressPoint->compare($left, '>=') === false) ||
+                ($token == '含附號以下' && (
+                    $addressPoint->compare($left, '<=') ||
+                    $addressPoint->x === $left->x
+                ) === false)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur) {
+        if ($cur >= count($addressTokens)) {
             return false;
         }
 
         $i = $cur;
         while ($i >= 0) {
-            if ($tokens[$i] !== $addrTokens[$i]) {
+            if ($ruleAddressTokens[$i] !== $addressTokens[$i]) {
                 return false;
             }
             $i -= 1;
-        }
-
-        $addrPoint = $address->getPoint($cur + 1);
-
-        if (count($this->tokens) > 0 && $addrPoint->isEmpty() === true) {
-            return false;
-        }
-
-        $left = $this->address->getPoint(count($tokens) - 1);
-        $right = $this->address->getPoint(count($tokens) - 2);
-
-        foreach ($this->tokens as $token) {
-            if (
-                ($token === '單' && (bool) (($addrPoint->x & 1) === 1) === false) ||
-                ($token === '雙' && (bool) (($addrPoint->x & 1) === 0) === false) ||
-                ($token === '以上' && $addrPoint->compare($left, '>=') === false) ||
-                ($token === '以下' && $addrPoint->compare($left, '<=') === false) ||
-                ($token === '至' && (
-                    $right->compare($addrPoint, '<=') && $addrPoint->compare($left, '<=') ||
-                    in_array('含附號全', $this->tokens, true) === true && ($addrPoint->x == $left->x)
-                ) === false) ||
-                ($token == '含附號' && ($addrPoint->x === $left->x) === false) ||
-                ($token == '附號全' && ($addrPoint->x === $left->x && $addrPoint->y > 0) === false) ||
-                ($token == '及以上附號' && $addrPoint->compare($left, '>=') === false) ||
-                ($token == '含附號以下' && (
-                    $addrPoint->compare($left, '<=') ||
-                    $addrPoint->x === $left->x
-                ) === false)
-            ) {
-                return false;
-            }
         }
 
         return true;

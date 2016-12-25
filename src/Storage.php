@@ -40,7 +40,6 @@ class Storage
         return $zipcode;
     }
 
-
     protected function loadZipcodes()
     {
         if (is_null(self::$zipcode) === true) {

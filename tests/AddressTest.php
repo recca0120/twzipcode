@@ -23,7 +23,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '臺北', '市'],
             ['', '', '大安', '區'],
             ['', '', '市府', '路'],
-            ['1', '', '', '號']
+            ['1', '', '', '號'],
         ];
 
         /*
@@ -56,7 +56,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '臺北', '市'],
             ['', '', '大安', '區'],
             ['', '', '市府', '路'],
-            ['1', '之1', '', '號']
+            ['1', '之1', '', '號'],
         ];
 
         /*
@@ -89,7 +89,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '桃園', '縣'],
             ['', '', '中壢', '市'],
             ['', '', '普義', ''],
-            ['10', '', '', '號']
+            ['10', '', '', '號'],
         ];
 
         /*

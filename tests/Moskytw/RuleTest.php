@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Moskytw\Rule;
-use Recca0120\Twzipcode\Moskytw\Address;
+use Moskytw\Rule;
+use Moskytw\Address;
 
 class MoskytwRuleTest extends PHPUnit_Framework_TestCase
 {
