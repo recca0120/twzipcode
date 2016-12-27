@@ -13,7 +13,7 @@ class Address
     public function __construct($address)
     {
         $this->address = new BaseAddress($address);
-        $this->tokens = $this->address->getTokens();
+        $this->tokens = $this->address->tokens();
     }
 
     public function normalize()

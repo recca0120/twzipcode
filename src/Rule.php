@@ -7,7 +7,9 @@ use ArrayObject;
 
 class Rule
 {
-    public $zipcode;
+    public $zip3;
+
+    public $zip5;
 
     public $address;
 
@@ -16,7 +18,8 @@ class Rule
     public function __construct($rule)
     {
         if (preg_match('/^(\d+),?(.*)/', $rule, $m)) {
-            $this->zipcode = $m[1];
+            $this->zip5 = $m[1];
+            $this->zip3 = substr($this->zip5, 0, 3);
             $rule = $m[2];
         }
 
@@ -28,12 +31,22 @@ class Rule
         );
     }
 
-    public function getZipcode()
+    public function zip3()
     {
-        return $this->zipcode;
+        return $this->zip3;
     }
 
-    public function getTokens()
+    public function zip5()
+    {
+        return $this->zip5;
+    }
+
+    public function getZipcode()
+    {
+        return $this->zip5();
+    }
+
+    public function tokens()
     {
         return $this->tokens;
     }
@@ -42,8 +55,8 @@ class Rule
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
 
-        $addressTokens = $address->getTokens();
-        $ruleAddressTokens = $this->address->getTokens();
+        $addressTokens = $address->tokens();
+        $ruleAddressTokens = $this->address->tokens();
 
         $cur = count($ruleAddressTokens) - 1;
         $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
@@ -106,7 +119,7 @@ class Rule
 
     protected function normalize($rule)
     {
-        $rule = Normalizer::make($rule, true)->value();
+        $rule = Normalizer::make($rule)->normalize()->value();
 
         $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
 

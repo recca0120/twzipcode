@@ -13,12 +13,12 @@ class Rule
 
     public function ruleTokens()
     {
-        return $this->rule->getTokens();
+        return $this->rule->tokens();
     }
 
     public function tokens()
     {
-        return $this->rule->address->getTokens();
+        return $this->rule->address->tokens();
     }
 
     public function match(Address $address)

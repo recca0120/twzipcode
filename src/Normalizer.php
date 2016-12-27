@@ -60,17 +60,11 @@ class Normalizer extends Str
             });
     }
 
-    public static function make($string, $default = false)
+    public function normalize()
     {
-        $object = new static($string);
-
-        if ($default === true) {
-            $object = $object
-                ->trim()
-                ->regularize()
-                ->digitize();
-        }
-
-        return $object;
+        return $this
+            ->trim()
+            ->regularize()
+            ->digitize();
     }
 }

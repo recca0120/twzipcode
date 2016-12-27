@@ -39,7 +39,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '大安', '區'],
             ['', '', '市府', '路'],
             ['1', '', '', '號'],
-        ], $address->getTokens());
+        ], $address->tokens());
     }
 
     public function test_get_tokens_with_zipcode()
@@ -71,7 +71,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '大安', '區'],
             ['', '', '市府', '路'],
             ['1', '', '', '號'],
-        ], $address->getTokens());
+        ], $address->tokens());
     }
 
     public function test_get_tokens_with_subno()
@@ -103,7 +103,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '大安', '區'],
             ['', '', '市府', '路'],
             ['1', '之1', '', '號'],
-        ], $address->getTokens());
+        ], $address->tokens());
     }
 
     public function test_get_tokens_with_tricky()
@@ -135,7 +135,7 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '中壢', '市'],
             ['', '', '普義', ''],
             ['10', '', '', '號'],
-        ], $address->getTokens());
+        ], $address->tokens());
     }
 
     public function test_get_tokens_with_address()
@@ -192,8 +192,8 @@ class AddressTest extends PHPUnit_Framework_TestCase
             ['', '', '大里', '區'],
             ['', '', '塗城', '路'],
             ['1', '', '', '號'],
-        ], $address->getTokens());
+        ], $address->tokens());
 
-        // dump((new Address('臺北市大同區市民大道１段'))->getTokens());
+        // dump((new Address('臺北市大同區市民大道１段'))->tokens());
     }
 }

@@ -35,14 +35,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10058', $rule->getZipcode());
-        $this->assertSame(['全'], $rule->getTokens());
+        $this->assertSame('10058', $rule->zip5());
+        $this->assertSame(['全'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '八德', '路'],
             ['', '', '1', '段'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_all()
@@ -69,13 +69,13 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10079', $rule->getZipcode());
-        $this->assertSame(['單', '全'], $rule->getTokens());
+        $this->assertSame('10079', $rule->zip5());
+        $this->assertSame(['單', '全'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '三元', '街'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_double_48_below()
@@ -102,14 +102,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10070', $rule->getZipcode());
-        $this->assertSame(['雙', '以下'], $rule->getTokens());
+        $this->assertSame('10070', $rule->zip5());
+        $this->assertSame(['雙', '以下'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '三元', '街'],
             ['48', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_15_above()
@@ -136,14 +136,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10068', $rule->getZipcode());
-        $this->assertSame(['單', '以上'], $rule->getTokens());
+        $this->assertSame('10068', $rule->zip5());
+        $this->assertSame(['單', '以上'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '大埔', '街'],
             ['15', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_25_3_below()
@@ -170,15 +170,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10043', $rule->getZipcode());
-        $this->assertSame(['單', '以下'], $rule->getTokens());
+        $this->assertSame('10043', $rule->zip5());
+        $this->assertSame(['單', '以下'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '中華', '路'],
             ['', '', '1', '段'],
             ['25', '之3', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_27_to_47()
@@ -205,8 +205,8 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('26142', $rule->getZipcode());
-        $this->assertSame(['單', '至'], $rule->getTokens());
+        $this->assertSame('26142', $rule->zip5());
+        $this->assertSame(['單', '至'], $rule->tokens());
         $this->assertSame([
             ['', '', '宜蘭', '縣'],
             ['', '', '頭城', '鎮'],
@@ -214,7 +214,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '1', '段'],
             ['27', '', '', '號'],
             ['47', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_and_2_4_above()
@@ -241,15 +241,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10052', $rule->getZipcode());
-        $this->assertSame(['以上'], $rule->getTokens());
+        $this->assertSame('10052', $rule->zip5());
+        $this->assertSame(['以上'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '仁愛', '路'],
             ['', '', '1', '段'],
             ['2', '之4', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_14_subno()
@@ -276,15 +276,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10060', $rule->getZipcode());
-        $this->assertSame(['含附號'], $rule->getTokens());
+        $this->assertSame('10060', $rule->zip5());
+        $this->assertSame(['含附號'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '杭州南', '路'],
             ['', '', '1', '段'],
             ['14', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_47_subno_all()
@@ -311,14 +311,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10371', $rule->getZipcode());
-        $this->assertSame(['附號全'], $rule->getTokens());
+        $this->assertSame('10371', $rule->zip5());
+        $this->assertSame(['附號全'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '大同', '區'],
             ['', '', '哈密', '街'],
             ['47', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_double_68_alley_70_subno_all()
@@ -345,15 +345,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10367', $rule->getZipcode());
-        $this->assertSame(['雙', '至', '含附號全'], $rule->getTokens());
+        $this->assertSame('10367', $rule->zip5());
+        $this->assertSame(['雙', '至', '含附號全'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '大同', '區'],
             ['', '', '哈密', '街'],
             ['68', '', '', '巷'],
             ['70', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_49_and_subno_below()
@@ -380,14 +380,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('32083', $rule->getZipcode());
-        $this->assertSame(['含附號以下'], $rule->getTokens());
+        $this->assertSame('32083', $rule->zip5());
+        $this->assertSame(['含附號以下'], $rule->tokens());
         $this->assertSame([
             ['', '', '桃園', '市'],
             ['', '', '中壢', '區'],
             ['', '', '普義', ''],
             ['49', '', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_1_3_and_subno_above()
@@ -414,8 +414,8 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('40763', $rule->getZipcode());
-        $this->assertSame(['及以上附號'], $rule->getTokens());
+        $this->assertSame('40763', $rule->zip5());
+        $this->assertSame(['及以上附號'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺中', '市'],
             ['', '', '西屯', '區'],
@@ -423,7 +423,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '3', '段'],
             ['', '', '西平南', '巷'],
             ['1', '之3', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_tricky_double_268_1_below()
@@ -450,14 +450,14 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('23553', $rule->getZipcode());
-        $this->assertSame(['雙', '以下'], $rule->getTokens());
+        $this->assertSame('23553', $rule->zip5());
+        $this->assertSame(['雙', '以下'], $rule->tokens());
         $this->assertSame([
             ['', '', '新北', '市'],
             ['', '', '中和', '區'],
             ['', '', '連城', '路'],
             ['268', '之1', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_with_tricky_full()
@@ -484,13 +484,13 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('24341', $rule->getZipcode());
-        $this->assertSame(['全'], $rule->getTokens());
+        $this->assertSame('24341', $rule->zip5());
+        $this->assertSame(['全'], $rule->tokens());
         $this->assertSame([
             ['', '', '新北', '市'],
             ['', '', '泰山', '區'],
             ['', '', '全興', '路'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_to_without_unit()
@@ -517,8 +517,8 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('10017', $rule->getZipcode());
-        $this->assertSame(['至'], $rule->getTokens());
+        $this->assertSame('10017', $rule->zip5());
+        $this->assertSame(['至'], $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -526,7 +526,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['5', '', '', '號'],
             ['5', '', '', '樓'],
             ['9', '', '', '樓'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_get_tokens_to_subno_without_unit()
@@ -553,15 +553,15 @@ class RuleTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertSame('26843', $rule->getZipcode());
-        $this->assertSame(['至'], $rule->getTokens());
+        $this->assertSame('26843', $rule->zip5());
+        $this->assertSame(['至'], $rule->tokens());
         $this->assertSame([
             ['', '', '宜蘭', '縣'],
             ['', '', '五結', '鄉'],
             ['', '', '學進', '路'],
             ['82', '之1', '', '號'],
             ['82', '之20', '', '號'],
-        ], $rule->address->getTokens());
+        ], $rule->address->tokens());
     }
 
     public function test_match_the_same()
