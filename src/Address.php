@@ -11,10 +11,14 @@ class Address
 
     public $address;
 
+    public $normalizer;
+
     public $tokens = [];
 
-    public function __construct($address = '')
+    public function __construct($address = '', Normalizer $normalizer = null)
     {
+        $this->normalizer = is_null($normalizer) === true ? new Normalizer : $normalizer;
+
         if (empty($address) === false) {
             $this->set($address);
         }
@@ -23,7 +27,7 @@ class Address
     public function set($address)
     {
         $address = preg_replace('/^\d+/', '', $address);
-        $this->address = Normalizer::make($address, true)->value();
+        $this->address = Normalizer::make($address, true);
 
         $this->tokens = $this->tokenize();
 
@@ -32,7 +36,7 @@ class Address
 
     public function value()
     {
-        return $this->address;
+        return $this->address->value();
     }
 
     public function getTokens()

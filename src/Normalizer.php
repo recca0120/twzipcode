@@ -2,49 +2,13 @@
 
 namespace Recca0120\Twzipcode;
 
-class Normalizer
+class Normalizer extends Str
 {
-    public $attribute;
-
-    public function __construct($attribute = '')
-    {
-        $this->attribute = $attribute;
-    }
-
-    public function value()
-    {
-        return $this->attribute;
-    }
-
-    public function trim()
-    {
-        return new static(trim($this->attribute));
-    }
-
-    public function strtr($parameters)
-    {
-        return new static(strtr($this->attribute, $parameters));
-    }
-
-    public function half()
-    {
-        return new static(Str::half($this->attribute));
-    }
-
-    public function replace($re, $to)
-    {
-        if (is_callable($to) === true) {
-            return new static(preg_replace_callback($re, $to, $this->attribute));
-        } else {
-            return new static(preg_replace($re, $to, $this->attribute));
-        }
-    }
-
     public function regularize()
     {
         return $this
-            ->half()
-            ->strtr([
+            ->toHalfCase()
+            ->replace([
                 ' ' => '',
                 ',' => '',
                 '~' => '之',
@@ -63,33 +27,14 @@ class Normalizer
     public function digitize()
     {
         return $this->replace('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
-            return Str::digitize($m[0]);
+            return (new static($m[0]))->chineseToNumber();
         });
-    }
-
-    public static function make($attribute, $default = false)
-    {
-        $object = new static($attribute);
-
-        if ($default === true) {
-            $object = $object
-                ->trim()
-                ->regularize()
-                ->digitize();
-        }
-
-        return $object;
-    }
-
-    public function __toString()
-    {
-        return $this->value();
     }
 
     public function normalizeAddress()
     {
         return $this
-            ->strtr([
+            ->replace([
                 '台灣' => '臺灣',
                 '台北' => '臺北',
                 '台中' => '臺中',
@@ -113,5 +58,19 @@ class Normalizer
                     (isset($m[2]) === true ? $m[2].'區' : '').
                     (isset($m[3]) === true ? $m[3].'里' : '');
             });
+    }
+
+    public static function make($string, $default = false)
+    {
+        $object = new static($string);
+
+        if ($default === true) {
+            $object = $object
+                ->trim()
+                ->regularize()
+                ->digitize();
+        }
+
+        return $object;
     }
 }
