@@ -76,7 +76,7 @@ class Address
 
         $patterns = implode('', [
             '(?:(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓]|$)|(?P<name>.+?))',
-            '(?:(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
+            '(?:(?P<unit>[縣市鄉鎮市區村里道鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
         ]);
 
         // 20742,新北市,萬里區,二坪,全
@@ -104,12 +104,53 @@ class Address
         // 98342,花蓮縣,富里鄉,三台,全
         // 98392,花蓮縣,富里鄉,東里村復興,全
 
-        if (preg_match_all('/'.$patterns.'/u', $this->address, $matches, PREG_SET_ORDER) !== false) {
+        $trickies = [
+            '鄉' => md5('鄉'),
+            '市' => md5('市'),
+            '鎮' => md5('鎮'),
+            '區' => md5('區'),
+            '村' => md5('村'),
+            '里' => md5('里'),
+            '新市' => md5('新市'),
+            '阿里山' => md5('阿里山'),
+            '鎮興里平' => md5('鎮興里平'),
+        ];
+
+        $map = [
+            '村鄉' => $trickies['村'].'鄉',
+            '里鄉' => $trickies['里'].'鄉',
+            '村市' => $trickies['村'].'市',
+            '里區' => $trickies['里'].'區',
+            '鎮區' => $trickies['鎮'].'區',
+            '里鎮' => $trickies['里'].'鎮',
+            '里村' => $trickies['里'].'村',
+            '鄉村' => $trickies['鄉'].'村',
+            '新市區' => $trickies['新市'].'區',
+            '阿里山鄉' => $trickies['阿里山'].'鄉',
+            '鎮興里平鎮' => $trickies['鎮興里平'].'鎮',
+        ];
+
+        $flip = [
+            $trickies['鄉'] => '鄉',
+            $trickies['市'] => '市',
+            $trickies['鎮'] => '鎮',
+            $trickies['區'] => '區',
+            $trickies['村'] => '村',
+            $trickies['里'] => '里',
+            $trickies['新市'] => '新市',
+            $trickies['阿里山'] => '阿里山',
+            $trickies['鎮興里平'] => '鎮興里平',
+        ];
+
+        $address = strtr($this->address, $map);
+
+        if (preg_match_all('/'.$patterns.'/u', $address, $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $values) {
                 $temp = [];
                 foreach ($units as $key => $unit) {
                     $temp[$key] = isset($values[$unit]) === true ? $values[$unit] : '';
                 }
+                $temp[static::NAME] = strtr($temp[static::NAME], $flip);
                 $tokens[] = $temp;
             }
         }

@@ -1292,4 +1292,10 @@ class RuleTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($rule->match('信義路一段'));
         $this->assertFalse($rule->match('信義路一段1號'));
     }
+
+    public function test_tricky()
+    {
+        $rule = new Rule('10884,臺北市,萬華區,艋舺大道,雙 382號至 396號');
+        $this->assertTrue($rule->match('臺北市萬華區艋舺大道388號'));
+    }
 }

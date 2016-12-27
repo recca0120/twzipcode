@@ -1227,8 +1227,6 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
 
     public function test_normalize_taichung_address()
     {
-        // dump((string) Normalizer::make('臺中市東區富台里')->normalizeAddress());
-        // return;
         $this->assertSame('臺中市中區繼光里', (string) Normalizer::make('臺中市中區繼光里')->normalizeAddress());
         $this->assertSame('臺中市中區大墩里', (string) Normalizer::make('臺中市中區大墩里')->normalizeAddress());
         $this->assertSame('臺中市中區綠川里', (string) Normalizer::make('臺中市中區綠川里')->normalizeAddress());

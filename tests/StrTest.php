@@ -55,4 +55,27 @@ class StrTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(12345678, Str::digitize('一千二百三十四萬五千六百七十八'));
     }
+
+    public function test_a()
+    {
+        // $patterns = implode('', [
+        //     '(?:(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓]|$)|(?P<name>.+?))',
+        //     '(?:(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
+        // ]);
+
+        $patterns = implode('|', [
+            '(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓]|$)',
+            '(?P<name>.+?)(?P<unit>[縣市鄉鎮市區村里鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$)',
+        ]);
+
+        // |(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓])
+        // $patterns = '(.*?[縣市]|.*?[鄉鎮市區]|.*?[村里]|.*?[鄰路街段巷弄號樓])';
+
+        // $address = '臺中市大里區三民一街全';
+        $address = '桃園市平鎮區鎮興里平鎮連123號至139號';
+
+        preg_match_all('/'.$patterns.'/u', $address, $matches, PREG_SET_ORDER);
+
+        // dump($matches);
+    }
 }
