@@ -123,7 +123,6 @@ class Rule
                 ':unit' => $m['unit'],
             ]);
         }, $rule);
-
     }
 
     protected function tokenize($rule, Closure $addressResolver)
