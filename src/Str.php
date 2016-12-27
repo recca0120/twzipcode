@@ -147,7 +147,11 @@ class Str
                     '九' => 9,
                 ]);
 
-                $sum += ($number*$unit);
+                if ($unit >= 10000) {
+                    $sum = $sum * $unit;
+                }
+
+                $sum += ($number * $unit);
             }
         }
 

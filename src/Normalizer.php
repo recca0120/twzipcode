@@ -2,8 +2,6 @@
 
 namespace Recca0120\Twzipcode;
 
-use Closure;
-
 class Normalizer
 {
     public $attribute;
