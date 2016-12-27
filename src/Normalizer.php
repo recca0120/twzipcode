@@ -65,25 +65,7 @@ class Normalizer
     public function digitize()
     {
         return $this->replace('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
-            $chineseNumber = &$m[0];
-
-            return (new static($chineseNumber))
-                ->strtr([
-                    '十' => mb_strlen($chineseNumber) === 2 ? '1' : '',
-                    '百' => '',
-                    '千' => '',
-                ])
-                ->strtr([
-                    '一' => '1',
-                    '二' => '2',
-                    '三' => '3',
-                    '四' => '4',
-                    '五' => '5',
-                    '六' => '6',
-                    '七' => '7',
-                    '八' => '8',
-                    '九' => '9',
-                ]);
+            return Str::digitize($m[0]);
         });
     }
 
