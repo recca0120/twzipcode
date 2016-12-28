@@ -9,13 +9,13 @@ class Address
     const NAME = 2;
     const UNIT = 3;
 
-    public $normalizer;
+    public $str;
 
     public $tokens = [];
 
-    public function __construct($address = '', Normalizer $normalizer = null)
+    public function __construct($address = '', Str $str = null)
     {
-        $this->normalizer = is_null($normalizer) === true ? new Normalizer : $normalizer;
+        $this->str = is_null($str) === true ? new Str : $str;
 
         if (empty($address) === false) {
             $this->set($address);
@@ -25,7 +25,7 @@ class Address
     public function set($address)
     {
         $address = preg_replace('/^\d+/', '', $address);
-        $this->normalizer = $this->normalizer
+        $this->str = $this->str
             ->set($address)
             ->normalize();
 
@@ -141,7 +141,7 @@ class Address
             $trickies['鎮興里平'] => '鎮興里平',
         ];
 
-        $address = $this->normalizer->replace($map)->value();
+        $address = $this->str->replace($map)->value();
 
         if (preg_match_all('/'.$patterns.'/u', $address, $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $values) {
@@ -159,6 +159,6 @@ class Address
 
     public function __toString()
     {
-        return $this->normalizer->value();
+        return $this->str->value();
     }
 }

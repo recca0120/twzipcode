@@ -119,7 +119,7 @@ class Rule
 
     protected function normalize($rule)
     {
-        $rule = Normalizer::make($rule)->normalize()->value();
+        $rule = Str::make($rule)->normalize()->value();
 
         $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
 

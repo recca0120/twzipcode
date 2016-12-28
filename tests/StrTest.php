@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Normalizer;
+use Recca0120\Twzipcode\Str;
 
-class NormalizerTest extends PHPUnit_Framework_TestCase
+class StrTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -46,8 +46,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($data as $address) {
-            $normalizer = new Normalizer($address);
-            $this->assertSame('臺北市大安區市府路1之1號', (string) $normalizer->regularize());
+            $Str = new Str($address);
+            $this->assertSame('臺北市大安區市府路1之1號', (string) $Str->regularize());
         }
     }
 
@@ -72,8 +72,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($this->units as $unit) {
-            $normalizer = new Normalizer('臺北市大安區市府四'.$unit);
-            $this->assertSame('臺北市大安區市府4'.$unit, (string) $normalizer->digitize());
+            $Str = new Str('臺北市大安區市府四'.$unit);
+            $this->assertSame('臺北市大安區市府4'.$unit, (string) $Str->digitize());
         }
     }
 
@@ -98,8 +98,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($this->units as $unit) {
-            $normalizer = new Normalizer('臺北市大安區市府十四'.$unit);
-            $this->assertSame('臺北市大安區市府14'.$unit, (string) $normalizer->digitize());
+            $Str = new Str('臺北市大安區市府十四'.$unit);
+            $this->assertSame('臺北市大安區市府14'.$unit, (string) $Str->digitize());
         }
     }
 
@@ -124,8 +124,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($this->units as $unit) {
-            $normalizer = new Normalizer('臺北市大安區市府九十四'.$unit);
-            $this->assertSame('臺北市大安區市府94'.$unit, (string) $normalizer->digitize());
+            $Str = new Str('臺北市大安區市府九十四'.$unit);
+            $this->assertSame('臺北市大安區市府94'.$unit, (string) $Str->digitize());
         }
     }
 
@@ -150,8 +150,8 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($this->units as $unit) {
-            $normalizer = new Normalizer('臺北市大安區市府九百四十七'.$unit);
-            $this->assertSame('臺北市大安區市府947'.$unit, (string) $normalizer->digitize());
+            $Str = new Str('臺北市大安區市府九百四十七'.$unit);
+            $this->assertSame('臺北市大安區市府947'.$unit, (string) $Str->digitize());
         }
     }
 
@@ -176,16 +176,16 @@ class NormalizerTest extends PHPUnit_Framework_TestCase
         */
 
         foreach ($this->units as $unit) {
-            $normalizer = new Normalizer('臺北市大安區市府九千四百七十八'.$unit);
-            $this->assertSame('臺北市大安區市府9478'.$unit, (string) $normalizer->digitize());
+            $Str = new Str('臺北市大安區市府九千四百七十八'.$unit);
+            $this->assertSame('臺北市大安區市府9478'.$unit, (string) $Str->digitize());
         }
     }
 
     public function test_normalize_address()
     {
-        $this->assertSame('新北市板橋區', (string) Normalizer::make('臺北縣板橋市')->normalizeAddress());
-        $this->assertSame('臺中市豐原區', (string) Normalizer::make('臺中縣豐原市')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一', (string) Normalizer::make('高雄縣鳳山市第一')->normalizeAddress());
-        $this->assertSame('臺南市新營區', (string) Normalizer::make('臺南縣新營市')->normalizeAddress());
+        $this->assertSame('新北市板橋區', (string) Str::make('臺北縣板橋市')->normalizeAddress());
+        $this->assertSame('臺中市豐原區', (string) Str::make('臺中縣豐原市')->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一', (string) Str::make('高雄縣鳳山市第一')->normalizeAddress());
+        $this->assertSame('臺南市新營區', (string) Str::make('臺南縣新營市')->normalizeAddress());
     }
 }
