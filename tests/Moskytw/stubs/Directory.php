@@ -12,7 +12,8 @@ class Directory
         $this->storage = new Rules(new File($root));
     }
 
-    public function find($address) {
+    public function find($address)
+    {
         return $this->storage->match($address);
     }
 

@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
+use org\bovigo\vfs\vfsStream;
 use Recca0120\Twzipcode\Rules;
 use Recca0120\Twzipcode\Storages\File;
-use org\bovigo\vfs\vfsStream;
 
 class RulesTest extends PHPUnit_Framework_TestCase
 {

@@ -2,12 +2,12 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
-use Recca0120\Twzipcode\Rule;
 use ArrayObject;
-use Recca0120\Twzipcode\Contracts\Storage as StorageContract;
+use Recca0120\Twzipcode\Rule;
 use Recca0120\Twzipcode\Address;
+use Recca0120\Twzipcode\Contracts\Storage;
 
-class File implements StorageContract
+class File implements Storage
 {
     public $path;
 
@@ -22,8 +22,7 @@ class File implements StorageContract
 
     public function zip3(Address $address)
     {
-        if (empty(self::$zipcode) === true)
-        {
+        if (empty(self::$zipcode) === true) {
             self::$zipcode = $this->restore('zipcode');
         }
 
@@ -42,7 +41,7 @@ class File implements StorageContract
     public function load($source)
     {
         $zip3 = new ArrayObject;
-        $this->each($this->prepareSource($source), function($zipcode, $county, $district, $rules) use ($zip3) {
+        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip3) {
             $this->store($zipcode, array_map(function ($rule) {
                 return new Rule($rule);
             }, $rules));
@@ -61,7 +60,8 @@ class File implements StorageContract
         $this->load($this->getSource($file));
     }
 
-    protected function getSource($file) {
+    protected function getSource($file)
+    {
         $source = '';
         $handle = fopen($file, 'r');
         try {

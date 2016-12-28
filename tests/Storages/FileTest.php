@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Recca0120\Twzipcode\Storages\File;
 use org\bovigo\vfs\vfsStream;
+use Recca0120\Twzipcode\Storages\File;
 
 class FileTest extends PHPUnit_Framework_TestCase
 {
@@ -149,8 +149,6 @@ class FileTest extends PHPUnit_Framework_TestCase
         | Arrange
         |------------------------------------------------------------
         */
-
-
 
         /*
         |------------------------------------------------------------
