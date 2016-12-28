@@ -2,9 +2,8 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\Twzipcode\Contracts\Storage as StorageContract;
 use Recca0120\Twzipcode\Storages\File;
-use ArrayObject;
+use Recca0120\Twzipcode\Contracts\Storage as StorageContract;
 
 class Rules
 {
@@ -33,11 +32,11 @@ class Rules
 
     public function load($source)
     {
-       return $this->storage->load($source);
+        return $this->storage->load($source);
     }
 
     public function loadFile($file)
     {
-       return $this->storage->loadFile($file);
+        return $this->storage->loadFile($file);
     }
 }

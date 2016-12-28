@@ -2,6 +2,6 @@
 
 namespace Recca0120\Twzipcode\Contracts;
 
-interface Storage {
-
+interface Storage
+{
 }

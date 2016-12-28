@@ -31,7 +31,7 @@ class Point
                 return $sum >= $sum2;
                 break;
             case '<':
-                return $sum < $sum2;;
+                return $sum < $sum2;
                 break;
             case '<=':
                 return $sum <= $sum2;
