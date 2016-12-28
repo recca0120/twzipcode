@@ -11,7 +11,7 @@ class File implements StorageContract
 {
     public $path;
 
-    public $suffix = '.rule';
+    public $suffix = '.rules';
 
     public static $zipcode = [];
 
