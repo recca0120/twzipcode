@@ -27,7 +27,8 @@ class Address
         $address = preg_replace('/^\d+/', '', $address);
         $this->str = $this->str
             ->set($address)
-            ->normalize();
+            ->normalize()
+            ->normalizeAddress();
 
         $this->tokens = $this->tokenize();
 
