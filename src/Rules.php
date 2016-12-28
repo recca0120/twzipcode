@@ -3,11 +3,11 @@
 namespace Recca0120\Twzipcode;
 
 use Recca0120\Twzipcode\Storages\File;
-use Recca0120\Twzipcode\Contracts\Storage as StorageContract;
+use Recca0120\Twzipcode\Contracts\Storage;
 
 class Rules
 {
-    public function __construct(StorageContract $storage = null)
+    public function __construct(Storage $storage = null)
     {
         $this->storage = is_null($storage) === true ? new File() : $storage;
     }
