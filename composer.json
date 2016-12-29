@@ -6,7 +6,7 @@
     "type": "library",
     "require": {
         "php": ">=5.5.9",
-        "recca0120/string": "^0.0.2"
+        "recca0120/library": "^0.0.2"
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
