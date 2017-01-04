@@ -2,9 +2,9 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\String\Str as BaseStr;
+use Recca0120\LoDash\Str;
 
-class Str extends BaseStr
+class Normalizer extends Str
 {
     public function regularize()
     {

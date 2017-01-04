@@ -9,14 +9,12 @@ class Address
     const NAME = 2;
     const UNIT = 3;
 
-    public $str;
+    public $normalizer;
 
     public $tokens = [];
 
-    public function __construct($address = '', Str $str = null)
+    public function __construct($address = '')
     {
-        $this->str = is_null($str) === true ? new Str : $str;
-
         if (empty($address) === false) {
             $this->set($address);
         }
@@ -25,8 +23,7 @@ class Address
     public function set($address)
     {
         $address = preg_replace('/^\d+/', '', $address);
-        $this->str = $this->str
-            ->set($address)
+        $this->normalizer = (new Normalizer($address))
             ->normalize()
             ->normalizeAddress();
 
@@ -54,13 +51,13 @@ class Address
         );
     }
 
-    public function flat($length = null)
+    public function flat($length = null, $offset = 0)
     {
         $length = is_null($length) === true ? count($length) : $length;
 
         return implode('', array_map(function ($token) {
             return implode('', $token);
-        }, array_slice($this->tokens, 0, $length)));
+        }, array_slice($this->tokens, $offset, $length)));
     }
 
     protected function tokenize()
@@ -142,7 +139,7 @@ class Address
             $trickies['鎮興里平'] => '鎮興里平',
         ];
 
-        $address = $this->str->replace($map)->value();
+        $address = $this->normalizer->replace($map)->value();
 
         if (preg_match_all('/'.$patterns.'/u', $address, $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $values) {
@@ -160,6 +157,6 @@ class Address
 
     public function __toString()
     {
-        return $this->str->value();
+        return $this->normalizer->value();
     }
 }
