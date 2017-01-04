@@ -14,63 +14,63 @@ class MoskytwRuleTest extends PHPUnit_Framework_TestCase
     public function test_rule_init()
     {
         $rule = new Rule('臺北市,中正區,八德路１段,全');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '八德', '路'], ['', '', '1', '段']], $rule->tokens());
-        $this->assertSame(['全'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '八德', '路'], ['', '', '1', '段']], (array) $rule->tokens());
+        $this->assertSame(['全'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,三元街,單全');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '三元', '街']], $rule->tokens());
-        $this->assertSame(['單', '全'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '三元', '街']], (array) $rule->tokens());
+        $this->assertSame(['單', '全'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,三元街,雙  48號以下');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '三元', '街'], ['48', '', '', '號']], $rule->tokens());
-        $this->assertSame(['雙', '以下'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '三元', '街'], ['48', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['雙', '以下'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,大埔街,單  15號以上');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '大埔', '街'], ['15', '', '', '號']], $rule->tokens());
-        $this->assertSame(['單', '以上'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '大埔', '街'], ['15', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['單', '以上'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,中華路１段,單  25之   3號以下');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '中華', '路'], ['', '', '1', '段'], ['25', '之3', '', '號']], $rule->tokens());
-        $this->assertSame(['單', '以下'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '中華', '路'], ['', '', '1', '段'], ['25', '之3', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['單', '以下'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,中華路１段,單  27號至  47號');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '中華', '路'], ['', '', '1', '段'], ['27', '', '', '號'], ['47', '', '', '號']], $rule->tokens());
-        $this->assertSame(['單', '至'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '中華', '路'], ['', '', '1', '段'], ['27', '', '', '號'], ['47', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['單', '至'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,仁愛路１段,連   2之   4號以上');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '仁愛', '路'], ['', '', '1', '段'], ['2', '之4', '', '號']], $rule->tokens());
-        $this->assertSame(['以上'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '仁愛', '路'], ['', '', '1', '段'], ['2', '之4', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['以上'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,中正區,杭州南路１段,　  14號含附號');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '杭州南', '路'], ['', '', '1', '段'], ['14', '', '', '號']], $rule->tokens());
-        $this->assertSame(['含附號'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '中正', '區'], ['', '', '杭州南', '路'], ['', '', '1', '段'], ['14', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['含附號'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,大同區,哈密街,　  47附號全');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['47', '', '', '號']], $rule->tokens());
-        $this->assertSame(['附號全'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['47', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['附號全'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺北市,大同區,哈密街,雙  68巷至  70號含附號全');
-        $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['68', '', '', '巷'], ['70', '', '', '號']], $rule->tokens());
-        $this->assertSame(['雙', '至', '含附號全'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺北', '市'], ['', '', '大同', '區'], ['', '', '哈密', '街'], ['68', '', '', '巷'], ['70', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['雙', '至', '含附號全'], (array) $rule->ruleTokens());
 
         $rule = new Rule('桃園縣,中壢市,普義,連  49號含附號以下');
-        $this->assertSame([['', '', '桃園', '縣'], ['', '', '中壢', '市'], ['', '', '普義', ''], ['49', '', '', '號']], $rule->tokens());
-        $this->assertSame(['含附號以下'], $rule->ruleTokens());
+        $this->assertSame([['', '', '桃園', '縣'], ['', '', '中壢', '市'], ['', '', '普義', ''], ['49', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['含附號以下'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺中市,西屯區,西屯路３段西平南巷,　   1之   3號及以上附號');
-        $this->assertSame([['', '', '臺中', '市'], ['', '', '西屯', '區'], ['', '', '西屯', '路'], ['', '', '3', '段'], ['', '', '西平南', '巷'], ['1', '之3', '', '號']], $rule->tokens());
-        $this->assertSame(['及以上附號'], $rule->ruleTokens());
+        $this->assertSame([['', '', '臺中', '市'], ['', '', '西屯', '區'], ['', '', '西屯', '路'], ['', '', '3', '段'], ['', '', '西平南', '巷'], ['1', '之3', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['及以上附號'], (array) $rule->ruleTokens());
     }
 
     public function test_rule_init_tricky_input()
     {
         $rule = new Rule('新北市,中和區,連城路,雙 268之   1號以下');
-        $this->assertSame([['', '', '新北', '市'], ['', '', '中和', '區'], ['', '', '連城', '路'], ['268', '之1', '', '號']], $rule->tokens());
-        $this->assertSame(['雙', '以下'], $rule->ruleTokens());
+        $this->assertSame([['', '', '新北', '市'], ['', '', '中和', '區'], ['', '', '連城', '路'], ['268', '之1', '', '號']], (array) $rule->tokens());
+        $this->assertSame(['雙', '以下'], (array) $rule->ruleTokens());
 
         $rule = new Rule('新北市,泰山區,全興路,全');
-        $this->assertSame([['', '', '新北', '市'], ['', '', '泰山', '區'], ['', '', '全興', '路']], $rule->tokens());
-        $this->assertSame(['全'], $rule->ruleTokens());
+        $this->assertSame([['', '', '新北', '市'], ['', '', '泰山', '區'], ['', '', '全興', '路']], (array) $rule->tokens());
+        $this->assertSame(['全'], (array) $rule->ruleTokens());
     }
 
     public function test_rule_match()

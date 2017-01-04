@@ -31,7 +31,7 @@ class Address
 
         return implode('', array_map(function ($token) {
             return implode('', $token);
-        }, array_slice($this->tokens, 0, $length)));
+        }, array_slice((array) $this->tokens, 0, $length)));
     }
 
     public function tokens()

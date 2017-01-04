@@ -2,6 +2,8 @@
 
 namespace Recca0120\Twzipcode;
 
+use Recca0120\LoDash\Arr;
+
 class Address
 {
     const NO = 0;
@@ -53,11 +55,16 @@ class Address
 
     public function flat($length = null, $offset = 0)
     {
-        $length = is_null($length) === true ? count($length) : $length;
+        $length = is_null($length) === true ? $this->tokens->length() : $length;
+        $end = $offset + $length;
 
-        return implode('', array_map(function ($token) {
+        return (string) $this->tokens->slice($offset, $end)->map(function($token) {
             return implode('', $token);
-        }, array_slice($this->tokens, $offset, $length)));
+        })->join('');
+
+        // return implode('', array_map(function ($token) {
+        //     return implode('', $token);
+        // }, array_slice($this->tokens->getArrayCopy(), $offset, $length)));
     }
 
     protected function tokenize()
@@ -152,7 +159,7 @@ class Address
             }
         }
 
-        return $tokens;
+        return new Arr($tokens);
     }
 
     public function __toString()

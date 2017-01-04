@@ -42,7 +42,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中正', '區'],
             ['', '', '八德', '路'],
             ['', '', '1', '段'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_all()
@@ -75,7 +75,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
             ['', '', '三元', '街'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_double_48_below()
@@ -109,7 +109,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中正', '區'],
             ['', '', '三元', '街'],
             ['48', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_15_above()
@@ -143,7 +143,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中正', '區'],
             ['', '', '大埔', '街'],
             ['15', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_25_3_below()
@@ -178,7 +178,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中華', '路'],
             ['', '', '1', '段'],
             ['25', '之3', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_single_27_to_47()
@@ -214,7 +214,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '1', '段'],
             ['27', '', '', '號'],
             ['47', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_and_2_4_above()
@@ -249,7 +249,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '仁愛', '路'],
             ['', '', '1', '段'],
             ['2', '之4', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_14_subno()
@@ -284,7 +284,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '杭州南', '路'],
             ['', '', '1', '段'],
             ['14', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_47_subno_all()
@@ -318,7 +318,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '大同', '區'],
             ['', '', '哈密', '街'],
             ['47', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_double_68_alley_70_subno_all()
@@ -353,7 +353,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '哈密', '街'],
             ['68', '', '', '巷'],
             ['70', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_49_and_subno_below()
@@ -387,7 +387,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中壢', '區'],
             ['', '', '普義', ''],
             ['49', '', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_1_3_and_subno_above()
@@ -423,7 +423,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '3', '段'],
             ['', '', '西平南', '巷'],
             ['1', '之3', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_tricky_double_268_1_below()
@@ -457,7 +457,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '中和', '區'],
             ['', '', '連城', '路'],
             ['268', '之1', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_with_tricky_full()
@@ -490,7 +490,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '新北', '市'],
             ['', '', '泰山', '區'],
             ['', '', '全興', '路'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_to_without_unit()
@@ -526,7 +526,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['5', '', '', '號'],
             ['5', '', '', '樓'],
             ['9', '', '', '樓'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_get_tokens_to_subno_without_unit()
@@ -561,7 +561,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
             ['', '', '學進', '路'],
             ['82', '之1', '', '號'],
             ['82', '之20', '', '號'],
-        ], $rule->address->tokens());
+        ], (array) $rule->address->tokens());
     }
 
     public function test_match_the_same()
