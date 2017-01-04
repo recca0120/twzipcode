@@ -15,19 +15,12 @@ class Rules
     public function match($address)
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
-
         $zip3 = $this->storage->zip3($address);
+        $rule = $this->storage->rules($zip3)->find(function ($rule) use ($address) {
+            return $rule->match($address);
+        });
 
-        if (is_null($zip3) === false) {
-            $rules = $this->storage->rules($zip3);
-            foreach ($rules as $rule) {
-                if ($rule->match($address) === true) {
-                    return $rule->zip5();
-                }
-            }
-        }
-
-        return $zip3;
+        return is_null($rule) === false ? $rule->zip5() : $zip3;
     }
 
     public function load($source)

@@ -36,7 +36,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10058', $rule->zip5());
-        $this->assertSame(['全'], $rule->tokens());
+        $this->assertSame(['全'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -70,7 +70,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10079', $rule->zip5());
-        $this->assertSame(['單', '全'], $rule->tokens());
+        $this->assertSame(['單', '全'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -103,7 +103,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10070', $rule->zip5());
-        $this->assertSame(['雙', '以下'], $rule->tokens());
+        $this->assertSame(['雙', '以下'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -137,7 +137,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10068', $rule->zip5());
-        $this->assertSame(['單', '以上'], $rule->tokens());
+        $this->assertSame(['單', '以上'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -171,7 +171,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10043', $rule->zip5());
-        $this->assertSame(['單', '以下'], $rule->tokens());
+        $this->assertSame(['單', '以下'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -206,7 +206,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('26142', $rule->zip5());
-        $this->assertSame(['單', '至'], $rule->tokens());
+        $this->assertSame(['單', '至'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '宜蘭', '縣'],
             ['', '', '頭城', '鎮'],
@@ -242,7 +242,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10052', $rule->zip5());
-        $this->assertSame(['以上'], $rule->tokens());
+        $this->assertSame(['以上'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -277,7 +277,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10060', $rule->zip5());
-        $this->assertSame(['含附號'], $rule->tokens());
+        $this->assertSame(['含附號'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -312,7 +312,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10371', $rule->zip5());
-        $this->assertSame(['附號全'], $rule->tokens());
+        $this->assertSame(['附號全'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '大同', '區'],
@@ -346,7 +346,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10367', $rule->zip5());
-        $this->assertSame(['雙', '至', '含附號全'], $rule->tokens());
+        $this->assertSame(['雙', '至', '含附號全'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '大同', '區'],
@@ -381,7 +381,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('32083', $rule->zip5());
-        $this->assertSame(['含附號以下'], $rule->tokens());
+        $this->assertSame(['含附號以下'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '桃園', '市'],
             ['', '', '中壢', '區'],
@@ -415,7 +415,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('40763', $rule->zip5());
-        $this->assertSame(['及以上附號'], $rule->tokens());
+        $this->assertSame(['及以上附號'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺中', '市'],
             ['', '', '西屯', '區'],
@@ -451,7 +451,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('23553', $rule->zip5());
-        $this->assertSame(['雙', '以下'], $rule->tokens());
+        $this->assertSame(['雙', '以下'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '新北', '市'],
             ['', '', '中和', '區'],
@@ -485,7 +485,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('24341', $rule->zip5());
-        $this->assertSame(['全'], $rule->tokens());
+        $this->assertSame(['全'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '新北', '市'],
             ['', '', '泰山', '區'],
@@ -518,7 +518,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('10017', $rule->zip5());
-        $this->assertSame(['至'], $rule->tokens());
+        $this->assertSame(['至'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '臺北', '市'],
             ['', '', '中正', '區'],
@@ -554,7 +554,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
         */
 
         $this->assertSame('26843', $rule->zip5());
-        $this->assertSame(['至'], $rule->tokens());
+        $this->assertSame(['至'], (array) $rule->tokens());
         $this->assertSame([
             ['', '', '宜蘭', '縣'],
             ['', '', '五結', '鄉'],

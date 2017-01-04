@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
-use ArrayObject;
+use Recca0120\LoDash\Arr;
 use Recca0120\Twzipcode\Rule;
 use Recca0120\Twzipcode\Address;
 use Recca0120\Twzipcode\Contracts\Storage;
@@ -25,7 +25,6 @@ class File implements Storage
         if (empty(self::$zipcode) === true) {
             self::$zipcode = $this->restore('zipcode');
         }
-
         $flat = $address->flat(2);
 
         return isset(self::$zipcode[$flat]) === true ? self::$zipcode[$flat] : null;
@@ -35,22 +34,31 @@ class File implements Storage
     {
         $rules = $this->restore($zip3);
 
-        return $rules === false ? [] : $rules;
+        return $rules === false ? new Arr([]) : $rules;
     }
 
     public function load($source)
     {
-        $zip3 = new ArrayObject;
+        $zip3 = new Arr;
         $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip3) {
-            $this->store($zipcode, array_map(function ($rule) {
+            $this->store($zipcode, (new Arr($rules))->map(function ($rule) {
                 return new Rule($rule);
-            }, $rules));
+            }));
 
-            $zip3[$county] = substr($zipcode, 0, 1);
-            $zip3[$county.$district] = substr($zipcode, 0, 3);
+            if (isset($zip3[$county]) === false) {
+                $zip3[$county] = substr($zipcode, 0, 1);
+            }
+
+            if (isset($zip3[$county.$district]) === false) {
+                $zip3[$county.$district] = substr($zipcode, 0, 3);
+            }
         });
 
-        $this->store('zipcode', $zip3->getArrayCopy());
+        $zip3['宜蘭縣壯圍鄉'] = '263';
+        $zip3['新竹縣寶山鄉'] = '308';
+        $zip3['臺南市新市區'] = '744';
+
+        $this->store('zipcode', $zip3);
     }
 
     public function loadFile($file = null)

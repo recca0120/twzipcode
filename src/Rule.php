@@ -3,7 +3,7 @@
 namespace Recca0120\Twzipcode;
 
 use Closure;
-use ArrayObject;
+use Recca0120\LoDash\Arr;
 
 class Rule
 {
@@ -24,7 +24,7 @@ class Rule
         }
 
         $this->tokens = $this->tokenize(
-            $this->normalize($rule),
+            $rule,
             function ($address) {
                 $this->address = new Address($address);
             }
@@ -58,9 +58,13 @@ class Rule
         $addressTokens = $address->tokens();
         $ruleAddressTokens = $this->address->tokens();
 
-        $cur = count($ruleAddressTokens) - 1;
-        $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
-        $cur -= in_array('至', $this->tokens, true);
+        $cur = $ruleAddressTokens->length() - 1;
+        $cur -= $this->tokens->length() > 0 && $this->tokens->includes('全') === false;
+        $cur -= $this->tokens->includes('至');
+
+        // $cur = count($ruleAddressTokens) - 1;
+        // $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
+        // $cur -= in_array('至', $this->tokens, true);
 
         if ($this->equalsToken($ruleAddressTokens, $addressTokens, $cur) === false) {
             return false;
@@ -68,12 +72,12 @@ class Rule
 
         $addressPoint = $address->getPoint($cur + 1);
 
-        if (count($this->tokens) > 0 && $addressPoint->isEmpty() === true) {
+        if ($this->tokens->length() > 0 && $addressPoint->isEmpty() === true) {
             return false;
         }
 
-        $left = $this->address->getPoint(count($ruleAddressTokens) - 1);
-        $right = $this->address->getPoint(count($ruleAddressTokens) - 2);
+        $left = $this->address->getPoint($ruleAddressTokens->length() - 1);
+        $right = $this->address->getPoint($ruleAddressTokens->length() - 2);
 
         foreach ($this->tokens as $token) {
             if (
@@ -83,7 +87,7 @@ class Rule
                 ($token === '以下' && $addressPoint->compare($left, '<=') === false) ||
                 ($token === '至' && (
                     $right->compare($addressPoint, '<=') && $addressPoint->compare($left, '<=') ||
-                    in_array('含附號全', $this->tokens, true) === true && ($addressPoint->x == $left->x)
+                    $this->tokens->includes('含附號全') === true && ($addressPoint->x == $left->x)
                 ) === false) ||
                 ($token == '含附號' && ($addressPoint->x === $left->x) === false) ||
                 ($token == '附號全' && ($addressPoint->x === $left->x && $addressPoint->y > 0) === false) ||
@@ -102,7 +106,7 @@ class Rule
 
     protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
     {
-        if ($cur >= count($addressTokens)) {
+        if ($cur >= $addressTokens->length()) {
             return false;
         }
 
@@ -119,11 +123,9 @@ class Rule
 
     protected function normalize($rule)
     {
-        $rule = (new Normalizer($rule))->normalize()->value();
-
         $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
 
-        return preg_replace_callback('/'.$pattern.'/u', function ($m) {
+        return (new Normalizer($rule))->normalize()->replace('/'.$pattern.'/u', function ($m) {
             $prefix = ':left:unit至:right:unit';
             if (empty($m['no']) === false) {
                 $prefix = ':no之:left:unit至:no之:right:unit';
@@ -135,12 +137,12 @@ class Rule
                 ':right' => $m['right'],
                 ':unit' => $m['unit'],
             ]);
-        }, $rule);
+        });
     }
 
     protected function tokenize($rule, Closure $addressResolver)
     {
-        $tokens = new ArrayObject();
+        $tokens = new Arr();
 
         $pattern = [
             '及以上附號|含附號以下|含附號全|含附號',
@@ -149,7 +151,7 @@ class Rule
             '[連至單雙全](?=[\d全]|$)',
         ];
 
-        $addressResolver(preg_replace_callback('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
+        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
             $token = &$m[0];
             if ($token === '連') {
                 return;
@@ -158,8 +160,8 @@ class Rule
             $tokens->append($token);
 
             return $token === '附號全' ? '號' : '';
-        }, $rule));
+        }));
 
-        return $tokens->getArrayCopy();
+        return $tokens;
     }
 }

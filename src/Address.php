@@ -58,13 +58,9 @@ class Address
         $length = is_null($length) === true ? $this->tokens->length() : $length;
         $end = $offset + $length;
 
-        return (string) $this->tokens->slice($offset, $end)->map(function($token) {
+        return (string) $this->tokens->slice($offset, $end)->map(function ($token) {
             return implode('', $token);
         })->join('');
-
-        // return implode('', array_map(function ($token) {
-        //     return implode('', $token);
-        // }, array_slice($this->tokens->getArrayCopy(), $offset, $length)));
     }
 
     protected function tokenize()
@@ -80,7 +76,7 @@ class Address
 
         $patterns = implode('', [
             '(?:(?P<no>\d+)(?P<subno>之\d+)?(?=[巷弄號樓]|$)|(?P<name>.+?))',
-            '(?:(?P<unit>[縣市鄉鎮市區村里道鄰路街段巷弄號樓])|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
+            '(?:(?P<unit>([島縣市鄉鎮市區村里道鄰路街段巷弄號樓]|魚臺))|(?=\d+(?:之\d+)?[巷弄號樓]|$))',
         ]);
 
         // 20742,新北市,萬里區,二坪,全
@@ -95,6 +91,7 @@ class Address
         // 52441,彰化縣,溪州鄉,村市路,全
         // 54544,南投縣,埔里鎮,一新一巷,全
         // 55347,南投縣,水里鄉,一廍路,全
+        // 60243,嘉義縣,番路鄉,三橋仔,全
         // 60541,嘉義縣,阿里山鄉,二萬平,全
         // 60845,嘉義縣,水上鄉,鄉村世界,全
         // 71342,臺南市,左鎮區,二寮,全
@@ -107,20 +104,26 @@ class Address
         // 98191,花蓮縣,玉里鎮,三民,全
         // 98342,花蓮縣,富里鄉,三台,全
         // 98392,花蓮縣,富里鄉,東里村復興,全
+        // 89442,金門縣,烈嶼鄉,二擔,全
 
         $trickies = [
+            '島' => md5('島'),
+            '嶼' => md5('嶼'),
             '鄉' => md5('鄉'),
             '市' => md5('市'),
             '鎮' => md5('鎮'),
             '區' => md5('區'),
             '村' => md5('村'),
             '里' => md5('里'),
+            '路' => md5('路'),
             '新市' => md5('新市'),
             '阿里山' => md5('阿里山'),
             '鎮興里平' => md5('鎮興里平'),
         ];
 
         $map = [
+            '島鄉' => $trickies['島'].'鄉',
+            '嶼鄉' => $trickies['嶼'].'鄉',
             '村鄉' => $trickies['村'].'鄉',
             '里鄉' => $trickies['里'].'鄉',
             '村市' => $trickies['村'].'市',
@@ -129,18 +132,22 @@ class Address
             '里鎮' => $trickies['里'].'鎮',
             '里村' => $trickies['里'].'村',
             '鄉村' => $trickies['鄉'].'村',
+            '路鄉' => $trickies['路'].'鄉',
             '新市區' => $trickies['新市'].'區',
             '阿里山鄉' => $trickies['阿里山'].'鄉',
             '鎮興里平鎮' => $trickies['鎮興里平'].'鎮',
         ];
 
         $flip = [
+            $trickies['島'] => '島',
+            $trickies['嶼'] => '嶼',
             $trickies['鄉'] => '鄉',
             $trickies['市'] => '市',
             $trickies['鎮'] => '鎮',
             $trickies['區'] => '區',
             $trickies['村'] => '村',
             $trickies['里'] => '里',
+            $trickies['路'] => '路',
             $trickies['新市'] => '新市',
             $trickies['阿里山'] => '阿里山',
             $trickies['鎮興里平'] => '鎮興里平',
