@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
-use Recca0120\LoDash\Arr;
+use Recca0120\LoDash\JArray;
 use Recca0120\Twzipcode\Rule;
 use Recca0120\Twzipcode\Address;
 use Recca0120\Twzipcode\Contracts\Storage;
@@ -34,14 +34,14 @@ class File implements Storage
     {
         $rules = $this->restore($zip3);
 
-        return $rules === false ? new Arr([]) : $rules;
+        return $rules === false ? new JArray([]) : $rules;
     }
 
     public function load($source)
     {
-        $zip3 = new Arr;
+        $zip3 = new JArray;
         $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip3) {
-            $this->store($zipcode, (new Arr($rules))->map(function ($rule) {
+            $this->store($zipcode, (new JArray($rules))->map(function ($rule) {
                 return new Rule($rule);
             }));
 

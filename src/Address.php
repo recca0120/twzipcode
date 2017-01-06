@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\LoDash\Arr;
+use Recca0120\LoDash\JArray;
 
 class Address
 {
@@ -166,7 +166,7 @@ class Address
             }
         }
 
-        return new Arr($tokens);
+        return new JArray($tokens);
     }
 
     public function __toString()

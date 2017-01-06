@@ -3,7 +3,7 @@
 namespace Recca0120\Twzipcode;
 
 use Closure;
-use Recca0120\LoDash\Arr;
+use Recca0120\LoDash\JArray;
 
 class Rule
 {
@@ -61,10 +61,6 @@ class Rule
         $cur = $ruleAddressTokens->length() - 1;
         $cur -= $this->tokens->length() > 0 && $this->tokens->includes('全') === false;
         $cur -= $this->tokens->includes('至');
-
-        // $cur = count($ruleAddressTokens) - 1;
-        // $cur -= count($this->tokens) > 0 && in_array('全', $this->tokens, true) === false;
-        // $cur -= in_array('至', $this->tokens, true);
 
         if ($this->equalsToken($ruleAddressTokens, $addressTokens, $cur) === false) {
             return false;
@@ -142,7 +138,7 @@ class Rule
 
     protected function tokenize($rule, Closure $addressResolver)
     {
-        $tokens = new Arr();
+        $tokens = new JArray();
 
         $pattern = [
             '及以上附號|含附號以下|含附號全|含附號',

@@ -6,7 +6,7 @@
     "type": "library",
     "require": {
         "php": ">=5.5.9",
-        "recca0120/lodash": "^0.0.3"
+        "recca0120/lodash": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
@@ -18,17 +18,6 @@
         "psr-4": {
             "Recca0120\\Twzipcode\\": "src"
         }
-    },
-    "scripts": {
-        "post-root-package-install": [
-            "php resources/converter.php"
-        ],
-        "post-install-cmd": [
-            "php resources/converter.php"
-        ],
-        "post-update-cmd": [
-            "php resources/converter.php"
-        ]
     },
     "config": {
         "preferred-install": "dist"
