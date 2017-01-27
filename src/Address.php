@@ -44,18 +44,17 @@ class Address
         if (isset($this->tokens[$index]) === false) {
             return new Point(0, 0);
         }
-
         $token = $this->tokens[$index];
 
         return new Point(
-            isset($token[static::NO]) === true ? (int) $token[static::NO] : 0,
-            isset($token[static::SUBNO]) === true ? (int) str_replace('之', '', $token[static::SUBNO]) : 0
+            (int) $token[static::NO] ?: 0,
+            (int) str_replace('之', '', $token[static::SUBNO] ?: '0')
         );
     }
 
     public function flat($length = null, $offset = 0)
     {
-        $length = is_null($length) === true ? $this->tokens->length() : $length;
+        $length = $length ?: $this->tokens->length();
         $end = $offset + $length;
 
         return (string) $this->tokens->slice($offset, $end)->map(function ($token) {

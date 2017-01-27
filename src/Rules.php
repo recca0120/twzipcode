@@ -9,7 +9,7 @@ class Rules
 {
     public function __construct(Storage $storage = null)
     {
-        $this->storage = is_null($storage) === true ? new File() : $storage;
+        $this->storage = $storage ?: new File();
     }
 
     public function match($address)

@@ -17,7 +17,7 @@ class File implements Storage
 
     public function __construct($path = null)
     {
-        $this->path = is_null($path) === true ? realpath(__DIR__.'/../../resources/data').'/' : $path.'/';
+        $this->path = ($path ?: realpath(__DIR__.'/../../resources/data')).'/';
     }
 
     public function zip3(Address $address)
@@ -63,7 +63,7 @@ class File implements Storage
 
     public function loadFile($file = null)
     {
-        $file = is_null($file) === true ? $this->path.'../Zip32_utf8_10501_1.csv' : $file;
+        $file = $file ?: $this->path.'../Zip32_utf8_10501_1.csv';
 
         $this->load($this->getSource($file));
     }
