@@ -8,7 +8,7 @@ use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTaichungTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

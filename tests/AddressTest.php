@@ -8,7 +8,7 @@ use Recca0120\Twzipcode\Address;
 
 class AddressTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

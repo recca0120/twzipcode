@@ -10,7 +10,7 @@ use Recca0120\Twzipcode\Storages\File;
 
 class RulesTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
