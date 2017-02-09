@@ -77,7 +77,8 @@ class File implements Storage
         $this->load($this->getSource($file));
     }
 
-    public function flush() {
+    public function flush()
+    {
         static::$cached = [
             'zip3' => null,
             'zip5' => null,
@@ -139,8 +140,6 @@ class File implements Storage
 
     protected function decompress($compressed)
     {
-        if ($compressed === false) return false;
-
         $method = 'gzuncompress';
         if (function_exists($method) === true) {
             $compressed = call_user_func($method, $compressed);

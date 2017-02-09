@@ -113,7 +113,8 @@ class FileTest extends TestCase
         }
     }
 
-    public function testLoadResources() {
+    public function testLoadResources()
+    {
         File::$cached = [
             'zip3' => null,
             'zip5' => null,
