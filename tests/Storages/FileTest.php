@@ -102,8 +102,6 @@ class FileTest extends TestCase
 
         $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
         $this->assertSame('812', $this->storage->zip3($address));
-
-        $address->shouldHaveReceived('flat')->with(2);
     }
 
     public function testRules()
@@ -113,5 +111,30 @@ class FileTest extends TestCase
         foreach ($rules as $rule) {
             $this->assertSame('100', $rule->zip3());
         }
+    }
+
+    public function testLoadResources() {
+        File::$cached = [
+            'zip3' => null,
+            'zip5' => null,
+        ];
+        $root = vfsStream::setup();
+        $storage = new File($root->url());
+        $storage->flush()
+            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.csv');
+
+        $address = m::mock('Recca0120\Twzipcode\Address');
+
+        $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
+        $this->assertSame('100', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('基隆市中正區');
+        $this->assertSame('202', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
+        $this->assertSame('812', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('臺中市大里區');
+        $this->assertSame('412', $storage->zip3($address));
     }
 }

@@ -13,7 +13,10 @@ class File implements Storage
 
     public $suffix = '.rules';
 
-    public static $zipcode = [];
+    public static $cached = [
+        'zip3' => null,
+        'zip5' => null,
+    ];
 
     public function __construct($path = null)
     {
@@ -22,26 +25,31 @@ class File implements Storage
 
     public function zip3(Address $address)
     {
-        if (empty(self::$zipcode) === true) {
-            self::$zipcode = $this->restore('zipcode');
+        if (is_null(self::$cached['zip3']) === true) {
+            self::$cached['zip3'] = $this->restore('zip3');
         }
         $flat = $address->flat(2);
 
-        return isset(self::$zipcode[$flat]) === true ? self::$zipcode[$flat] : null;
+        return isset(self::$cached['zip3'][$flat]) === true ? self::$cached['zip3'][$flat] : null;
     }
 
     public function rules($zip3)
     {
-        $rules = $this->restore($zip3);
+        if (empty(self::$cached['zip5']) === true) {
+            self::$cached['zip5'] = $this->restore('zip5');
+        }
 
-        return $rules === false ? new JArray([]) : $rules;
+        return isset(self::$cached['zip5'][$zip3]) === true
+            ? $this->decompress(self::$cached['zip5'][$zip3])
+            : new JArray([]);
     }
 
     public function load($source)
     {
+        $zip5 = new JArray;
         $zip3 = new JArray;
-        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip3) {
-            $this->store($zipcode, (new JArray($rules))->map(function ($rule) {
+        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip5, $zip3) {
+            $zip5[$zipcode] = $this->compress((new JArray($rules))->map(function ($rule) {
                 return new Rule($rule);
             }));
 
@@ -58,7 +66,8 @@ class File implements Storage
         $zip3['新竹縣寶山鄉'] = '308';
         $zip3['臺南市新市區'] = '744';
 
-        $this->store('zipcode', $zip3);
+        $this->store('zip3', $zip3);
+        $this->store('zip5', $zip5);
     }
 
     public function loadFile($file = null)
@@ -66,6 +75,15 @@ class File implements Storage
         $file = $file ?: $this->path.'../Zip32_utf8_10501_1.csv';
 
         $this->load($this->getSource($file));
+    }
+
+    public function flush() {
+        static::$cached = [
+            'zip3' => null,
+            'zip5' => null,
+        ];
+
+        return $this;
     }
 
     protected function getSource($file)
@@ -121,6 +139,8 @@ class File implements Storage
 
     protected function decompress($compressed)
     {
+        if ($compressed === false) return false;
+
         $method = 'gzuncompress';
         if (function_exists($method) === true) {
             $compressed = call_user_func($method, $compressed);
@@ -143,6 +163,8 @@ class File implements Storage
             return false;
         }
 
-        return $this->decompress(file_get_contents($this->path.$filename.$this->suffix));
+        return $this->decompress(
+            file_get_contents($this->path.$filename.$this->suffix)
+        );
     }
 }
