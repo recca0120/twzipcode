@@ -7,11 +7,23 @@ use Recca0120\Twzipcode\Contracts\Storage;
 
 class Rules
 {
+    /**
+     * __construct.
+     *
+     * @param Recca0120\Twzipcode\Contracts\Storage $storage
+     */
     public function __construct(Storage $storage = null)
     {
         $this->storage = $storage ?: new File();
     }
 
+    /**
+     * match.
+     *
+     * @param  string $address
+     *
+     * @return string
+     */
     public function match($address)
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
@@ -21,15 +33,5 @@ class Rules
         });
 
         return is_null($rule) === false ? $rule->zip5() : $zip3;
-    }
-
-    public function load($source)
-    {
-        return $this->storage->load($source);
-    }
-
-    public function loadFile($file)
-    {
-        return $this->storage->loadFile($file);
     }
 }

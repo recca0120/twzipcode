@@ -6,15 +6,53 @@ use Recca0120\LoDash\JArray;
 
 class Address
 {
+    /**
+     * NO.
+     *
+     * @var int
+     */
     const NO = 0;
+
+    /**
+     * SUBNO.
+     *
+     * @var int
+     */
     const SUBNO = 1;
+
+    /**
+     * NAME.
+     *
+     * @var int
+     */
     const NAME = 2;
+
+    /**
+     * UNIT.
+     *
+     * @var int
+     */
     const UNIT = 3;
 
+    /**
+     * $normalizer.
+     *
+     * @var \Recca0120\Twzipcode\Normalizer
+     */
     public $normalizer;
 
+    /**
+     * $tokens.
+     *
+     * @var array
+     */
     public $tokens = [];
 
+    /**
+     * __construct.
+     *
+     * @param string $address
+     */
     public function __construct($address = '')
     {
         if (empty($address) === false) {
@@ -22,6 +60,11 @@ class Address
         }
     }
 
+    /**
+     * set.
+     *
+     * @param Recca0120\Twzipcode\Address $address
+     */
     public function set($address)
     {
         $address = preg_replace('/^\d+/', '', $address);
@@ -34,11 +77,23 @@ class Address
         return $this;
     }
 
+    /**
+     * tokens.
+     *
+     * @return \Recca0120\LoDash\JArray
+     */
     public function tokens()
     {
         return $this->tokens;
     }
 
+    /**
+     * getPoint.
+     *
+     * @param  string $index
+     *
+     * @return \Recca0120\Twzipcode\Point
+     */
     public function getPoint($index)
     {
         if (isset($this->tokens[$index]) === false) {
@@ -52,6 +107,13 @@ class Address
         );
     }
 
+    /**
+     * flat.
+     * @param  int  $length
+     * @param  int $offset [description]
+     *
+     * @return string
+     */
     public function flat($length = null, $offset = 0)
     {
         $length = $length ?: $this->tokens->length();
@@ -62,6 +124,11 @@ class Address
         })->join('');
     }
 
+    /**
+     * tokenize.
+     *
+     * @return \Recca0120\LoDash\JArray
+     */
     protected function tokenize()
     {
         $tokens = [];
@@ -168,6 +235,11 @@ class Address
         return new JArray($tokens);
     }
 
+    /**
+     * __toString.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->normalizer->value();

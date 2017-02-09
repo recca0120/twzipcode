@@ -9,20 +9,47 @@ use Recca0120\Twzipcode\Contracts\Storage;
 
 class File implements Storage
 {
+    /**
+     * $path.
+     *
+     * @var string
+     */
     public $path;
 
+    /**
+     * $suffix.
+     *
+     * @var string
+     */
     public $suffix = '.rules';
 
+    /**
+     * cached.
+     *
+     * @var array
+     */
     public static $cached = [
         'zip3' => null,
         'zip5' => null,
     ];
 
+    /**
+     * __construct.
+     *
+     * @param string $path
+     */
     public function __construct($path = null)
     {
         $this->path = ($path ?: realpath(__DIR__.'/../../resources/data')).'/';
     }
 
+    /**
+     * zip3.
+     *
+     * @param \Recca0120\Twzipcode\Address $address
+     *
+     * @return string
+     */
     public function zip3(Address $address)
     {
         if (is_null(self::$cached['zip3']) === true) {
@@ -33,6 +60,13 @@ class File implements Storage
         return isset(self::$cached['zip3'][$flat]) === true ? self::$cached['zip3'][$flat] : null;
     }
 
+    /**
+     * rules.
+     *
+     * @param  string $zip3
+     *
+     * @return \Recca0120\Twzipcode\Rules
+     */
     public function rules($zip3)
     {
         if (empty(self::$cached['zip5']) === true) {
@@ -44,6 +78,13 @@ class File implements Storage
             : new JArray([]);
     }
 
+    /**
+     * load.
+     *
+     * @param  stromg $source
+     *
+     * @return static
+     */
     public function load($source)
     {
         $zip5 = new JArray;
@@ -68,15 +109,31 @@ class File implements Storage
 
         $this->store('zip3', $zip3);
         $this->store('zip5', $zip5);
+
+        return $this;
     }
 
+    /**
+     * loadFile.
+     *
+     * @param  stromg $file
+     *
+     * @return static
+     */
     public function loadFile($file = null)
     {
         $file = $file ?: $this->path.'../Zip32_utf8_10501_1.csv';
 
         $this->load($this->getSource($file));
+
+        return $this;
     }
 
+    /**
+     * flush.
+     *
+     * @return static
+     */
     public function flush()
     {
         static::$cached = [
@@ -87,6 +144,13 @@ class File implements Storage
         return $this;
     }
 
+    /**
+     * getSource.
+     *
+     * @param  string $file
+     *
+     * @return string
+     */
     protected function getSource($file)
     {
         $source = '';
@@ -102,6 +166,13 @@ class File implements Storage
         return $source;
     }
 
+    /**
+     * prepareSource.
+     *
+     * @param  string $source
+     *
+     * @return array
+     */
     protected function prepareSource($source)
     {
         $results = [];
@@ -116,6 +187,12 @@ class File implements Storage
         return $results;
     }
 
+    /**
+     * each.
+     *
+     * @param  array $rules
+     * @param  Closure $callback
+     */
     protected function each($rules, $callback)
     {
         foreach ($rules as $county => $temp) {
@@ -127,6 +204,13 @@ class File implements Storage
         }
     }
 
+    /**
+     * compress.
+     *
+     * @param  mix $plainText
+     *
+     * @return string
+     */
     protected function compress($plainText)
     {
         $plainText = serialize($plainText);
@@ -138,6 +222,13 @@ class File implements Storage
         return $plainText;
     }
 
+    /**
+     * decompress.
+     *
+     * @param  string $compressed
+     *
+     * @return mix
+     */
     protected function decompress($compressed)
     {
         $method = 'gzuncompress';
@@ -148,14 +239,31 @@ class File implements Storage
         return unserialize($compressed);
     }
 
+    /**
+     * store.
+     *
+     * @param  string $filename
+     * @param  mix $data
+     *
+     * @return static
+     */
     protected function store($filename, $data)
     {
         file_put_contents(
             $this->path.$filename.$this->suffix,
             $this->compress($data)
         );
+
+        return $this;
     }
 
+    /**
+     * restore.
+     *
+     * @param  string $filename
+     *
+     * @return mix
+     */
     protected function restore($filename)
     {
         if (file_exists($this->path.$filename.$this->suffix) === false) {

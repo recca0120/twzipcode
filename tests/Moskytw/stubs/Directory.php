@@ -9,16 +9,24 @@ class Directory
 {
     public function __construct($root)
     {
-        $this->storage = new Rules(new File($root));
+        $this->storage = new File($root);
+        $this->rules = new Rules($this->storage);
+    }
+
+    public function load($source)
+    {
+        $this->storage->flush()->load($source);
+
+        return $this;
     }
 
     public function find($address)
     {
-        return $this->storage->match($address);
+        return $this->rules->match($address);
     }
 
     public function __call($method, $argments)
     {
-        return call_user_func_array([$this->storage, $method], $argments);
+        return call_user_func_array([$this->rules, $method], $argments);
     }
 }

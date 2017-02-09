@@ -7,14 +7,39 @@ use Recca0120\LoDash\JArray;
 
 class Rule
 {
+    /**
+     * $zip3.
+     *
+     * @var string
+     */
     public $zip3;
 
+    /**
+     * $zip5.
+     *
+     * @var string
+     */
     public $zip5;
 
+    /**
+     * $tokens.
+     *
+     * @var \Recca0120\Twzipcode\Address
+     */
     public $address;
 
+    /**
+     * $tokens.
+     *
+     * @var \Recca0120\LoDash\JArray
+     */
     public $tokens;
 
+    /**
+     * __construct.
+     *
+     * @param string $rule
+     */
     public function __construct($rule)
     {
         if (preg_match('/^(\d+),?(.*)/', $rule, $m)) {
@@ -31,26 +56,53 @@ class Rule
         );
     }
 
+    /**
+     * zip3.
+     *
+     * @return string
+     */
     public function zip3()
     {
         return $this->zip3;
     }
 
+    /**
+     * zip5.
+     *
+     * @return string
+     */
     public function zip5()
     {
         return $this->zip5;
     }
 
+    /**
+     * getZipcode.
+     *
+     * @return string
+     */
     public function getZipcode()
     {
         return $this->zip5();
     }
 
+    /**
+     * tokens.
+     *
+     * @return @return \Recca0120\LoDash\JArray
+     */
     public function tokens()
     {
         return $this->tokens;
     }
 
+    /**
+     * match.
+     *
+     * @param  string $address
+     *
+     * @return bool
+     */
     public function match($address)
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
@@ -68,7 +120,7 @@ class Rule
 
         $addressPoint = $address->getPoint($cur + 1);
 
-        if ($this->tokens->length() > 0 && $addressPoint->isEmpty() === true) {
+        if ($this->tokens->length() > 0 && $addressPoint->empty() === true) {
             return false;
         }
 
@@ -100,6 +152,15 @@ class Rule
         return true;
     }
 
+    /**
+     * equalsToken.
+     *
+     * @param  \Recca0120\LoDash\JArray $ruleAddressTokens [description]
+     * @param  \Recca0120\LoDash\JArray $addressTokens     [description]
+     * @param  int $cur
+     *
+     * @return bool
+     */
     protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
     {
         if ($cur >= $addressTokens->length()) {
@@ -117,6 +178,13 @@ class Rule
         return true;
     }
 
+    /**
+     * normalize.
+     *
+     * @param  string $rule
+     *
+     * @return string
+     */
     protected function normalize($rule)
     {
         $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
@@ -136,6 +204,14 @@ class Rule
         });
     }
 
+    /**
+     * tokenize.
+     *
+     * @param  string  $rule
+     * @param  \Closure $addressResolver
+     *
+     * @return \Recca0120\LoDash\JArray
+     */
     protected function tokenize($rule, Closure $addressResolver)
     {
         $tokens = new JArray();

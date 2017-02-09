@@ -18,7 +18,7 @@ class FileTest extends TestCase
     {
         $this->root = vfsStream::setup();
         $this->storage = new File($this->root->url());
-        $this->storage->load('
+        $this->storage->flush()->load('
 10058,臺北市,中正區,八德路１段,全
 10079,臺北市,中正區,三元街,單全
 10070,臺北市,中正區,三元街,雙  48號以下

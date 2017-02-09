@@ -6,6 +6,11 @@ use Recca0120\LoDash\JString;
 
 class Normalizer extends JString
 {
+    /**
+     * regularize.
+     *
+     * @return static
+     */
     public function regularize()
     {
         return $this
@@ -26,6 +31,11 @@ class Normalizer extends JString
             ]);
     }
 
+    /**
+     * digitize.
+     *
+     * @return static
+     */
     public function digitize()
     {
         return $this->replace('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
@@ -33,6 +43,11 @@ class Normalizer extends JString
         });
     }
 
+    /**
+     * normalizeAddress.
+     *
+     * @return static
+     */
     public function normalizeAddress()
     {
         return $this
@@ -70,6 +85,11 @@ class Normalizer extends JString
             ]);
     }
 
+    /**
+     * normalize.
+     *
+     * @return static
+     */
     public function normalize()
     {
         return $this
