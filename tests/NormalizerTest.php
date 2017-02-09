@@ -1,9 +1,12 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 
-class NormalizerTest extends PHPUnit_Framework_TestCase
+class NormalizerTest extends TestCase
 {
     public function tearDown()
     {

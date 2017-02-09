@@ -1,9 +1,14 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests\Moskytw;
+
+require __DIR__.'/stubs/Address.php';
+
 use Mockery as m;
 use Moskytw\Address;
+use PHPUnit\Framework\TestCase;
 
-class MoskytwAddressTest extends PHPUnit_Framework_TestCase
+class AddressTest extends TestCase
 {
     public function tearDown()
     {

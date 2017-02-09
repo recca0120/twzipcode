@@ -19,7 +19,13 @@
             "Recca0120\\Twzipcode\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Recca0120\\Twzipcode\\Tests\\": "tests/"
+        }
+    },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

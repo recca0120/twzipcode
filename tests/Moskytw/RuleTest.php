@@ -1,10 +1,15 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests\Moskytw;
+
+require __DIR__.'/stubs/Rule.php';
+
 use Mockery as m;
 use Moskytw\Rule;
 use Moskytw\Address;
+use PHPUnit\Framework\TestCase;
 
-class MoskytwRuleTest extends PHPUnit_Framework_TestCase
+class RuleTest extends TestCase
 {
     public function tearDown()
     {

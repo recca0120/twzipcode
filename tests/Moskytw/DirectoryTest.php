@@ -1,10 +1,15 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests\Moskytw;
+
+require __DIR__.'/stubs/Directory.php';
+
 use Mockery as m;
 use Moskytw\Directory;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
-class MoskytwDirectoryTest extends PHPUnit_Framework_TestCase
+class DirectoryTest extends TestCase
 {
     public function tearDown()
     {

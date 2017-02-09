@@ -1,9 +1,12 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Address;
 
-class AddressTest extends PHPUnit_Framework_TestCase
+class AddressTest extends TestCase
 {
     public function tearDown()
     {

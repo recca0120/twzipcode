@@ -1,11 +1,14 @@
 <?php
 
+namespace Recca0120\Twzipcode\Tests;
+
 use Mockery as m;
 use org\bovigo\vfs\vfsStream;
 use Recca0120\Twzipcode\Rules;
+use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Storages\File;
 
-class RulesTest extends PHPUnit_Framework_TestCase
+class RulesTest extends TestCase
 {
     public function tearDown()
     {
