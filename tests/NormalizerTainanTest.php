@@ -13,7 +13,7 @@ class NormalizerTainanTest extends TestCase
         m::close();
     }
 
-    public function test_normalize_tainan_address()
+    public function testNormalizeTainanAddress()
     {
         $this->assertSame('臺南市新化區[上廿下那]拔里', (string) Normalizer::factory('臺南縣新化鎮[上廿下那]拔里')->normalizeAddress());
         // return;

@@ -13,7 +13,7 @@ class NormalizerTaipeiTest extends TestCase
         m::close();
     }
 
-    public function test_normalize_taipei_address()
+    public function testNormalizeTaipeiAddress()
     {
         $this->assertSame('新北市板橋區留侯里', (string) Normalizer::factory('臺北縣板橋市留侯里')->normalizeAddress());
         $this->assertSame('新北市板橋區流芳里', (string) Normalizer::factory('臺北縣板橋市流芳里')->normalizeAddress());

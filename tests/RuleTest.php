@@ -14,7 +14,7 @@ class RuleTest extends TestCase
         m::close();
     }
 
-    public function test_get_tokens_with_all()
+    public function testGetTokensWithAll()
     {
         /*
         |------------------------------------------------------------
@@ -48,7 +48,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_single_all()
+    public function testGetTokensWithSingleAll()
     {
         /*
         |------------------------------------------------------------
@@ -81,7 +81,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_double_48_below()
+    public function testGetTokensWithDouble48Below()
     {
         /*
         |------------------------------------------------------------
@@ -115,7 +115,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_single_15_above()
+    public function testGetTokensWithSingle15Above()
     {
         /*
         |------------------------------------------------------------
@@ -149,7 +149,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_single_25_3_below()
+    public function testGetTokensWithSingle253Below()
     {
         /*
         |------------------------------------------------------------
@@ -184,7 +184,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_single_27_to_47()
+    public function testGetTokensWithSingle27To47()
     {
         /*
         |------------------------------------------------------------
@@ -220,7 +220,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_and_2_4_above()
+    public function testGetTokensWithAnd24Above()
     {
         /*
         |------------------------------------------------------------
@@ -255,7 +255,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_14_subno()
+    public function testGetTokensWith14Subno()
     {
         /*
         |------------------------------------------------------------
@@ -290,7 +290,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_47_subno_all()
+    public function testGetTokensWith47SubnoAll()
     {
         /*
         |------------------------------------------------------------
@@ -324,7 +324,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_double_68_alley_70_subno_all()
+    public function testGetTokensWithDouble68Alley70SubnoAll()
     {
         /*
         |------------------------------------------------------------
@@ -359,7 +359,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_49_and_subno_below()
+    public function testGetTokensWith49AndSubnoBelow()
     {
         /*
         |------------------------------------------------------------
@@ -393,7 +393,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_1_3_and_subno_above()
+    public function testGetTokensWith13AndSubnoAbove()
     {
         /*
         |------------------------------------------------------------
@@ -429,7 +429,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_tricky_double_268_1_below()
+    public function testGetTokensWithTrickyDouble2681Below()
     {
         /*
         |------------------------------------------------------------
@@ -463,7 +463,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_with_tricky_full()
+    public function testGetTokensWithTrickyFull()
     {
         /*
         |------------------------------------------------------------
@@ -496,7 +496,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_to_without_unit()
+    public function testGetTokensToWithoutUnit()
     {
         /*
         |------------------------------------------------------------
@@ -532,7 +532,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_get_tokens_to_subno_without_unit()
+    public function testGetTokensToSubnoWithoutUnit()
     {
         /*
         |------------------------------------------------------------
@@ -567,7 +567,7 @@ class RuleTest extends TestCase
         ], (array) $rule->address->tokens());
     }
 
-    public function test_match_the_same()
+    public function testMatchTheSame()
     {
         /*
         |------------------------------------------------------------
@@ -593,7 +593,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區水源路臨3號'));
     }
 
-    public function test_match_all()
+    public function testMatchAll()
     {
         /*
         |------------------------------------------------------------
@@ -622,7 +622,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區八德路２段9號'));
     }
 
-    public function test_match_alley_all()
+    public function testMatchAlleyAll()
     {
         /*
         |------------------------------------------------------------
@@ -651,7 +651,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區汀州路１段93巷1號'));
     }
 
-    public function test_match_single_all()
+    public function testMatchSingleAll()
     {
         /*
         |------------------------------------------------------------
@@ -678,7 +678,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區大埔街1號'));
     }
 
-    public function test_match_double_all()
+    public function testMatchDoubleAll()
     {
         /*
         |------------------------------------------------------------
@@ -704,7 +704,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區市民大道２段5號'));
     }
 
-    public function test_match_above()
+    public function testMatchAbove()
     {
         /*
         |------------------------------------------------------------
@@ -730,7 +730,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區徐州路5號9樓'));
     }
 
-    public function test_match_single_above()
+    public function testMatchSingleAbove()
     {
         /*
         |------------------------------------------------------------
@@ -759,7 +759,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區大埔街14號'));
     }
 
-    public function test_match_double_above()
+    public function testMatchDoubleAbove()
     {
         /*
         |------------------------------------------------------------
@@ -789,7 +789,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區三元街51號'));
     }
 
-    public function test_match_below()
+    public function testMatchBelow()
     {
         /*
         |------------------------------------------------------------
@@ -818,7 +818,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區徐州路5號6樓'));
     }
 
-    public function test_match_single_below()
+    public function testMatchSingleBelow()
     {
         /*
         |------------------------------------------------------------
@@ -848,7 +848,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市大安區市府路7號'));
     }
 
-    public function test_match_double_below()
+    public function testMatchDoubleBelow()
     {
         /*
         |------------------------------------------------------------
@@ -877,7 +877,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區三元街49號'));
     }
 
-    public function test_match_subno()
+    public function testMatchSubno()
     {
         /*
         |------------------------------------------------------------
@@ -902,7 +902,7 @@ class RuleTest extends TestCase
         $this->assertTrue((new Rule('臺北市大安區市府路5號含附號'))->match($address));
     }
 
-    public function test_match_subno_above()
+    public function testMatchSubnoAbove()
     {
         /*
         |------------------------------------------------------------
@@ -929,7 +929,7 @@ class RuleTest extends TestCase
         $this->assertFalse((new Rule('臺北市大安區市府路6號及以上附號'))->match($address));
     }
 
-    public function test_match_subno_below()
+    public function testMatchSubnoBelow()
     {
         /*
         |------------------------------------------------------------
@@ -956,7 +956,7 @@ class RuleTest extends TestCase
         $this->assertFalse((new Rule('臺北市大安區市府路4號含附號以下'))->match($address));
     }
 
-    public function test_match_to()
+    public function testMatchTo()
     {
         /*
         |------------------------------------------------------------
@@ -988,7 +988,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區徐州路5號10樓'));
     }
 
-    public function test_match_double_to()
+    public function testMatchDoubleTo()
     {
         /*
         |------------------------------------------------------------
@@ -1018,7 +1018,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區汀州路１段21號'));
     }
 
-    public function test_match_to_subno()
+    public function testMatchToSubno()
     {
         /*
         |------------------------------------------------------------
@@ -1048,7 +1048,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市松山區敦化北路201-41號'));
     }
 
-    public function test_match_and_subno()
+    public function testMatchAndSubno()
     {
         /*
         |------------------------------------------------------------
@@ -1079,7 +1079,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區杭州南路1段15-1號'));
     }
 
-    public function test_match_subno_all()
+    public function testMatchSubnoAll()
     {
         /*
         |------------------------------------------------------------
@@ -1110,7 +1110,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市大同區哈密街48-1號'));
     }
 
-    public function test_match_double_to_and_subno_all()
+    public function testMatchDoubleToAndSubnoAll()
     {
         /*
         |------------------------------------------------------------
@@ -1147,7 +1147,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市大同區哈密街71-1號'));
     }
 
-    public function test_match_and_subno_above()
+    public function testMatchAndSubnoAbove()
     {
         /*
         |------------------------------------------------------------
@@ -1177,7 +1177,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('桃園市中壢區普義50-1號'));
     }
 
-    public function test_match_to_and_subno_above()
+    public function testMatchToAndSubnoAbove()
     {
         /*
         |------------------------------------------------------------
@@ -1211,7 +1211,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺中市西屯區西屯路3段西平南巷2-2號'));
     }
 
-    public function test_match_gradual()
+    public function testMatchGradual()
     {
         /*
         |------------------------------------------------------------
@@ -1240,7 +1240,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區仁愛路１段'));
     }
 
-    public function test_match_gradual_full()
+    public function testMatchGradualFull()
     {
         /*
         |------------------------------------------------------------
@@ -1268,7 +1268,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('臺北市中正區仁愛路１段1號'));
     }
 
-    public function test_match_gradual_double_full()
+    public function testMatchGradualDoubleFull()
     {
         /*
         |------------------------------------------------------------
@@ -1296,7 +1296,7 @@ class RuleTest extends TestCase
         $this->assertFalse($rule->match('信義路一段1號'));
     }
 
-    public function test_tricky()
+    public function testTricky()
     {
         $rule = new Rule('10884,臺北市,萬華區,艋舺大道,雙 382號至 396號');
         $this->assertTrue($rule->match('臺北市萬華區艋舺大道388號'));

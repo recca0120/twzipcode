@@ -16,7 +16,7 @@ class DirectoryTest extends TestCase
         m::close();
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $root = vfsStream::setup();
         $this->directory = new Directory($root->url());

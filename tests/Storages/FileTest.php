@@ -14,7 +14,7 @@ class FileTest extends TestCase
         m::close();
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->root = vfsStream::setup();
         $this->storage = new File($this->root->url());

@@ -13,7 +13,7 @@ class NormalizerKaohsiungTest extends TestCase
         m::close();
     }
 
-    public function test_normalize_kaohsiung_address()
+    public function testNormalizeKaohsiungAddress()
     {
         $this->assertSame('高雄市鹽埕區藍橋里', (string) Normalizer::factory('高雄市鹽埕區藍橋里')->normalizeAddress());
         $this->assertSame('高雄市鹽埕區慈愛里', (string) Normalizer::factory('高雄市鹽埕區慈愛里')->normalizeAddress());

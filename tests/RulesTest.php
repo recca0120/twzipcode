@@ -15,7 +15,7 @@ class RulesTest extends TestCase
         m::close();
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $root = vfsStream::setup();
         $this->rules = new Rules(new File($root->url()));
@@ -85,7 +85,7 @@ class RulesTest extends TestCase
         ');
     }
 
-    public function test_match()
+    public function testMatch()
     {
         // 10043,臺北市,中正區,中華路１段,單  25之   3號以下
         $this->assertSame('10043', $this->rules->match('臺北市中正區中華路１段25號'));
@@ -119,7 +119,7 @@ class RulesTest extends TestCase
         $this->assertSame('10042', $this->rules->match('臺北市中正區中華路１段53號'));
     }
 
-    public function test_match_gradually()
+    public function testMatchGradually()
     {
         // $this->rules->match('臺北市');
         // $this->assertSame('1', $this->rules->match('臺北市'));
@@ -128,7 +128,7 @@ class RulesTest extends TestCase
         // $this->assertSame('10051', $this->rules->match('臺北市中正區仁愛路１段1號'));
     }
 
-    public function test_zip3_north()
+    public function testZip3North()
     {
         return;
         File::$zipcode = [];
@@ -521,7 +521,7 @@ class RulesTest extends TestCase
         $this->assertSame('290', $rules->match('南海諸島釣魚台列嶼'.uniqid()));
     }
 
-    // public function test_match_middle_token(self)
+    // public function testMatchMiddleToken()
     // {
     //     $this->assertSame('813', $this->rules->match('左營區'));
     //     $this->assertSame('81362', $this->rules->match('大中一路'));

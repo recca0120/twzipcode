@@ -13,7 +13,7 @@ class AddressTest extends TestCase
         m::close();
     }
 
-    public function test_get_tokens()
+    public function testGetTokens()
     {
         /*
         |------------------------------------------------------------
@@ -45,7 +45,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function test_get_tokens_with_zipcode()
+    public function testGetTokensWithZipcode()
     {
         /*
         |------------------------------------------------------------
@@ -77,7 +77,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function test_get_tokens_with_subno()
+    public function testGetTokensWithSubno()
     {
         /*
         |------------------------------------------------------------
@@ -109,7 +109,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function test_get_tokens_with_tricky()
+    public function testGetTokensWithTricky()
     {
         /*
         |------------------------------------------------------------
@@ -141,7 +141,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function test_get_tokens_with_address()
+    public function testGetTokensWithAddress()
     {
         /*
         |------------------------------------------------------------

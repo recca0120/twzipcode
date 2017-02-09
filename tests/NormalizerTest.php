@@ -13,12 +13,12 @@ class NormalizerTest extends TestCase
         m::close();
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->units = ['段', '路', '街', '巷', '弄', '號', '樓'];
     }
 
-    public function test_normalize()
+    public function testNormalize()
     {
         /*
         |------------------------------------------------------------
@@ -54,7 +54,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_digitize_9()
+    public function testDigitize9()
     {
         /*
         |------------------------------------------------------------
@@ -80,7 +80,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_digitize_14()
+    public function testDigitize14()
     {
         /*
         |------------------------------------------------------------
@@ -106,7 +106,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_digitize_94()
+    public function testDigitize94()
     {
         /*
         |------------------------------------------------------------
@@ -132,7 +132,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_digitize_947()
+    public function testDigitize947()
     {
         /*
         |------------------------------------------------------------
@@ -158,7 +158,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_digitize_9478()
+    public function testDigitize9478()
     {
         /*
         |------------------------------------------------------------
@@ -184,7 +184,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function test_normalize_address()
+    public function testNormalizeAddress()
     {
         $this->assertSame('新北市板橋區', (string) Normalizer::factory('臺北縣板橋市')->normalizeAddress());
         $this->assertSame('臺中市豐原區', (string) Normalizer::factory('臺中縣豐原市')->normalizeAddress());
