@@ -120,7 +120,7 @@ class Rule
 
         $addressPoint = $address->getPoint($cur + 1);
 
-        if ($this->tokens->length() > 0 && $addressPoint->empty() === true) {
+        if ($this->tokens->length() > 0 && $addressPoint->isEmpty() === true) {
             return false;
         }
 

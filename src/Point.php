@@ -35,7 +35,7 @@ class Point
      *
      * @return bool
      */
-    public function empty()
+    public function isEmpty()
     {
         return $this->x === 0 && $this->y === 0;
     }
