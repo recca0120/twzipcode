@@ -3,10 +3,10 @@
 namespace Recca0120\Twzipcode\Tests;
 
 use Mockery as m;
-use Recca0120\Twzipcode\Zipcode;
-use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use Recca0120\Twzipcode\Rules;
+use PHPUnit\Framework\TestCase;
+use Recca0120\Twzipcode\Zipcode;
 use Recca0120\Twzipcode\Storages\File;
 
 class ZipcodeTest extends TestCase

@@ -30,7 +30,7 @@ class Rules
         $zip3 = $this->storage->zip3($address);
 
         if (empty($zip3) === true) {
-            return null;
+            return;
         }
 
         $rule = $this->storage->rules($zip3)->find(function ($rule) use ($address) {

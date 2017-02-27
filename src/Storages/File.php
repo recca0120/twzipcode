@@ -159,8 +159,8 @@ class File implements Storage
             $content = file_get_contents($file);
         }
 
-        $content = mb_convert_encoding(substr($content, 0, -1), 'UTF-8', 'UCS-2LE');
-        $content = preg_replace("/^\xEF\xBB\xBF/",'',$content);
+        $content = mb_convert_encoding($content, 'UTF-8', 'UCS-2LE');
+        $content = preg_replace("/^\xEF\xBB\xBF/", '', $content);
 
         return $content;
     }
