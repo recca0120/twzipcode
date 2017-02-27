@@ -87,9 +87,11 @@ class File implements Storage
         $zip5 = new JArray;
         $zip3 = new JArray;
         $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip5, $zip3) {
-            $zip5[$zipcode] = $this->compress((new JArray($rules))->map(function ($rule) {
-                return new Rule($rule);
-            }));
+            $zip5[$zipcode] = $this->compress(
+                (new JArray($rules))->map(function ($rule) {
+                    return new Rule($rule);
+                })
+            );
 
             if (isset($zip3[$county]) === false) {
                 $zip3[$county] = substr($zipcode, 0, 1);
@@ -99,10 +101,6 @@ class File implements Storage
                 $zip3[$county.$district] = substr($zipcode, 0, 3);
             }
         });
-
-        $zip3['宜蘭縣壯圍鄉'] = '263';
-        $zip3['新竹縣寶山鄉'] = '308';
-        $zip3['臺南市新市區'] = '744';
 
         $this->store('zip3', $zip3);
         $this->store('zip5', $zip5);
@@ -161,6 +159,9 @@ class File implements Storage
             $content = file_get_contents($file);
         }
 
+        $content = mb_convert_encoding(substr($content, 0, -1), 'UTF-8', 'UCS-2LE');
+        $content = preg_replace("/^\xEF\xBB\xBF/",'',$content);
+
         return $content;
     }
 
@@ -173,12 +174,20 @@ class File implements Storage
      */
     protected function prepareSource($source)
     {
+        $tickies = [
+            '宜蘭縣壯圍鄉' => '263',
+            '新竹縣寶山鄉' => '308',
+            '臺南市新市區' => '744',
+        ];
         $results = [];
         $rules = preg_split('/\n|\r\n$/', $source);
         foreach ($rules as $rule) {
             if (empty(trim($rule)) === false) {
                 list($zipcode, $county, $district) = explode(',', $rule);
-                $results[$county][$district][substr($zipcode, 0, 3)][] = $rule;
+                $zip3 = isset($tickies[$county.$district]) === true
+                    ? $tickies[$county.$district]
+                    : substr($zipcode, 0, 3);
+                $results[$county][$district][$zip3][] = $rule;
             }
         }
 

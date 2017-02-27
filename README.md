@@ -1,4 +1,4 @@
-# TWZIPCODE
+# TWZIPCODE 3 + 2
 
 [![StyleCI](https://styleci.io/repos/60471045/shield?style=flat)](https://styleci.io/repos/60471045)
 [![Build Status](https://travis-ci.org/recca0120/twzipcode.svg)](https://travis-ci.org/recca0120/twzipcode)
@@ -9,25 +9,16 @@
 [![Monthly Downloads](https://poser.pugx.org/recca0120/twzipcode/d/monthly)](https://packagist.org/packages/recca0120/twzipcode)
 [![Daily Downloads](https://poser.pugx.org/recca0120/twzipcode/d/daily)](https://packagist.org/packages/recca0120/twzipcode)
 
-用來獲取台灣的區碼
-
 ```php
-$twzipcode = new Twzipcode('北 縣　萬里鄉中正路100號');
-$twzipcode->getZipcode(); // 207
-$twzipcode->getCounty(); // 新北市
-$twzipcode->getDistrict(); // 萬里區
-$twzipcode->getAddress(); // 新北市萬里區中正路100號
-$twzipcode->getShortAddress(); // 中正路100號
+require __DIR__.'/vendor/autoload.php';
 
-# 取得全形字串
-$twzipcode->getZipcode(true); // '２０７'
-$twzipcode->getCounty(true); // '新北市'
-$twzipcode->getDistrict(true); // '萬里區'
-$twzipcode->getAddress(true); // '新北市萬里區龜港村中正路１００號'
-$twzipcode->getShortAddress(true); // '龜港村中正路１００號'
+use Recca0120\Twzipcode\Zipcode;
+
+$zipcode = Zipcode::parse('台北市中正區中華路１段25號');
+echo $zipcode->zip3(); // 100
+echo $zipcode->zip5(); // 1004;
+echo $zipcode->county(); // 臺北市
+echo $zipcode->district(); // 中正區
+echo $zipcode->address(); // 臺北市中正區中華路1段25號
+echo $zipcode->shortAddress(); //中華路1段25號
 ```
-
-
-# To Do
-
-Zipcode 3 + 2
