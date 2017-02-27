@@ -110,9 +110,11 @@ class Rule
         $removeUnits = $this->removeUnits($ruleAddressTokens);
 
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
+
         $addressTokens = new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
             return isset($token[Address::UNIT]) && in_array($token[Address::UNIT], $removeUnits, true) === false;
         })->values());
+
         $address = new Address($addressTokens->map(function ($token) {
             return implode('', $token);
         })->join(''));
