@@ -122,7 +122,7 @@ class FileTest extends TestCase
         $root = vfsStream::setup();
         $storage = new File($root->url());
         $storage->flush()
-            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.csv');
+            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
 
         $address = m::mock('Recca0120\Twzipcode\Address');
 

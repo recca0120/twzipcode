@@ -2,7 +2,7 @@
 
 include __DIR__.'/../vendor/autoload.php';
 
-use Recca0120\Twzipcode\Rules;
+use Recca0120\Twzipcode\Storages\File;
 
 function dump($value)
 {
@@ -11,7 +11,7 @@ function dump($value)
 
 $start = microtime(true);
 
-(new Rules())
-    ->loadFile(__DIR__.'/Zip32_utf8_10501_1.csv');
+(new File())
+    ->loadFile(__DIR__.'/Zip32_utf8_10501_1.zip');
 
 echo 'benchmark: '.(microtime(true) - $start)."\n";

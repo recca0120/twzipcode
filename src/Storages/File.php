@@ -2,6 +2,7 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
+use ZipArchive;
 use Recca0120\LoDash\JArray;
 use Recca0120\Twzipcode\Rule;
 use Recca0120\Twzipcode\Address;
@@ -52,9 +53,7 @@ class File implements Storage
      */
     public function zip3(Address $address)
     {
-        if (is_null(self::$cached['zip3']) === true) {
-            self::$cached['zip3'] = $this->restore('zip3');
-        }
+        $this->restore('zip3');
         $flat = $address->flat(2);
 
         return isset(self::$cached['zip3'][$flat]) === true ? self::$cached['zip3'][$flat] : null;
@@ -69,9 +68,7 @@ class File implements Storage
      */
     public function rules($zip3)
     {
-        if (empty(self::$cached['zip5']) === true) {
-            self::$cached['zip5'] = $this->restore('zip5');
-        }
+        $this->restore('zip5');
 
         return isset(self::$cached['zip5'][$zip3]) === true
             ? $this->decompress(self::$cached['zip5'][$zip3])
@@ -153,17 +150,18 @@ class File implements Storage
      */
     protected function getSource($file)
     {
-        $source = '';
-        $handle = fopen($file, 'r');
-        try {
-            while (($line = fgets($handle)) !== false) {
-                $source .= $line;
-            }
-        } finally {
-            fclose($handle);
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+        if ($extension === 'zip') {
+            $zip = new ZipArchive;
+            $zip->open($file);
+            $content = $zip->getFromIndex(0);
+            $zip->close();
+        } else {
+            $content = file_get_contents($file);
         }
 
-        return $source;
+        return $content;
     }
 
     /**
@@ -270,7 +268,11 @@ class File implements Storage
             return false;
         }
 
-        return $this->decompress(
+        if (is_null(self::$cached[$filename]) === false) {
+            return self::$cached[$filename];
+        }
+
+        return self::$cached[$filename] = $this->decompress(
             file_get_contents($this->path.$filename.$this->suffix)
         );
     }

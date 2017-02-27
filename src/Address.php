@@ -67,7 +67,6 @@ class Address
      */
     public function set($address)
     {
-        $address = preg_replace('/^\d+/', '', $address);
         $this->normalizer = (new Normalizer($address))
             ->normalize()
             ->normalizeAddress();
@@ -90,7 +89,7 @@ class Address
     /**
      * getPoint.
      *
-     * @param  string $index
+     * @param string $index
      *
      * @return \Recca0120\Twzipcode\Point
      */
@@ -109,8 +108,9 @@ class Address
 
     /**
      * flat.
-     * @param  int  $length
-     * @param  int $offset [description]
+     *
+     * @param int $length
+     * @param int $offset [description]
      *
      * @return string
      */

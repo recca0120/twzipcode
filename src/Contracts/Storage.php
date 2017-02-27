@@ -18,7 +18,7 @@ interface Storage
     /**
      * rules.
      *
-     * @param  string $zip3
+     * @param string $zip3
      *
      * @return \Recca0120\Twzipcode\Rules
      */
@@ -27,7 +27,7 @@ interface Storage
     /**
      * load.
      *
-     * @param  stromg $source
+     * @param stromg $source
      *
      * @return static
      */
@@ -36,7 +36,7 @@ interface Storage
     /**
      * loadFile.
      *
-     * @param  stromg $file
+     * @param stromg $file
      *
      * @return static
      */

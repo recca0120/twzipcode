@@ -20,7 +20,7 @@ class Rules
     /**
      * match.
      *
-     * @param  string $address
+     * @param string $address
      *
      * @return string
      */
@@ -28,6 +28,11 @@ class Rules
     {
         $address = is_a($address, Address::class) === true ? $address : new Address($address);
         $zip3 = $this->storage->zip3($address);
+
+        if (empty($zip3) === true) {
+            return null;
+        }
+
         $rule = $this->storage->rules($zip3)->find(function ($rule) use ($address) {
             return $rule->match($address);
         });

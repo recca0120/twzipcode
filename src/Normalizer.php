@@ -15,6 +15,7 @@ class Normalizer extends JString
     {
         return $this
             ->toHalfCase()
+            ->replace('/^\d+/', '')
             ->replace([
                 ' ' => '',
                 ',' => '',
