@@ -208,7 +208,7 @@ class File implements Storage
     /**
      * compress.
      *
-     * @param  mix $plainText
+     * @param  \Recca0120\LoDash\JArray $plainText
      * @return string
      */
     protected function compress($plainText)
