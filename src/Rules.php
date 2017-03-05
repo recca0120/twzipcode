@@ -10,7 +10,7 @@ class Rules
     /**
      * __construct.
      *
-     * @param Recca0120\Twzipcode\Contracts\Storage $storage
+     * @param \Recca0120\Twzipcode\Contracts\Storage $storage
      */
     public function __construct(Storage $storage = null)
     {

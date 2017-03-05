@@ -114,7 +114,7 @@ class Zipcode
     }
 
     /**
-     * parse
+     * parse.
      *
      * @return static
      */

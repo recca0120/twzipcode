@@ -8,6 +8,8 @@
 [![License](https://poser.pugx.org/recca0120/twzipcode/license.svg)](https://packagist.org/packages/recca0120/twzipcode)
 [![Monthly Downloads](https://poser.pugx.org/recca0120/twzipcode/d/monthly)](https://packagist.org/packages/recca0120/twzipcode)
 [![Daily Downloads](https://poser.pugx.org/recca0120/twzipcode/d/daily)](https://packagist.org/packages/recca0120/twzipcode)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/recca0120/twzipcode/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/recca0120/twzipcode/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/recca0120/twzipcode/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/recca0120/twzipcode/?branch=master)
 
 ```php
 require __DIR__.'/vendor/autoload.php';

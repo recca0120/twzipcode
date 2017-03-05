@@ -242,7 +242,7 @@ class File implements Storage
      * store.
      *
      * @param  string $filename
-     * @param  mix $data
+     * @param  \Recca0120\LoDash\JArray $data
      * @return static
      */
     protected function store($filename, $data)
