@@ -43,7 +43,7 @@ class Point
     /**
      * compare.
      *
-     * @param Point  $point
+     * @param Point $point
      * @param string $operator
      * @return bool
      */

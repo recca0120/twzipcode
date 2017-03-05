@@ -180,7 +180,7 @@ class Rule
      *
      * @param \Recca0120\LoDash\JArray|array $ruleAddressTokens
      * @param \Recca0120\LoDash\JArray|array $addressTokens
-     * @param int                      $cur
+     * @param int $cur
      * @return bool
      */
     protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
@@ -228,7 +228,7 @@ class Rule
     /**
      * tokenize.
      *
-     * @param string   $rule
+     * @param string $rule
      * @param \Closure $addressResolver
      * @return \Recca0120\LoDash\JArray
      */

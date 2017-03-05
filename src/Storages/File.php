@@ -61,7 +61,7 @@ class File implements Storage
     /**
      * rules.
      *
-     * @param  string $zip3
+     * @param string $zip
      * @return \Recca0120\LoDash\JArray
      */
     public function rules($zip3)
@@ -76,7 +76,7 @@ class File implements Storage
     /**
      * load.
      *
-     * @param  string $source
+     * @param string $source
      * @return static
      */
     public function load($source)
@@ -108,7 +108,7 @@ class File implements Storage
     /**
      * loadFile.
      *
-     * @param  stromg $file
+     * @param stromg $file
      * @return static
      */
     public function loadFile($file = null)
@@ -138,7 +138,7 @@ class File implements Storage
     /**
      * getSource.
      *
-     * @param  string $file
+     * @param string $file
      * @return string
      */
     protected function getSource($file)
@@ -163,7 +163,7 @@ class File implements Storage
     /**
      * prepareSource.
      *
-     * @param  string $source
+     * @param string $source
      * @return array
      */
     protected function prepareSource($source)
@@ -191,7 +191,7 @@ class File implements Storage
     /**
      * each.
      *
-     * @param  array $rules
+     * @param array $rules
      * @param  \Closure $callback
      */
     protected function each($rules, $callback)
@@ -225,7 +225,7 @@ class File implements Storage
     /**
      * decompress.
      *
-     * @param  string $compressed
+     * @param string $compressed
      * @return mix
      */
     protected function decompress($compressed)
@@ -241,7 +241,7 @@ class File implements Storage
     /**
      * store.
      *
-     * @param  string $filename
+     * @param string $filename
      * @param  \Recca0120\LoDash\JArray $data
      * @return static
      */
@@ -258,7 +258,7 @@ class File implements Storage
     /**
      * restore.
      *
-     * @param  string $filename
+     * @param string $filename
      * @return mix
      */
     protected function restore($filename)

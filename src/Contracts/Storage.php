@@ -17,7 +17,7 @@ interface Storage
     /**
      * rules.
      *
-     * @param string $zip3
+     * @param string $zip
      * @return string
      */
     public function rules($zip3);
