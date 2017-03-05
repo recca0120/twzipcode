@@ -5,6 +5,13 @@ namespace Recca0120\Twzipcode;
 class Zipcode
 {
     /**
+     * $address.
+     *
+     * @var Address
+     */
+    protected $address;
+
+    /**
      * $attributes.
      *
      * @var array

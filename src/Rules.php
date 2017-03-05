@@ -8,6 +8,13 @@ use Recca0120\Twzipcode\Contracts\Storage;
 class Rules
 {
     /**
+     * $storage.
+     *
+     * @var \Recca0120\Twzipcode\Contracts\Storage
+     */
+    protected $storage;
+
+    /**
      * __construct.
      *
      * @param \Recca0120\Twzipcode\Contracts\Storage $storage

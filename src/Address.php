@@ -44,7 +44,7 @@ class Address
     /**
      * $tokens.
      *
-     * @var array
+     * @var \Recca0120\LoDash\JArray
      */
     public $tokens = [];
 

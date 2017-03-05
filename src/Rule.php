@@ -99,7 +99,7 @@ class Rule
     /**
      * match.
      *
-     * @param string $address
+     * @param Address|string $address
      * @return bool
      */
     public function match($address)
@@ -154,8 +154,9 @@ class Rule
     }
 
     /**
-     * removeUnits.
+     * normalizeAddress.
      *
+     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens
      * @return array
      */
@@ -177,8 +178,8 @@ class Rule
     /**
      * equalsToken.
      *
-     * @param \Recca0120\LoDash\JArray $ruleAddressTokens [description]
-     * @param \Recca0120\LoDash\JArray $addressTokens     [description]
+     * @param \Recca0120\LoDash\JArray|array $ruleAddressTokens
+     * @param \Recca0120\LoDash\JArray|array $addressTokens
      * @param int                      $cur
      * @return bool
      */
