@@ -108,7 +108,7 @@ class File implements Storage
     /**
      * loadFile.
      *
-     * @param stromg $file
+     * @param string $file
      * @return static
      */
     public function loadFile($file = null)
