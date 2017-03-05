@@ -105,18 +105,11 @@ class Rule
     public function match($address)
     {
         $ruleAddressTokens = $this->address->tokens();
-
-        $removeUnits = $this->removeUnits($ruleAddressTokens);
-
-        $address = is_a($address, Address::class) === true ? $address : new Address($address);
-
-        $addressTokens = new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
-            return isset($token[Address::UNIT]) && in_array($token[Address::UNIT], $removeUnits, true) === false;
-        })->values());
-
-        $address = new Address($addressTokens->map(function ($token) {
-            return implode('', $token);
-        })->join(''));
+        $address = $this->normalizeAddress(
+            is_a($address, Address::class) === true ? $address : new Address($address),
+            $ruleAddressTokens
+        );
+        $addressTokens = $address->tokens();
 
         $cur = $ruleAddressTokens->length() - 1;
         $cur -= $this->tokens->length() > 0 && $this->tokens->includes('全') === false;
@@ -166,30 +159,19 @@ class Rule
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens
      * @return array
      */
-    protected function removeUnits(JArray $ruleAddressTokens)
+    protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
     {
-        $removeUnits = ['里', '鄰'];
-        foreach (['巷', '弄'] as $unit) {
-            if ($this->checkRemoveUnit($ruleAddressTokens, [$unit]) === true) {
-                array_push($removeUnits, $unit);
-            }
-        }
+        $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function($token) {
+            return isset($token[Address::UNIT]) === true ? $token[Address::UNIT] : '';
+        })->values());
 
-        return $removeUnits;
-    }
-
-    /**
-     * checkRemoveToken.
-     *
-     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
-     * @param array                   $units
-     * @return bool
-     */
-    protected function checkRemoveUnit(JArray $ruleAddressTokens, $units = ['巷'])
-    {
-        return $ruleAddressTokens->filter(function ($token) use ($units) {
-            return isset($token[Address::UNIT]) && in_array($token[Address::UNIT], $units, true) === true;
-        })->length() === 0;
+        return new Address(
+            new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
+                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits, true) === false;
+            })->map(function($token) {
+                return implode('', $token);
+            }))
+        );
     }
 
     /**
