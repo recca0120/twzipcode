@@ -192,7 +192,7 @@ class File implements Storage
      * each.
      *
      * @param array $rules
-     * @param  \Closure $callback
+     * @param \Closure $callback
      */
     protected function each($rules, $callback)
     {
@@ -208,7 +208,7 @@ class File implements Storage
     /**
      * compress.
      *
-     * @param  \Recca0120\LoDash\JArray $plainText
+     * @param \Recca0120\LoDash\JArray $plainText
      * @return string
      */
     protected function compress($plainText)
@@ -242,7 +242,7 @@ class File implements Storage
      * store.
      *
      * @param string $filename
-     * @param  \Recca0120\LoDash\JArray $data
+     * @param \Recca0120\LoDash\JArray $data
      * @return static
      */
     protected function store($filename, $data)
