@@ -156,7 +156,7 @@ class Rule
     /**
      * normalizeAddress.
      *
-     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
+     * @param Address $ruleAddressTokens
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens
      * @return array
      */
