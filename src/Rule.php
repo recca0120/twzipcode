@@ -89,7 +89,7 @@ class Rule
     /**
      * tokens.
      *
-     * @return @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\LoDash\JArray
      */
     public function tokens()
     {
@@ -100,7 +100,6 @@ class Rule
      * match.
      *
      * @param string $address
-     *
      * @return bool
      */
     public function match($address)
@@ -165,7 +164,6 @@ class Rule
      * removeUnits.
      *
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens
-     *
      * @return array
      */
     protected function removeUnits(JArray $ruleAddressTokens)
@@ -184,8 +182,7 @@ class Rule
      * checkRemoveToken.
      *
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens
-     * @param string                   $token
-     *
+     * @param array                   $units
      * @return bool
      */
     protected function checkRemoveUnit(JArray $ruleAddressTokens, $units = ['巷'])
@@ -201,7 +198,6 @@ class Rule
      * @param \Recca0120\LoDash\JArray $ruleAddressTokens [description]
      * @param \Recca0120\LoDash\JArray $addressTokens     [description]
      * @param int                      $cur
-     *
      * @return bool
      */
     protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
@@ -225,8 +221,7 @@ class Rule
      * normalize.
      *
      * @param string $rule
-     *
-     * @return string
+     * @return \Recca0120\Twzipcode\Normalizer
      */
     protected function normalize($rule)
     {
@@ -252,7 +247,6 @@ class Rule
      *
      * @param string   $rule
      * @param \Closure $addressResolver
-     *
      * @return \Recca0120\LoDash\JArray
      */
     protected function tokenize($rule, Closure $addressResolver)

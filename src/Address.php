@@ -111,7 +111,6 @@ class Address
      *
      * @param int $length
      * @param int $offset [description]
-     *
      * @return string
      */
     public function flat($length = null, $offset = 0)

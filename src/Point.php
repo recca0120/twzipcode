@@ -45,7 +45,6 @@ class Point
      *
      * @param Point  $point
      * @param string $operator
-     *
      * @return bool
      */
     public function compare(Point $point, $operator = '=')

@@ -48,7 +48,6 @@ class File implements Storage
      * zip3.
      *
      * @param \Recca0120\Twzipcode\Address $address
-     *
      * @return string
      */
     public function zip3(Address $address)
@@ -63,7 +62,6 @@ class File implements Storage
      * rules.
      *
      * @param  string $zip3
-     *
      * @return \Recca0120\Twzipcode\Rules
      */
     public function rules($zip3)
@@ -78,8 +76,7 @@ class File implements Storage
     /**
      * load.
      *
-     * @param  stromg $source
-     *
+     * @param  string $source
      * @return static
      */
     public function load($source)
@@ -112,7 +109,6 @@ class File implements Storage
      * loadFile.
      *
      * @param  stromg $file
-     *
      * @return static
      */
     public function loadFile($file = null)
@@ -143,7 +139,6 @@ class File implements Storage
      * getSource.
      *
      * @param  string $file
-     *
      * @return string
      */
     protected function getSource($file)
@@ -169,7 +164,6 @@ class File implements Storage
      * prepareSource.
      *
      * @param  string $source
-     *
      * @return array
      */
     protected function prepareSource($source)
@@ -198,7 +192,7 @@ class File implements Storage
      * each.
      *
      * @param  array $rules
-     * @param  Closure $callback
+     * @param  \Closure $callback
      */
     protected function each($rules, $callback)
     {
@@ -215,7 +209,6 @@ class File implements Storage
      * compress.
      *
      * @param  mix $plainText
-     *
      * @return string
      */
     protected function compress($plainText)
@@ -233,7 +226,6 @@ class File implements Storage
      * decompress.
      *
      * @param  string $compressed
-     *
      * @return mix
      */
     protected function decompress($compressed)
@@ -251,7 +243,6 @@ class File implements Storage
      *
      * @param  string $filename
      * @param  mix $data
-     *
      * @return static
      */
     protected function store($filename, $data)
@@ -268,7 +259,6 @@ class File implements Storage
      * restore.
      *
      * @param  string $filename
-     *
      * @return mix
      */
     protected function restore($filename)

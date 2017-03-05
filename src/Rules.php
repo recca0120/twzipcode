@@ -21,7 +21,6 @@ class Rules
      * match.
      *
      * @param string $address
-     *
      * @return string
      */
     public function match($address)

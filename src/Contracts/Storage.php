@@ -10,7 +10,6 @@ interface Storage
      * zip3.
      *
      * @param \Recca0120\Twzipcode\Address $address
-     *
      * @return string
      */
     public function zip3(Address $address);
@@ -19,7 +18,6 @@ interface Storage
      * rules.
      *
      * @param string $zip3
-     *
      * @return \Recca0120\Twzipcode\Rules
      */
     public function rules($zip3);
@@ -28,7 +26,6 @@ interface Storage
      * load.
      *
      * @param stromg $source
-     *
      * @return static
      */
     public function load($source);
@@ -37,7 +34,6 @@ interface Storage
      * loadFile.
      *
      * @param stromg $file
-     *
      * @return static
      */
     public function loadFile($file = null);
