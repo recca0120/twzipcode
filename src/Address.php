@@ -64,6 +64,7 @@ class Address
      * set.
      *
      * @param static|string $address
+     * @return $this
      */
     public function set($address)
     {

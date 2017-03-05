@@ -77,7 +77,7 @@ class File implements Storage
      * load.
      *
      * @param string $source
-     * @return static
+     * @return $this
      */
     public function load($source)
     {
@@ -109,7 +109,7 @@ class File implements Storage
      * loadFile.
      *
      * @param string $file
-     * @return static
+     * @return $this
      */
     public function loadFile($file = null)
     {
@@ -123,7 +123,7 @@ class File implements Storage
     /**
      * flush.
      *
-     * @return static
+     * @return $this
      */
     public function flush()
     {
