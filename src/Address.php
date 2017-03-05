@@ -51,7 +51,7 @@ class Address
     /**
      * __construct.
      *
-     * @param string $address
+     * @param static|array $address
      */
     public function __construct($address = '')
     {
@@ -63,7 +63,7 @@ class Address
     /**
      * set.
      *
-     * @param Recca0120\Twzipcode\Address $address
+     * @param static|array $address
      */
     public function set($address)
     {
