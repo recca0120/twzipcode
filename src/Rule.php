@@ -162,14 +162,14 @@ class Rule
      */
     protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
     {
-        $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function($token) {
+        $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function ($token) {
             return isset($token[Address::UNIT]) === true ? $token[Address::UNIT] : '';
         })->values());
 
         return new Address(
             new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
                 return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits, true) === false;
-            })->map(function($token) {
+            })->map(function ($token) {
                 return implode('', $token);
             }))
         );
@@ -178,8 +178,8 @@ class Rule
     /**
      * equalsToken.
      *
-     * @param \Recca0120\LoDash\JArray|array $ruleAddressTokens
-     * @param \Recca0120\LoDash\JArray|array $addressTokens
+     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
+     * @param \Recca0120\LoDash\JArray $addressTokens
      * @param int $cur
      * @return bool
      */
