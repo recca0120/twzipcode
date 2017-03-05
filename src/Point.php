@@ -52,10 +52,14 @@ class Point
         $sum = $this->x * 10 + $this->y;
         $sum2 = $point->x * 10 + $point->y;
         switch ($operator) {
-            case '>': return $sum > $sum2;
-            case '>=': return $sum >= $sum2;
-            case '<': return $sum < $sum2;
-            case '<=': return $sum <= $sum2;
+            case '>':
+                return $sum > $sum2;
+            case '>=':
+                return $sum >= $sum2;
+            case '<':
+                return $sum < $sum2;
+            case '<=':
+                return $sum <= $sum2;
         }
 
         return $sum === $sum2;
