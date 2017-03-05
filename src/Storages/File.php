@@ -62,7 +62,7 @@ class File implements Storage
      * rules.
      *
      * @param  string $zip3
-     * @return \Recca0120\Twzipcode\Rules
+     * @return \Recca0120\LoDash\JArray
      */
     public function rules($zip3)
     {

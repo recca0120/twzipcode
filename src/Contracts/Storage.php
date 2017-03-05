@@ -18,7 +18,7 @@ interface Storage
      * rules.
      *
      * @param string $zip3
-     * @return \Recca0120\Twzipcode\Rules
+     * @return string
      */
     public function rules($zip3);
 
