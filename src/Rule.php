@@ -3,7 +3,7 @@
 namespace Recca0120\Twzipcode;
 
 use Closure;
-use Recca0120\LoDash\JArray;
+use Recca0120\Lodash\JArray;
 
 class Rule
 {
@@ -31,7 +31,7 @@ class Rule
     /**
      * $tokens.
      *
-     * @var \Recca0120\LoDash\JArray
+     * @var \Recca0120\Lodash\JArray
      */
     public $tokens;
 
@@ -89,7 +89,7 @@ class Rule
     /**
      * tokens.
      *
-     * @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\Lodash\JArray
      */
     public function tokens()
     {
@@ -157,7 +157,7 @@ class Rule
      * normalizeAddress.
      *
      * @param Address $ruleAddressTokens
-     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
+     * @param \Recca0120\Lodash\JArray $ruleAddressTokens
      * @return array
      */
     protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
@@ -178,8 +178,8 @@ class Rule
     /**
      * equalsToken.
      *
-     * @param \Recca0120\LoDash\JArray $ruleAddressTokens
-     * @param \Recca0120\LoDash\JArray $addressTokens
+     * @param \Recca0120\Lodash\JArray $ruleAddressTokens
+     * @param \Recca0120\Lodash\JArray $addressTokens
      * @param int $cur
      * @return bool
      */
@@ -230,7 +230,7 @@ class Rule
      *
      * @param string $rule
      * @param \Closure $addressResolver
-     * @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\Lodash\JArray
      */
     protected function tokenize($rule, Closure $addressResolver)
     {

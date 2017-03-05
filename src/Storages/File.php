@@ -3,7 +3,7 @@
 namespace Recca0120\Twzipcode\Storages;
 
 use ZipArchive;
-use Recca0120\LoDash\JArray;
+use Recca0120\Lodash\JArray;
 use Recca0120\Twzipcode\Rule;
 use Recca0120\Twzipcode\Address;
 use Recca0120\Twzipcode\Contracts\Storage;
@@ -62,7 +62,7 @@ class File implements Storage
      * rules.
      *
      * @param string $zip
-     * @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\Lodash\JArray
      */
     public function rules($zip3)
     {
@@ -208,7 +208,7 @@ class File implements Storage
     /**
      * compress.
      *
-     * @param \Recca0120\LoDash\JArray $plainText
+     * @param \Recca0120\Lodash\JArray $plainText
      * @return string
      */
     protected function compress($plainText)
@@ -242,7 +242,7 @@ class File implements Storage
      * store.
      *
      * @param string $filename
-     * @param \Recca0120\LoDash\JArray $data
+     * @param \Recca0120\Lodash\JArray $data
      * @return static
      */
     protected function store($filename, $data)

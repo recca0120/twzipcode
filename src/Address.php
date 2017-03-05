@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\LoDash\JArray;
+use Recca0120\Lodash\JArray;
 
 class Address
 {
@@ -44,7 +44,7 @@ class Address
     /**
      * $tokens.
      *
-     * @var \Recca0120\LoDash\JArray
+     * @var \Recca0120\Lodash\JArray
      */
     public $tokens = [];
 
@@ -79,7 +79,7 @@ class Address
     /**
      * tokens.
      *
-     * @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\Lodash\JArray
      */
     public function tokens()
     {
@@ -126,7 +126,7 @@ class Address
     /**
      * tokenize.
      *
-     * @return \Recca0120\LoDash\JArray
+     * @return \Recca0120\Lodash\JArray
      */
     protected function tokenize()
     {

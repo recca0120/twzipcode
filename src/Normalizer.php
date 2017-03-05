@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\LoDash\JString;
+use Recca0120\Lodash\JString;
 
 class Normalizer extends JString
 {
