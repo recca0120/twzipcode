@@ -61,7 +61,7 @@ class File implements Storage
     /**
      * rules.
      *
-     * @param string $zip
+     * @param string $zip3
      * @return \Recca0120\Lodash\JArray
      */
     public function rules($zip3)
