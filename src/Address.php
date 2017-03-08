@@ -91,7 +91,6 @@ class Address
      * getPoint.
      *
      * @param string $index
-     *
      * @return \Recca0120\Twzipcode\Point
      */
     public function getPoint($index)

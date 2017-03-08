@@ -114,7 +114,6 @@ class File implements Storage
     public function loadFile($file = null)
     {
         $file = $file ?: $this->path.'../Zip32_utf8_10501_1.csv';
-
         $this->load($this->getSource($file));
 
         return $this;
@@ -213,29 +212,18 @@ class File implements Storage
      */
     protected function compress($plainText)
     {
-        $plainText = serialize($plainText);
-        $method = 'gzcompress';
-        if (function_exists($method) === true) {
-            $plainText = call_user_func($method, $plainText);
-        }
-
-        return $plainText;
+        return gzcompress(serialize($plainText));
     }
 
     /**
      * decompress.
      *
      * @param string $compressed
-     * @return mix
+     * @return mixed
      */
     protected function decompress($compressed)
     {
-        $method = 'gzuncompress';
-        if (function_exists($method) === true) {
-            $compressed = call_user_func($method, $compressed);
-        }
-
-        return unserialize($compressed);
+        return unserialize(gzuncompress($compressed));
     }
 
     /**
@@ -243,7 +231,7 @@ class File implements Storage
      *
      * @param string $filename
      * @param \Recca0120\Lodash\JArray $data
-     * @return static
+     * @return $this
      */
     protected function store($filename, $data)
     {
@@ -259,7 +247,7 @@ class File implements Storage
      * restore.
      *
      * @param string $filename
-     * @return mix
+     * @return mixed
      */
     protected function restore($filename)
     {

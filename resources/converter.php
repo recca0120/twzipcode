@@ -14,13 +14,9 @@ if (file_exists($file) === false) {
     touch($file);
     $zip = new ZipArchive;
     $zip->open($file);
-    $zip->addFromString(
-        basename($url),
-        file_get_contents($url)
-    );
+    $zip->addFromString(basename($url), file_get_contents($url));
     $zip->close();
 }
 
 (new File())->loadFile($file);
-
 echo 'benchmark: '.(microtime(true) - $start)."\n";
