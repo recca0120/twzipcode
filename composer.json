@@ -6,7 +6,7 @@
     "type": "library",
     "require": {
         "php": ">=5.5.9",
-        "ext-zlib": "^7.0",
+        "ext-zlib": "*",
         "recca0120/lodash": "^0.0.5"
     },
     "require-dev": {
