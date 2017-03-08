@@ -25,23 +25,23 @@ interface Storage
     /**
      * load.
      *
-     * @param stromg $source
-     * @return static
+     * @param string $source
+     * @return $this
      */
     public function load($source);
 
     /**
      * loadFile.
      *
-     * @param stromg $file
-     * @return static
+     * @param string $file
+     * @return $this
      */
     public function loadFile($file = null);
 
     /**
      * flush.
      *
-     * @return static
+     * @return $this
      */
     public function flush();
 }

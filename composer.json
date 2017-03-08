@@ -6,13 +6,13 @@
     "type": "library",
     "require": {
         "php": ">=5.5.9",
+        "ext-zlib": "*",
         "recca0120/lodash": "^0.0.5"
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
         "phpunit/phpunit": "~4.8|~5.4",
-        "nesbot/carbon": "~1.20",
-        "mikey179/vfsStream": "^1.6"
+        "nesbot/carbon": "~1.20"
     },
     "autoload": {
         "psr-4": {
@@ -27,5 +27,8 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "scripts": {
+        "zipcode": "php ./resources/converter.php"
     }
 }
