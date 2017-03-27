@@ -13,6 +13,11 @@ class Directory
         $this->rules = new Rules($this->storage);
     }
 
+    public function __call($method, $argments)
+    {
+        return call_user_func_array([$this->rules, $method], $argments);
+    }
+
     public function load($source)
     {
         $this->storage->flush()->load($source);
@@ -23,10 +28,5 @@ class Directory
     public function find($address)
     {
         return $this->rules->match($address);
-    }
-
-    public function __call($method, $argments)
-    {
-        return call_user_func_array([$this->rules, $method], $argments);
     }
 }

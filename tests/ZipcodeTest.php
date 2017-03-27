@@ -13,11 +13,6 @@ class ZipcodeTest extends TestCase
 {
     protected $rules = null;
 
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     protected function setUp()
     {
         $root = vfsStream::setup();
@@ -48,6 +43,11 @@ class ZipcodeTest extends TestCase
 41274,臺中市,大里區,塗城路,雙 274號以下
 41275,臺中市,大里區,塗城路,雙 276號以上
         ');
+    }
+
+    protected function tearDown()
+    {
+        m::close();
     }
 
     public function testZipcode()

@@ -5,13 +5,6 @@ namespace Recca0120\Twzipcode;
 class Zipcode
 {
     /**
-     * $address.
-     *
-     * @var Address
-     */
-    protected $address;
-
-    /**
      * $attributes.
      *
      * @var array
@@ -24,6 +17,12 @@ class Zipcode
         'address' => null,
         'shortAddress' => null,
     ];
+    /**
+     * $address.
+     *
+     * @var Address
+     */
+    protected $address;
 
     /**
      * __construct.

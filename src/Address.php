@@ -61,6 +61,16 @@ class Address
     }
 
     /**
+     * __toString.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->normalizer->value();
+    }
+
+    /**
      * set.
      *
      * @param static|string $address
@@ -234,15 +244,5 @@ class Address
         }
 
         return new JArray($tokens);
-    }
-
-    /**
-     * __toString.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->normalizer->value();
     }
 }

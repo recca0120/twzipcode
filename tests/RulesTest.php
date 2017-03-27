@@ -10,11 +10,6 @@ use Recca0120\Twzipcode\Storages\File;
 
 class RulesTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     protected function setUp()
     {
         $root = vfsStream::setup();
@@ -84,6 +79,11 @@ class RulesTest extends TestCase
 81357,高雄市,左營區,大順一路,雙  96號至 568號
 81357,高雄市,左營區,大順一路,單 201號至 389巷
         ');
+    }
+
+    protected function tearDown()
+    {
+        m::close();
     }
 
     public function testMatch()

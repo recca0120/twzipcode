@@ -16,6 +16,11 @@ class Address
         $this->tokens = $this->address->tokens();
     }
 
+    public function __toString()
+    {
+        return (string) $this->address;
+    }
+
     public function normalize()
     {
         return $this->flat();
@@ -44,10 +49,5 @@ class Address
         $point = $this->address->getPoint($index);
 
         return [$point->x, $point->y];
-    }
-
-    public function __toString()
-    {
-        return (string) $this->address;
     }
 }
