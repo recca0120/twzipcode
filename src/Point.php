@@ -47,7 +47,7 @@ class Point
      * @param string $operator
      * @return bool
      */
-    public function compare(Point $point, $operator = '=')
+    public function compare(self $point, $operator = '=')
     {
         $sum = $this->x * 10 + $this->y;
         $sum2 = $point->x * 10 + $point->y;
