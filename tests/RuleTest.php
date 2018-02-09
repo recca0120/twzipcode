@@ -5,7 +5,6 @@ namespace Recca0120\Twzipcode\Tests;
 use Mockery as m;
 use Recca0120\Twzipcode\Rule;
 use PHPUnit\Framework\TestCase;
-use Recca0120\Twzipcode\Address;
 
 class RuleTest extends TestCase
 {

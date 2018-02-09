@@ -107,7 +107,7 @@ class DirectoryTest extends TestCase
         $this->assertSame('100', $this->directory->find('臺北市中正區中華路１段48號'));
         $this->assertSame('10010', $this->directory->find('臺北市中正區中華路１段49號'));
 
-         // 10010,臺北市,中正區,中華路１段,　  49號
+        // 10010,臺北市,中正區,中華路１段,　  49號
         $this->assertSame('100', $this->directory->find('臺北市中正區中華路１段48號'));
         $this->assertSame('10010', $this->directory->find('臺北市中正區中華路１段49號'));
         $this->assertSame('100', $this->directory->find('臺北市中正區中華路１段50號'));

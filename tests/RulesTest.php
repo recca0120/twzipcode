@@ -107,7 +107,7 @@ class RulesTest extends TestCase
         $this->assertSame('100', $this->rules->match('臺北市中正區中華路１段48號'));
         $this->assertSame('10010', $this->rules->match('臺北市中正區中華路１段49號'));
 
-         // 10010,臺北市,中正區,中華路１段,　  49號
+        // 10010,臺北市,中正區,中華路１段,　  49號
         $this->assertSame('100', $this->rules->match('臺北市中正區中華路１段48號'));
         $this->assertSame('10010', $this->rules->match('臺北市中正區中華路１段49號'));
         $this->assertSame('100', $this->rules->match('臺北市中正區中華路１段50號'));
@@ -325,7 +325,7 @@ class RulesTest extends TestCase
         $this->assertSame('654', $rules->match('雲林縣四湖鄉'.uniqid()));
         $this->assertSame('655', $rules->match('雲林縣元長鄉'.uniqid()));
 
-         // $this->assertSame('600', $rules->match('嘉義市'.uniqid()));
+        // $this->assertSame('600', $rules->match('嘉義市'.uniqid()));
         $this->assertSame('602', $rules->match('嘉義縣番路鄉'.uniqid()));
         $this->assertSame('603', $rules->match('嘉義縣梅山鄉'.uniqid()));
         $this->assertSame('604', $rules->match('嘉義縣竹崎鄉'.uniqid()));
