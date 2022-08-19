@@ -53,7 +53,7 @@ class RuleTest extends TestCase
         $this->assertSame(['雙', '至', '含附號全'], (array) $rule->ruleTokens());
 
         $rule = new Rule('桃園縣,中壢市,普義,連  49號含附號以下');
-        $this->assertSame([['', '', '桃園', '縣'], ['', '', '中壢', '市'], ['', '', '普義', ''], ['49', '', '', '號']], (array) $rule->tokens());
+        $this->assertSame([['', '', '桃園', '市'], ['', '', '中壢', '區'], ['', '', '普義', ''], ['49', '', '', '號']], (array) $rule->tokens());
         $this->assertSame(['含附號以下'], (array) $rule->ruleTokens());
 
         $rule = new Rule('臺中市,西屯區,西屯路３段西平南巷,　   1之   3號及以上附號');

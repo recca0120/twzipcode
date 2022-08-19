@@ -71,7 +71,7 @@ class Normalizer extends JString
             ])
             ->replace('/^北縣/', '臺北縣')
             ->replace('/^北市/', '臺北市')
-            ->replace('/^(臺北|臺中|臺南|高雄)縣(?:(\w{2})[市鄉鎮])?(?:(\w{2})村)?/u', function ($m) {
+            ->replace('/^(桃園|臺北|臺中|臺南|高雄)縣(?:(\w{2})[市鄉鎮])?(?:(\w{2})村)?/u', function ($m) {
                 return ($m[1] === '臺北' ? '新北' : $m[1]).'市'.
                     (isset($m[2]) === true ? $m[2].'區' : '').
                     (isset($m[3]) === true ? $m[3].'里' : '');

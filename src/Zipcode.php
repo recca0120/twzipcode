@@ -28,21 +28,16 @@ class Zipcode
      * __construct.
      *
      * @param string $address
-     * @param \Recca0120\Twzipcode\Rules $rules
+     * @param Rules $rules
      */
     public function __construct($address, Rules $rules = null)
     {
         $rules = $rules ?: new Rules();
         $this->address = new Address($address);
-        $zip = $rules->match($this->address);
+        $zip = (string) $rules->match($this->address);
 
-        if (strlen($zip) === 5) {
-            $this->attributes['zip3'] = substr($zip, 0, 3);
-            $this->attributes['zip5'] = $zip;
-        } else {
-            $this->attributes['zip3'] = $zip;
-            $this->attributes['zip5'] = $zip;
-        }
+        $this->attributes['zip3'] = strlen($zip) === 5 ? substr($zip, 0, 3) : $zip;
+        $this->attributes['zip5'] = $zip;
 
         $this->attributes['county'] = empty($this->attributes['zip3']) === false
             ? $this->address->flat(1, 0)
@@ -57,6 +52,16 @@ class Zipcode
             : $this->address->flat();
 
         $this->attributes['address'] = $this->address->flat();
+    }
+
+    /**
+     * parse.
+     *
+     * @return static
+     */
+    public static function parse($address, Rules $rules = null)
+    {
+        return new static($address, $rules);
     }
 
     /**
@@ -117,15 +122,5 @@ class Zipcode
     public function shortAddress()
     {
         return $this->attributes['shortAddress'];
-    }
-
-    /**
-     * parse.
-     *
-     * @return static
-     */
-    public static function parse($address, Rules $rules = null)
-    {
-        return new static($address, $rules);
     }
 }

@@ -2,10 +2,9 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Address;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class AddressTest extends TestCase
 {
@@ -52,8 +51,8 @@ class AddressTest extends TestCase
         $address = new Address('桃園縣中壢市普義10號');
 
         $this->assertSame([
-            ['', '', '桃園', '縣'],
-            ['', '', '中壢', '市'],
+            ['', '', '桃園', '市'],
+            ['', '', '中壢', '區'],
             ['', '', '普義', ''],
             ['10', '', '', '號'],
         ], (array) $address->tokens());
