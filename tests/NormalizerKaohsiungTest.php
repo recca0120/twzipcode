@@ -2,17 +2,11 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerKaohsiungTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testNormalizeKaohsiungAddress()
     {
         $this->assertSame('高雄市鹽埕區藍橋里', (string) Normalizer::factory('高雄市鹽埕區藍橋里')->normalizeAddress());
@@ -72,7 +66,8 @@ class NormalizerKaohsiungTest extends TestCase
         $this->assertSame('高雄市鼓山區維生里', (string) Normalizer::factory('高雄市鼓山區維生里')->normalizeAddress());
         $this->assertSame('高雄市鼓山區惠安里', (string) Normalizer::factory('高雄市鼓山區惠安里')->normalizeAddress());
         $this->assertSame('高雄市鼓山區壽山里', (string) Normalizer::factory('高雄市鼓山區壽山里')->normalizeAddress());
-        $this->assertSame('高雄市鼓山區哨船頭里', (string) Normalizer::factory('高雄市鼓山區哨船頭里')->normalizeAddress());
+        $this->assertSame('高雄市鼓山區哨船頭里', (string) Normalizer::factory('高雄市鼓山區哨船頭里')
+            ->normalizeAddress());
         $this->assertSame('高雄市鼓山區桃源里', (string) Normalizer::factory('高雄市鼓山區桃源里')->normalizeAddress());
         $this->assertSame('高雄市左營區進學里', (string) Normalizer::factory('高雄市左營區進學里')->normalizeAddress());
         $this->assertSame('高雄市左營區尾西里', (string) Normalizer::factory('高雄市左營區尾西里')->normalizeAddress());
@@ -151,92 +146,178 @@ class NormalizerKaohsiungTest extends TestCase
         $this->assertSame('高雄市楠梓區藍田里', (string) Normalizer::factory('高雄市楠梓區藍田里')->normalizeAddress());
         $this->assertSame('高雄市楠梓區中興里', (string) Normalizer::factory('高雄市楠梓區中興里')->normalizeAddress());
         $this->assertSame('高雄市楠梓區中和里', (string) Normalizer::factory('高雄市楠梓區中和里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安東里', (string) Normalizer::factory('高雄市三民區第一安東里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安和里', (string) Normalizer::factory('高雄市三民區第一安和里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一達德里', (string) Normalizer::factory('高雄市三民區第一達德里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一達明里', (string) Normalizer::factory('高雄市三民區第一達明里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一達仁里', (string) Normalizer::factory('高雄市三民區第一達仁里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一達勇里', (string) Normalizer::factory('高雄市三民區第一達勇里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一同德里', (string) Normalizer::factory('高雄市三民區第一同德里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德智里', (string) Normalizer::factory('高雄市三民區第一德智里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德仁里', (string) Normalizer::factory('高雄市三民區第一德仁里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安生里', (string) Normalizer::factory('高雄市三民區第一安生里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德東里', (string) Normalizer::factory('高雄市三民區第一德東里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德行里', (string) Normalizer::factory('高雄市三民區第一德行里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一精華里', (string) Normalizer::factory('高雄市三民區第一精華里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一民享里', (string) Normalizer::factory('高雄市三民區第一民享里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安宜里', (string) Normalizer::factory('高雄市三民區第一安宜里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安泰里', (string) Normalizer::factory('高雄市三民區第一安泰里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一安邦里', (string) Normalizer::factory('高雄市三民區第一安邦里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一十全里', (string) Normalizer::factory('高雄市三民區第一十全里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一十美里', (string) Normalizer::factory('高雄市三民區第一十美里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德北里', (string) Normalizer::factory('高雄市三民區第一德北里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一立誠里', (string) Normalizer::factory('高雄市三民區第一立誠里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一立業里', (string) Normalizer::factory('高雄市三民區第一立業里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一港東里', (string) Normalizer::factory('高雄市三民區第一港東里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一港新里', (string) Normalizer::factory('高雄市三民區第一港新里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一港西里', (string) Normalizer::factory('高雄市三民區第一港西里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一博愛里', (string) Normalizer::factory('高雄市三民區第一博愛里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一博惠里', (string) Normalizer::factory('高雄市三民區第一博惠里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一長明里', (string) Normalizer::factory('高雄市三民區第一長明里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一建東里', (string) Normalizer::factory('高雄市三民區第一建東里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一興德里', (string) Normalizer::factory('高雄市三民區第一興德里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一鳳南里', (string) Normalizer::factory('高雄市三民區第一鳳南里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一鳳北里', (string) Normalizer::factory('高雄市三民區第一鳳北里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一德西里', (string) Normalizer::factory('高雄市三民區第一德西里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一豐裕里', (string) Normalizer::factory('高雄市三民區第一豐裕里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一川東里', (string) Normalizer::factory('高雄市三民區第一川東里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一裕民里', (string) Normalizer::factory('高雄市三民區第一裕民里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一力行里', (string) Normalizer::factory('高雄市三民區第一力行里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一千歲里', (string) Normalizer::factory('高雄市三民區第一千歲里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一立德里', (string) Normalizer::factory('高雄市三民區第一立德里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一千北里', (string) Normalizer::factory('高雄市三民區第一千北里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第一千秋里', (string) Normalizer::factory('高雄市三民區第一千秋里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎金里', (string) Normalizer::factory('高雄市三民區第二鼎金里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎盛里', (string) Normalizer::factory('高雄市三民區第二鼎盛里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎強里', (string) Normalizer::factory('高雄市三民區第二鼎強里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎力里', (string) Normalizer::factory('高雄市三民區第二鼎力里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎西里', (string) Normalizer::factory('高雄市三民區第二鼎西里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎中里', (string) Normalizer::factory('高雄市三民區第二鼎中里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二鼎泰里', (string) Normalizer::factory('高雄市三民區第二鼎泰里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本館里', (string) Normalizer::factory('高雄市三民區第二本館里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本和里', (string) Normalizer::factory('高雄市三民區第二本和里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本文里', (string) Normalizer::factory('高雄市三民區第二本文里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本武里', (string) Normalizer::factory('高雄市三民區第二本武里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本元里', (string) Normalizer::factory('高雄市三民區第二本元里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本安里', (string) Normalizer::factory('高雄市三民區第二本安里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本上里', (string) Normalizer::factory('高雄市三民區第二本上里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二本揚里', (string) Normalizer::factory('高雄市三民區第二本揚里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶獅里', (string) Normalizer::factory('高雄市三民區第二寶獅里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶德里', (string) Normalizer::factory('高雄市三民區第二寶德里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶泰里', (string) Normalizer::factory('高雄市三民區第二寶泰里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶興里', (string) Normalizer::factory('高雄市三民區第二寶興里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶中里', (string) Normalizer::factory('高雄市三民區第二寶中里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶華里', (string) Normalizer::factory('高雄市三民區第二寶華里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶國里', (string) Normalizer::factory('高雄市三民區第二寶國里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶民里', (string) Normalizer::factory('高雄市三民區第二寶民里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶慶里', (string) Normalizer::factory('高雄市三民區第二寶慶里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶業里', (string) Normalizer::factory('高雄市三民區第二寶業里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶盛里', (string) Normalizer::factory('高雄市三民區第二寶盛里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶安里', (string) Normalizer::factory('高雄市三民區第二寶安里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶龍里', (string) Normalizer::factory('高雄市三民區第二寶龍里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶珠里', (string) Normalizer::factory('高雄市三民區第二寶珠里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二寶玉里', (string) Normalizer::factory('高雄市三民區第二寶玉里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣子里', (string) Normalizer::factory('高雄市三民區第二灣子里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣愛里', (string) Normalizer::factory('高雄市三民區第二灣愛里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣中里', (string) Normalizer::factory('高雄市三民區第二灣中里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣華里', (string) Normalizer::factory('高雄市三民區第二灣華里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣勝里', (string) Normalizer::factory('高雄市三民區第二灣勝里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣利里', (string) Normalizer::factory('高雄市三民區第二灣利里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣復里', (string) Normalizer::factory('高雄市三民區第二灣復里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二正興里', (string) Normalizer::factory('高雄市三民區第二正興里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二正順里', (string) Normalizer::factory('高雄市三民區第二正順里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣興里', (string) Normalizer::factory('高雄市三民區第二灣興里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二灣成里', (string) Normalizer::factory('高雄市三民區第二灣成里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二安康里', (string) Normalizer::factory('高雄市三民區第二安康里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二安寧里', (string) Normalizer::factory('高雄市三民區第二安寧里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二安吉里', (string) Normalizer::factory('高雄市三民區第二安吉里')->normalizeAddress());
-        $this->assertSame('高雄市三民區第二安發里', (string) Normalizer::factory('高雄市三民區第二安發里')->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安東里', (string) Normalizer::factory('高雄市三民區第一安東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安和里', (string) Normalizer::factory('高雄市三民區第一安和里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一達德里', (string) Normalizer::factory('高雄市三民區第一達德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一達明里', (string) Normalizer::factory('高雄市三民區第一達明里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一達仁里', (string) Normalizer::factory('高雄市三民區第一達仁里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一達勇里', (string) Normalizer::factory('高雄市三民區第一達勇里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一同德里', (string) Normalizer::factory('高雄市三民區第一同德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德智里', (string) Normalizer::factory('高雄市三民區第一德智里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德仁里', (string) Normalizer::factory('高雄市三民區第一德仁里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安生里', (string) Normalizer::factory('高雄市三民區第一安生里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德東里', (string) Normalizer::factory('高雄市三民區第一德東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德行里', (string) Normalizer::factory('高雄市三民區第一德行里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一精華里', (string) Normalizer::factory('高雄市三民區第一精華里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一民享里', (string) Normalizer::factory('高雄市三民區第一民享里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安宜里', (string) Normalizer::factory('高雄市三民區第一安宜里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安泰里', (string) Normalizer::factory('高雄市三民區第一安泰里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一安邦里', (string) Normalizer::factory('高雄市三民區第一安邦里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一十全里', (string) Normalizer::factory('高雄市三民區第一十全里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一十美里', (string) Normalizer::factory('高雄市三民區第一十美里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德北里', (string) Normalizer::factory('高雄市三民區第一德北里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一立誠里', (string) Normalizer::factory('高雄市三民區第一立誠里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一立業里', (string) Normalizer::factory('高雄市三民區第一立業里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一港東里', (string) Normalizer::factory('高雄市三民區第一港東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一港新里', (string) Normalizer::factory('高雄市三民區第一港新里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一港西里', (string) Normalizer::factory('高雄市三民區第一港西里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一博愛里', (string) Normalizer::factory('高雄市三民區第一博愛里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一博惠里', (string) Normalizer::factory('高雄市三民區第一博惠里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一長明里', (string) Normalizer::factory('高雄市三民區第一長明里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一建東里', (string) Normalizer::factory('高雄市三民區第一建東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一興德里', (string) Normalizer::factory('高雄市三民區第一興德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一鳳南里', (string) Normalizer::factory('高雄市三民區第一鳳南里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一鳳北里', (string) Normalizer::factory('高雄市三民區第一鳳北里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一德西里', (string) Normalizer::factory('高雄市三民區第一德西里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一豐裕里', (string) Normalizer::factory('高雄市三民區第一豐裕里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一川東里', (string) Normalizer::factory('高雄市三民區第一川東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一裕民里', (string) Normalizer::factory('高雄市三民區第一裕民里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一力行里', (string) Normalizer::factory('高雄市三民區第一力行里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一千歲里', (string) Normalizer::factory('高雄市三民區第一千歲里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一立德里', (string) Normalizer::factory('高雄市三民區第一立德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一千北里', (string) Normalizer::factory('高雄市三民區第一千北里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第一千秋里', (string) Normalizer::factory('高雄市三民區第一千秋里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎金里', (string) Normalizer::factory('高雄市三民區第二鼎金里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎盛里', (string) Normalizer::factory('高雄市三民區第二鼎盛里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎強里', (string) Normalizer::factory('高雄市三民區第二鼎強里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎力里', (string) Normalizer::factory('高雄市三民區第二鼎力里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎西里', (string) Normalizer::factory('高雄市三民區第二鼎西里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎中里', (string) Normalizer::factory('高雄市三民區第二鼎中里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二鼎泰里', (string) Normalizer::factory('高雄市三民區第二鼎泰里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本館里', (string) Normalizer::factory('高雄市三民區第二本館里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本和里', (string) Normalizer::factory('高雄市三民區第二本和里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本文里', (string) Normalizer::factory('高雄市三民區第二本文里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本武里', (string) Normalizer::factory('高雄市三民區第二本武里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本元里', (string) Normalizer::factory('高雄市三民區第二本元里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本安里', (string) Normalizer::factory('高雄市三民區第二本安里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本上里', (string) Normalizer::factory('高雄市三民區第二本上里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二本揚里', (string) Normalizer::factory('高雄市三民區第二本揚里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶獅里', (string) Normalizer::factory('高雄市三民區第二寶獅里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶德里', (string) Normalizer::factory('高雄市三民區第二寶德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶泰里', (string) Normalizer::factory('高雄市三民區第二寶泰里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶興里', (string) Normalizer::factory('高雄市三民區第二寶興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶中里', (string) Normalizer::factory('高雄市三民區第二寶中里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶華里', (string) Normalizer::factory('高雄市三民區第二寶華里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶國里', (string) Normalizer::factory('高雄市三民區第二寶國里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶民里', (string) Normalizer::factory('高雄市三民區第二寶民里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶慶里', (string) Normalizer::factory('高雄市三民區第二寶慶里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶業里', (string) Normalizer::factory('高雄市三民區第二寶業里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶盛里', (string) Normalizer::factory('高雄市三民區第二寶盛里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶安里', (string) Normalizer::factory('高雄市三民區第二寶安里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶龍里', (string) Normalizer::factory('高雄市三民區第二寶龍里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶珠里', (string) Normalizer::factory('高雄市三民區第二寶珠里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二寶玉里', (string) Normalizer::factory('高雄市三民區第二寶玉里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣子里', (string) Normalizer::factory('高雄市三民區第二灣子里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣愛里', (string) Normalizer::factory('高雄市三民區第二灣愛里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣中里', (string) Normalizer::factory('高雄市三民區第二灣中里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣華里', (string) Normalizer::factory('高雄市三民區第二灣華里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣勝里', (string) Normalizer::factory('高雄市三民區第二灣勝里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣利里', (string) Normalizer::factory('高雄市三民區第二灣利里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣復里', (string) Normalizer::factory('高雄市三民區第二灣復里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二正興里', (string) Normalizer::factory('高雄市三民區第二正興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二正順里', (string) Normalizer::factory('高雄市三民區第二正順里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣興里', (string) Normalizer::factory('高雄市三民區第二灣興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二灣成里', (string) Normalizer::factory('高雄市三民區第二灣成里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二安康里', (string) Normalizer::factory('高雄市三民區第二安康里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二安寧里', (string) Normalizer::factory('高雄市三民區第二安寧里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二安吉里', (string) Normalizer::factory('高雄市三民區第二安吉里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市三民區第二安發里', (string) Normalizer::factory('高雄市三民區第二安發里')
+            ->normalizeAddress());
         $this->assertSame('高雄市新興區浩然里', (string) Normalizer::factory('高雄市新興區浩然里')->normalizeAddress());
         $this->assertSame('高雄市新興區振成里', (string) Normalizer::factory('高雄市新興區振成里')->normalizeAddress());
         $this->assertSame('高雄市新興區德生里', (string) Normalizer::factory('高雄市新興區德生里')->normalizeAddress());
@@ -468,84 +549,162 @@ class NormalizerKaohsiungTest extends TestCase
         $this->assertSame('高雄市小港區鳳林里', (string) Normalizer::factory('高雄市小港區鳳林里')->normalizeAddress());
         $this->assertSame('高雄市小港區鳳興里', (string) Normalizer::factory('高雄市小港區鳳興里')->normalizeAddress());
         $this->assertSame('高雄市小港區鳳源里', (string) Normalizer::factory('高雄市小港區鳳源里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一縣口里', (string) Normalizer::factory('高雄縣鳳山市第一縣口里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一成功里', (string) Normalizer::factory('高雄縣鳳山市第一成功里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一光明里', (string) Normalizer::factory('高雄縣鳳山市第一光明里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一興中里', (string) Normalizer::factory('高雄縣鳳山市第一興中里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一南興里', (string) Normalizer::factory('高雄縣鳳山市第一南興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一和德里', (string) Normalizer::factory('高雄縣鳳山市第一和德里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一鳳崗里', (string) Normalizer::factory('高雄縣鳳山市第一鳳崗里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一中和里', (string) Normalizer::factory('高雄縣鳳山市第一中和里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一鎮北里', (string) Normalizer::factory('高雄縣鳳山市第一鎮北里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一縣衙里', (string) Normalizer::factory('高雄縣鳳山市第一縣衙里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文英里', (string) Normalizer::factory('高雄縣鳳山市第一文英里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一鎮西里', (string) Normalizer::factory('高雄縣鳳山市第一鎮西里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一鎮東里', (string) Normalizer::factory('高雄縣鳳山市第一鎮東里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一埤頂里', (string) Normalizer::factory('高雄縣鳳山市第一埤頂里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一中正里', (string) Normalizer::factory('高雄縣鳳山市第一中正里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一瑞竹里', (string) Normalizer::factory('高雄縣鳳山市第一瑞竹里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一忠義里', (string) Normalizer::factory('高雄縣鳳山市第一忠義里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一誠義里', (string) Normalizer::factory('高雄縣鳳山市第一誠義里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一新興里', (string) Normalizer::factory('高雄縣鳳山市第一新興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一海光里', (string) Normalizer::factory('高雄縣鳳山市第一海光里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一海風里', (string) Normalizer::factory('高雄縣鳳山市第一海風里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一忠誠里', (string) Normalizer::factory('高雄縣鳳山市第一忠誠里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一東門里', (string) Normalizer::factory('高雄縣鳳山市第一東門里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一瑞興里', (string) Normalizer::factory('高雄縣鳳山市第一瑞興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一鳳東里', (string) Normalizer::factory('高雄縣鳳山市第一鳳東里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文德里', (string) Normalizer::factory('高雄縣鳳山市第一文德里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一曹公里', (string) Normalizer::factory('高雄縣鳳山市第一曹公里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一興仁里', (string) Normalizer::factory('高雄縣鳳山市第一興仁里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一忠孝里', (string) Normalizer::factory('高雄縣鳳山市第一忠孝里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一生明里', (string) Normalizer::factory('高雄縣鳳山市第一生明里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一和興里', (string) Normalizer::factory('高雄縣鳳山市第一和興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一協和里', (string) Normalizer::factory('高雄縣鳳山市第一協和里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文山里', (string) Normalizer::factory('高雄縣鳳山市第一文山里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一誠德里', (string) Normalizer::factory('高雄縣鳳山市第一誠德里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一三民里', (string) Normalizer::factory('高雄縣鳳山市第一三民里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一誠正里', (string) Normalizer::factory('高雄縣鳳山市第一誠正里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一北門里', (string) Normalizer::factory('高雄縣鳳山市第一北門里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文華里', (string) Normalizer::factory('高雄縣鳳山市第一文華里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一武松里', (string) Normalizer::factory('高雄縣鳳山市第一武松里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文衡里', (string) Normalizer::factory('高雄縣鳳山市第一文衡里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一文福里', (string) Normalizer::factory('高雄縣鳳山市第一文福里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一誠信里', (string) Normalizer::factory('高雄縣鳳山市第一誠信里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第一誠智里', (string) Normalizer::factory('高雄縣鳳山市第一誠智里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二鎮南里', (string) Normalizer::factory('高雄縣鳳山市第二鎮南里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二老爺里', (string) Normalizer::factory('高雄縣鳳山市第二老爺里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新甲里', (string) Normalizer::factory('高雄縣鳳山市第二新甲里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二武漢里', (string) Normalizer::factory('高雄縣鳳山市第二武漢里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二正義里', (string) Normalizer::factory('高雄縣鳳山市第二正義里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二一甲里', (string) Normalizer::factory('高雄縣鳳山市第二一甲里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二福興里', (string) Normalizer::factory('高雄縣鳳山市第二福興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二天興里', (string) Normalizer::factory('高雄縣鳳山市第二天興里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新強里', (string) Normalizer::factory('高雄縣鳳山市第二新強里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二國泰里', (string) Normalizer::factory('高雄縣鳳山市第二國泰里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新富里', (string) Normalizer::factory('高雄縣鳳山市第二新富里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二國光里', (string) Normalizer::factory('高雄縣鳳山市第二國光里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二國隆里', (string) Normalizer::factory('高雄縣鳳山市第二國隆里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二過埤里', (string) Normalizer::factory('高雄縣鳳山市第二過埤里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二五福里', (string) Normalizer::factory('高雄縣鳳山市第二五福里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二福誠里', (string) Normalizer::factory('高雄縣鳳山市第二福誠里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二富甲里', (string) Normalizer::factory('高雄縣鳳山市第二富甲里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二南成里', (string) Normalizer::factory('高雄縣鳳山市第二南成里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二大德里', (string) Normalizer::factory('高雄縣鳳山市第二大德里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二國富里', (string) Normalizer::factory('高雄縣鳳山市第二國富里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二武慶里', (string) Normalizer::factory('高雄縣鳳山市第二武慶里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二海洋里', (string) Normalizer::factory('高雄縣鳳山市第二海洋里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新武里', (string) Normalizer::factory('高雄縣鳳山市第二新武里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新樂里', (string) Normalizer::factory('高雄縣鳳山市第二新樂里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二新泰里', (string) Normalizer::factory('高雄縣鳳山市第二新泰里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二中崙里', (string) Normalizer::factory('高雄縣鳳山市第二中崙里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二中榮里', (string) Normalizer::factory('高雄縣鳳山市第二中榮里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二中民里', (string) Normalizer::factory('高雄縣鳳山市第二中民里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二二甲里', (string) Normalizer::factory('高雄縣鳳山市第二二甲里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二龍成里', (string) Normalizer::factory('高雄縣鳳山市第二龍成里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二富榮里', (string) Normalizer::factory('高雄縣鳳山市第二富榮里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二善美里', (string) Normalizer::factory('高雄縣鳳山市第二善美里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二南和里', (string) Normalizer::factory('高雄縣鳳山市第二南和里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二福祥里', (string) Normalizer::factory('高雄縣鳳山市第二福祥里')->normalizeAddress());
-        $this->assertSame('高雄市鳳山區第二保安里', (string) Normalizer::factory('高雄縣鳳山市第二保安里')->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一縣口里', (string) Normalizer::factory('高雄縣鳳山市第一縣口里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一成功里', (string) Normalizer::factory('高雄縣鳳山市第一成功里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一光明里', (string) Normalizer::factory('高雄縣鳳山市第一光明里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一興中里', (string) Normalizer::factory('高雄縣鳳山市第一興中里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一南興里', (string) Normalizer::factory('高雄縣鳳山市第一南興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一和德里', (string) Normalizer::factory('高雄縣鳳山市第一和德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一鳳崗里', (string) Normalizer::factory('高雄縣鳳山市第一鳳崗里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一中和里', (string) Normalizer::factory('高雄縣鳳山市第一中和里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一鎮北里', (string) Normalizer::factory('高雄縣鳳山市第一鎮北里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一縣衙里', (string) Normalizer::factory('高雄縣鳳山市第一縣衙里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文英里', (string) Normalizer::factory('高雄縣鳳山市第一文英里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一鎮西里', (string) Normalizer::factory('高雄縣鳳山市第一鎮西里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一鎮東里', (string) Normalizer::factory('高雄縣鳳山市第一鎮東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一埤頂里', (string) Normalizer::factory('高雄縣鳳山市第一埤頂里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一中正里', (string) Normalizer::factory('高雄縣鳳山市第一中正里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一瑞竹里', (string) Normalizer::factory('高雄縣鳳山市第一瑞竹里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一忠義里', (string) Normalizer::factory('高雄縣鳳山市第一忠義里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一誠義里', (string) Normalizer::factory('高雄縣鳳山市第一誠義里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一新興里', (string) Normalizer::factory('高雄縣鳳山市第一新興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一海光里', (string) Normalizer::factory('高雄縣鳳山市第一海光里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一海風里', (string) Normalizer::factory('高雄縣鳳山市第一海風里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一忠誠里', (string) Normalizer::factory('高雄縣鳳山市第一忠誠里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一東門里', (string) Normalizer::factory('高雄縣鳳山市第一東門里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一瑞興里', (string) Normalizer::factory('高雄縣鳳山市第一瑞興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一鳳東里', (string) Normalizer::factory('高雄縣鳳山市第一鳳東里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文德里', (string) Normalizer::factory('高雄縣鳳山市第一文德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一曹公里', (string) Normalizer::factory('高雄縣鳳山市第一曹公里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一興仁里', (string) Normalizer::factory('高雄縣鳳山市第一興仁里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一忠孝里', (string) Normalizer::factory('高雄縣鳳山市第一忠孝里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一生明里', (string) Normalizer::factory('高雄縣鳳山市第一生明里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一和興里', (string) Normalizer::factory('高雄縣鳳山市第一和興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一協和里', (string) Normalizer::factory('高雄縣鳳山市第一協和里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文山里', (string) Normalizer::factory('高雄縣鳳山市第一文山里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一誠德里', (string) Normalizer::factory('高雄縣鳳山市第一誠德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一三民里', (string) Normalizer::factory('高雄縣鳳山市第一三民里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一誠正里', (string) Normalizer::factory('高雄縣鳳山市第一誠正里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一北門里', (string) Normalizer::factory('高雄縣鳳山市第一北門里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文華里', (string) Normalizer::factory('高雄縣鳳山市第一文華里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一武松里', (string) Normalizer::factory('高雄縣鳳山市第一武松里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文衡里', (string) Normalizer::factory('高雄縣鳳山市第一文衡里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一文福里', (string) Normalizer::factory('高雄縣鳳山市第一文福里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一誠信里', (string) Normalizer::factory('高雄縣鳳山市第一誠信里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第一誠智里', (string) Normalizer::factory('高雄縣鳳山市第一誠智里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二鎮南里', (string) Normalizer::factory('高雄縣鳳山市第二鎮南里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二老爺里', (string) Normalizer::factory('高雄縣鳳山市第二老爺里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新甲里', (string) Normalizer::factory('高雄縣鳳山市第二新甲里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二武漢里', (string) Normalizer::factory('高雄縣鳳山市第二武漢里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二正義里', (string) Normalizer::factory('高雄縣鳳山市第二正義里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二一甲里', (string) Normalizer::factory('高雄縣鳳山市第二一甲里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二福興里', (string) Normalizer::factory('高雄縣鳳山市第二福興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二天興里', (string) Normalizer::factory('高雄縣鳳山市第二天興里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新強里', (string) Normalizer::factory('高雄縣鳳山市第二新強里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二國泰里', (string) Normalizer::factory('高雄縣鳳山市第二國泰里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新富里', (string) Normalizer::factory('高雄縣鳳山市第二新富里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二國光里', (string) Normalizer::factory('高雄縣鳳山市第二國光里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二國隆里', (string) Normalizer::factory('高雄縣鳳山市第二國隆里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二過埤里', (string) Normalizer::factory('高雄縣鳳山市第二過埤里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二五福里', (string) Normalizer::factory('高雄縣鳳山市第二五福里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二福誠里', (string) Normalizer::factory('高雄縣鳳山市第二福誠里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二富甲里', (string) Normalizer::factory('高雄縣鳳山市第二富甲里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二南成里', (string) Normalizer::factory('高雄縣鳳山市第二南成里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二大德里', (string) Normalizer::factory('高雄縣鳳山市第二大德里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二國富里', (string) Normalizer::factory('高雄縣鳳山市第二國富里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二武慶里', (string) Normalizer::factory('高雄縣鳳山市第二武慶里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二海洋里', (string) Normalizer::factory('高雄縣鳳山市第二海洋里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新武里', (string) Normalizer::factory('高雄縣鳳山市第二新武里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新樂里', (string) Normalizer::factory('高雄縣鳳山市第二新樂里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二新泰里', (string) Normalizer::factory('高雄縣鳳山市第二新泰里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二中崙里', (string) Normalizer::factory('高雄縣鳳山市第二中崙里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二中榮里', (string) Normalizer::factory('高雄縣鳳山市第二中榮里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二中民里', (string) Normalizer::factory('高雄縣鳳山市第二中民里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二二甲里', (string) Normalizer::factory('高雄縣鳳山市第二二甲里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二龍成里', (string) Normalizer::factory('高雄縣鳳山市第二龍成里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二富榮里', (string) Normalizer::factory('高雄縣鳳山市第二富榮里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二善美里', (string) Normalizer::factory('高雄縣鳳山市第二善美里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二南和里', (string) Normalizer::factory('高雄縣鳳山市第二南和里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二福祥里', (string) Normalizer::factory('高雄縣鳳山市第二福祥里')
+            ->normalizeAddress());
+        $this->assertSame('高雄市鳳山區第二保安里', (string) Normalizer::factory('高雄縣鳳山市第二保安里')
+            ->normalizeAddress());
         $this->assertSame('高雄市林園區東林里', (string) Normalizer::factory('高雄縣林園鄉東林村')->normalizeAddress());
         $this->assertSame('高雄市林園區林園里', (string) Normalizer::factory('高雄縣林園鄉林園村')->normalizeAddress());
         $this->assertSame('高雄市林園區溪州里', (string) Normalizer::factory('高雄縣林園鄉溪州村')->normalizeAddress());
@@ -903,10 +1062,14 @@ class NormalizerKaohsiungTest extends TestCase
         $this->assertSame('高雄市桃源區高中里', (string) Normalizer::factory('高雄縣桃源鄉高中村')->normalizeAddress());
         $this->assertSame('高雄市桃源區勤和里', (string) Normalizer::factory('高雄縣桃源鄉勤和村')->normalizeAddress());
         $this->assertSame('高雄市桃源區復興里', (string) Normalizer::factory('高雄縣桃源鄉復興村')->normalizeAddress());
-        $this->assertSame('高雄市桃源區拉芙蘭里', (string) Normalizer::factory('高雄縣桃源鄉拉芙蘭村')->normalizeAddress());
+        $this->assertSame('高雄市桃源區拉芙蘭里', (string) Normalizer::factory('高雄縣桃源鄉拉芙蘭村')
+            ->normalizeAddress());
         $this->assertSame('高雄市桃源區梅山里', (string) Normalizer::factory('高雄縣桃源鄉梅山村')->normalizeAddress());
-        $this->assertSame('高雄市那瑪夏區達卡努瓦里', (string) Normalizer::factory('高雄縣那瑪夏鄉達卡努瓦村')->normalizeAddress());
-        $this->assertSame('高雄市那瑪夏區瑪雅里', (string) Normalizer::factory('高雄縣那瑪夏鄉瑪雅村')->normalizeAddress());
-        $this->assertSame('高雄市那瑪夏區南沙魯里', (string) Normalizer::factory('高雄縣那瑪夏鄉南沙魯村')->normalizeAddress());
+        $this->assertSame('高雄市那瑪夏區達卡努瓦里', (string) Normalizer::factory('高雄縣那瑪夏鄉達卡努瓦村')
+            ->normalizeAddress());
+        $this->assertSame('高雄市那瑪夏區瑪雅里', (string) Normalizer::factory('高雄縣那瑪夏鄉瑪雅村')
+            ->normalizeAddress());
+        $this->assertSame('高雄市那瑪夏區南沙魯里', (string) Normalizer::factory('高雄縣那瑪夏鄉南沙魯村')
+            ->normalizeAddress());
     }
 }

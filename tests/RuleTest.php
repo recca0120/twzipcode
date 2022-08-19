@@ -2,17 +2,11 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
-use Recca0120\Twzipcode\Rule;
 use PHPUnit\Framework\TestCase;
+use Recca0120\Twzipcode\Rule;
 
 class RuleTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testGetTokensWithAll()
     {
         $rule = new Rule('10058,臺北市,中正區,八德路１段,全');

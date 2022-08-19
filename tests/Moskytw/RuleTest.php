@@ -4,18 +4,12 @@ namespace Recca0120\Twzipcode\Tests\Moskytw;
 
 require __DIR__.'/stubs/Rule.php';
 
-use Mockery as m;
-use Moskytw\Rule;
 use Moskytw\Address;
+use Moskytw\Rule;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function test_rule_init()
     {
         $rule = new Rule('臺北市,中正區,八德路１段,全');

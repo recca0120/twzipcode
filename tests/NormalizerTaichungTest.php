@@ -2,17 +2,11 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTaichungTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testNormalizeTaichungAddress()
     {
         $this->assertSame('臺中市中區繼光里', (string) Normalizer::factory('臺中市中區繼光里')->normalizeAddress());
@@ -433,7 +427,8 @@ class NormalizerTaichungTest extends TestCase
         $this->assertSame('臺中市潭子區嘉仁里', (string) Normalizer::factory('臺中縣潭子鄉嘉仁村')->normalizeAddress());
         $this->assertSame('臺中市潭子區新田里', (string) Normalizer::factory('臺中縣潭子鄉新田村')->normalizeAddress());
         $this->assertSame('臺中市潭子區聚興里', (string) Normalizer::factory('臺中縣潭子鄉聚興村')->normalizeAddress());
-        $this->assertSame('臺中市潭子區頭家東里', (string) Normalizer::factory('臺中縣潭子鄉頭家東村')->normalizeAddress());
+        $this->assertSame('臺中市潭子區頭家東里', (string) Normalizer::factory('臺中縣潭子鄉頭家東村')
+            ->normalizeAddress());
         $this->assertSame('臺中市潭子區家興里', (string) Normalizer::factory('臺中縣潭子鄉家興村')->normalizeAddress());
         $this->assertSame('臺中市潭子區家福里', (string) Normalizer::factory('臺中縣潭子鄉家福村')->normalizeAddress());
         $this->assertSame('臺中市大雅區大雅里', (string) Normalizer::factory('臺中縣大雅鄉大雅村')->normalizeAddress());

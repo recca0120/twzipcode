@@ -8,11 +8,6 @@ use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTaipeiTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testNormalizeTaipeiAddress()
     {
         $this->assertSame('新北市板橋區留侯里', (string) Normalizer::factory('臺北縣板橋市留侯里')->normalizeAddress());

@@ -5,13 +5,11 @@ namespace Recca0120\Twzipcode\Tests;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Address;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class AddressTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     public function testGetTokens()
     {

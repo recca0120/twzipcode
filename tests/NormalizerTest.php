@@ -2,22 +2,11 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTest extends TestCase
 {
-    protected function setUp()
-    {
-        $this->units = ['段', '路', '街', '巷', '弄', '號', '樓'];
-    }
-
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testNormalize()
     {
         $data = [
@@ -82,5 +71,10 @@ class NormalizerTest extends TestCase
         $this->assertSame('臺中市豐原區', (string) Normalizer::factory('臺中縣豐原市')->normalizeAddress());
         $this->assertSame('高雄市鳳山區第一', (string) Normalizer::factory('高雄縣鳳山市第一')->normalizeAddress());
         $this->assertSame('臺南市新營區', (string) Normalizer::factory('臺南縣新營市')->normalizeAddress());
+    }
+
+    protected function setUp(): void
+    {
+        $this->units = ['段', '路', '街', '巷', '弄', '號', '樓'];
     }
 }

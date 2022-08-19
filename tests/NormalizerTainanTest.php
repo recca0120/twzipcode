@@ -2,20 +2,15 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTainanTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
-
     public function testNormalizeTainanAddress()
     {
-        $this->assertSame('臺南市新化區[上廿下那]拔里', (string) Normalizer::factory('臺南縣新化鎮[上廿下那]拔里')->normalizeAddress());
+        $this->assertSame('臺南市新化區[上廿下那]拔里', (string) Normalizer::factory('臺南縣新化鎮[上廿下那]拔里')
+            ->normalizeAddress());
         // return;
         $this->assertSame('臺南市新營區忠政里', (string) Normalizer::factory('臺南縣新營市忠政里')->normalizeAddress());
         $this->assertSame('臺南市新營區民權里', (string) Normalizer::factory('臺南縣新營市民權里')->normalizeAddress());
@@ -341,7 +336,8 @@ class NormalizerTainanTest extends TestCase
         $this->assertSame('臺南市新化區知義里', (string) Normalizer::factory('臺南縣新化鎮知義里')->normalizeAddress());
         $this->assertSame('臺南市新化區山脚里', (string) Normalizer::factory('臺南縣新化鎮山脚里')->normalizeAddress());
         $this->assertSame('臺南市新化區大坑里', (string) Normalizer::factory('臺南縣新化鎮大坑里')->normalizeAddress());
-        $this->assertSame('臺南市新化區[上廿下那]拔里', (string) Normalizer::factory('臺南縣新化鎮[上廿下那]拔里')->normalizeAddress());
+        $this->assertSame('臺南市新化區[上廿下那]拔里', (string) Normalizer::factory('臺南縣新化鎮[上廿下那]拔里')
+            ->normalizeAddress());
         $this->assertSame('臺南市新化區羊林里', (string) Normalizer::factory('臺南縣新化鎮羊林里')->normalizeAddress());
         $this->assertSame('臺南市新化區礁坑里', (string) Normalizer::factory('臺南縣新化鎮礁坑里')->normalizeAddress());
         $this->assertSame('臺南市善化區東關里', (string) Normalizer::factory('臺南縣善化鎮東關里')->normalizeAddress());
@@ -498,7 +494,8 @@ class NormalizerTainanTest extends TestCase
         $this->assertSame('臺南市龍崎區牛埔里', (string) Normalizer::factory('臺南縣龍崎鄉牛埔村')->normalizeAddress());
         $this->assertSame('臺南市龍崎區大坪里', (string) Normalizer::factory('臺南縣龍崎鄉大坪村')->normalizeAddress());
         $this->assertSame('臺南市龍崎區龍船里', (string) Normalizer::factory('臺南縣龍崎鄉龍船村')->normalizeAddress());
-        $this->assertSame('臺南市龍崎區石[石曹]里', (string) Normalizer::factory('臺南縣龍崎鄉石[石曹]村')->normalizeAddress());
+        $this->assertSame('臺南市龍崎區石[石曹]里', (string) Normalizer::factory('臺南縣龍崎鄉石[石曹]村')
+            ->normalizeAddress());
         $this->assertSame('臺南市永康區五王里', (string) Normalizer::factory('臺南縣永康市五王里')->normalizeAddress());
         $this->assertSame('臺南市永康區網寮里', (string) Normalizer::factory('臺南縣永康市網寮里')->normalizeAddress());
         $this->assertSame('臺南市永康區永康里', (string) Normalizer::factory('臺南縣永康市永康里')->normalizeAddress());
@@ -667,7 +664,8 @@ class NormalizerTainanTest extends TestCase
         $this->assertSame('臺南市北區賢北里', (string) Normalizer::factory('臺南市北區賢北里')->normalizeAddress());
         $this->assertSame('臺南市安南區東和里', (string) Normalizer::factory('臺南市安南區東和里')->normalizeAddress());
         $this->assertSame('臺南市安南區安順里', (string) Normalizer::factory('臺南市安南區安順里')->normalizeAddress());
-        $this->assertSame('臺南市安南區[土昷]南里', (string) Normalizer::factory('臺南市安南區[土昷]南里')->normalizeAddress());
+        $this->assertSame('臺南市安南區[土昷]南里', (string) Normalizer::factory('臺南市安南區[土昷]南里')
+            ->normalizeAddress());
         $this->assertSame('臺南市安南區州南里', (string) Normalizer::factory('臺南市安南區州南里')->normalizeAddress());
         $this->assertSame('臺南市安南區州北里', (string) Normalizer::factory('臺南市安南區州北里')->normalizeAddress());
         $this->assertSame('臺南市安南區安東里', (string) Normalizer::factory('臺南市安南區安東里')->normalizeAddress());
@@ -688,7 +686,8 @@ class NormalizerTainanTest extends TestCase
         $this->assertSame('臺南市安南區淵西里', (string) Normalizer::factory('臺南市安南區淵西里')->normalizeAddress());
         $this->assertSame('臺南市安南區佃東里', (string) Normalizer::factory('臺南市安南區佃東里')->normalizeAddress());
         $this->assertSame('臺南市安南區佃西里', (string) Normalizer::factory('臺南市安南區佃西里')->normalizeAddress());
-        $this->assertSame('臺南市安南區公[土昷]里', (string) Normalizer::factory('臺南市安南區公[土昷]里')->normalizeAddress());
+        $this->assertSame('臺南市安南區公[土昷]里', (string) Normalizer::factory('臺南市安南區公[土昷]里')
+            ->normalizeAddress());
         $this->assertSame('臺南市安南區南興里', (string) Normalizer::factory('臺南市安南區南興里')->normalizeAddress());
         $this->assertSame('臺南市安南區學東里', (string) Normalizer::factory('臺南市安南區學東里')->normalizeAddress());
         $this->assertSame('臺南市安南區城東里', (string) Normalizer::factory('臺南市安南區城東里')->normalizeAddress());

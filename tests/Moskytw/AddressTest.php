@@ -7,13 +7,11 @@ require __DIR__.'/stubs/Address.php';
 use Mockery as m;
 use Moskytw\Address;
 use PHPUnit\Framework\TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class AddressTest extends TestCase
 {
-    protected function tearDown()
-    {
-        m::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     public function test_address_init()
     {

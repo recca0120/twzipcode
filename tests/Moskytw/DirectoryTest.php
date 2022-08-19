@@ -8,10 +8,13 @@ use Mockery as m;
 use Moskytw\Directory;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class DirectoryTest extends TestCase
 {
-    protected function setUp()
+    use MockeryPHPUnitIntegration;
+
+    protected function setUp():void
     {
         $root = vfsStream::setup();
         $this->directory = new Directory($root->url());
@@ -79,11 +82,6 @@ class DirectoryTest extends TestCase
 81357,高雄市,左營區,大順一路,雙  96號至 568號
 81357,高雄市,左營區,大順一路,單 201號至 389巷
         ');
-    }
-
-    protected function tearDown()
-    {
-        m::close();
     }
 
     public function test_find()
