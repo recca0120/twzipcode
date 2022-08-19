@@ -2,7 +2,6 @@
 
 namespace Recca0120\Twzipcode\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Normalizer;
 

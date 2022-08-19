@@ -7,44 +7,6 @@ use Recca0120\Lodash\JString;
 class Normalizer extends JString
 {
     /**
-     * regularize.
-     *
-     * @return static
-     */
-    public function regularize()
-    {
-        return $this
-            ->toHalfCase()
-            ->replace('/^\d+/', '')
-            ->replace([
-                ' ' => '',
-                ',' => '',
-                '~' => '之',
-                '-' => '之',
-                '台灣' => '臺灣',
-                '台北' => '臺北',
-                '台中' => '臺中',
-                '台南' => '臺南',
-                '台東' => '臺東',
-                '釣魚台' => '釣魚臺',
-                '台西鄉' => '臺西鄉',
-                '霧台鄉' => '霧臺鄉',
-            ]);
-    }
-
-    /**
-     * digitize.
-     *
-     * @return static
-     */
-    public function digitize()
-    {
-        return $this->replace('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
-            return (new static($m[0]))->chineseToNumber();
-        });
-    }
-
-    /**
      * normalizeAddress.
      *
      * @return static
@@ -93,9 +55,44 @@ class Normalizer extends JString
      */
     public function normalize()
     {
+        return $this->trim()->regularize()->digitize();
+    }
+
+    /**
+     * digitize.
+     *
+     * @return static
+     */
+    public function digitize()
+    {
+        return $this->replace('/[一二三四五六七八九十百千]+(?=[段路街巷弄號樓])/u', function ($m) {
+            return (new static($m[0]))->chineseToNumber();
+        });
+    }
+
+    /**
+     * regularize.
+     *
+     * @return static
+     */
+    public function regularize()
+    {
         return $this
-            ->trim()
-            ->regularize()
-            ->digitize();
+            ->toHalfCase()
+            ->replace('/^\d+/', '')
+            ->replace([
+                ' ' => '',
+                ',' => '',
+                '~' => '之',
+                '-' => '之',
+                '台灣' => '臺灣',
+                '台北' => '臺北',
+                '台中' => '臺中',
+                '台南' => '臺南',
+                '台東' => '臺東',
+                '釣魚台' => '釣魚臺',
+                '台西鄉' => '臺西鄉',
+                '霧台鄉' => '霧臺鄉',
+            ]);
     }
 }

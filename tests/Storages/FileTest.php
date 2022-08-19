@@ -2,8 +2,8 @@
 
 namespace Recca0120\Twzipcode\Tests\Storages;
 
-use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery as m;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Storages\File;
@@ -11,61 +11,6 @@ use Recca0120\Twzipcode\Storages\File;
 class FileTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
-
-    public function testDefaultPath()
-    {
-        $storage = new File();
-        $this->assertEquals(realpath(__DIR__.'/../../resources/data').'/', $storage->path);
-    }
-
-    public function testZip3()
-    {
-        $address = m::mock('Recca0120\Twzipcode\Address');
-
-        $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
-        $this->assertSame('100', $this->storage->zip3($address));
-
-        $address->shouldReceive('flat')->once()->andReturn('基隆市中正區');
-        $this->assertSame('202', $this->storage->zip3($address));
-
-        $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
-        $this->assertSame('812', $this->storage->zip3($address));
-    }
-
-    public function testRules()
-    {
-        $rules = $this->storage->rules('100');
-
-        foreach ($rules as $rule) {
-            $this->assertSame('100', $rule->zip3());
-        }
-    }
-
-    public function testLoadResources()
-    {
-        File::$cached = [
-            'zip3' => null,
-            'zip5' => null,
-        ];
-        $root = vfsStream::setup();
-        $storage = new File($root->url());
-        $storage->flush()
-            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
-
-        $address = m::mock('Recca0120\Twzipcode\Address');
-
-        $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
-        $this->assertSame('100', $storage->zip3($address));
-
-        $address->shouldReceive('flat')->once()->andReturn('基隆市中正區');
-        $this->assertSame('202', $storage->zip3($address));
-
-        $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
-        $this->assertSame('812', $storage->zip3($address));
-
-        $address->shouldReceive('flat')->once()->andReturn('臺中市大里區');
-        $this->assertSame('412', $storage->zip3($address));
-    }
 
     protected function setUp(): void
     {
@@ -135,5 +80,60 @@ class FileTest extends TestCase
 81357,高雄市,左營區,大順一路,雙  96號至 568號
 81357,高雄市,左營區,大順一路,單 201號至 389巷
         ');
+    }
+
+    public function testDefaultPath()
+    {
+        $storage = new File();
+        $this->assertEquals(realpath(__DIR__.'/../../resources/data').'/', $storage->path);
+    }
+
+    public function testZip3()
+    {
+        $address = m::mock('Recca0120\Twzipcode\Address');
+
+        $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
+        $this->assertSame('100', $this->storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('基隆市中正區');
+        $this->assertSame('202', $this->storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
+        $this->assertSame('812', $this->storage->zip3($address));
+    }
+
+    public function testRules()
+    {
+        $rules = $this->storage->rules('100');
+
+        foreach ($rules as $rule) {
+            $this->assertSame('100', $rule->zip3());
+        }
+    }
+
+    public function testLoadResources()
+    {
+        File::$cached = [
+            'zip3' => null,
+            'zip5' => null,
+        ];
+        $root = vfsStream::setup();
+        $storage = new File($root->url());
+        $storage->flush()
+            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
+
+        $address = m::mock('Recca0120\Twzipcode\Address');
+
+        $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
+        $this->assertSame('100', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('基隆市中正區');
+        $this->assertSame('202', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('高雄市小港區');
+        $this->assertSame('812', $storage->zip3($address));
+
+        $address->shouldReceive('flat')->once()->andReturn('臺中市大里區');
+        $this->assertSame('412', $storage->zip3($address));
     }
 }

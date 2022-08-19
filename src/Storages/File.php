@@ -58,38 +58,6 @@ class File implements Storage
     }
 
     /**
-     * restore.
-     *
-     * @param string $filename
-     * @return mixed
-     */
-    protected function restore($filename)
-    {
-        if (file_exists($this->path.$filename.$this->suffix) === false) {
-            return false;
-        }
-
-        if (is_null(self::$cached[$filename]) === false) {
-            return self::$cached[$filename];
-        }
-
-        return self::$cached[$filename] = $this->decompress(
-            file_get_contents($this->path.$filename.$this->suffix)
-        );
-    }
-
-    /**
-     * decompress.
-     *
-     * @param string $compressed
-     * @return mixed
-     */
-    protected function decompress($compressed)
-    {
-        return unserialize(gzuncompress($compressed));
-    }
-
-    /**
      * load.
      *
      * @param string $source
@@ -164,6 +132,38 @@ class File implements Storage
     }
 
     /**
+     * restore.
+     *
+     * @param string $filename
+     * @return mixed
+     */
+    protected function restore($filename)
+    {
+        if (file_exists($this->path.$filename.$this->suffix) === false) {
+            return false;
+        }
+
+        if (is_null(self::$cached[$filename]) === false) {
+            return self::$cached[$filename];
+        }
+
+        return self::$cached[$filename] = $this->decompress(
+            file_get_contents($this->path.$filename.$this->suffix)
+        );
+    }
+
+    /**
+     * decompress.
+     *
+     * @param string $compressed
+     * @return mixed
+     */
+    protected function decompress($compressed)
+    {
+        return unserialize(gzuncompress($compressed));
+    }
+
+    /**
      * getSource.
      *
      * @param string $file
@@ -183,9 +183,8 @@ class File implements Storage
         }
 
         $content = mb_convert_encoding($content, 'UTF-8', 'UCS-2LE');
-        $content = preg_replace("/^\xEF\xBB\xBF/", '', $content);
 
-        return $content;
+        return preg_replace("/^\xEF\xBB\xBF/", '', $content);
     }
 
     /**
@@ -244,7 +243,6 @@ class File implements Storage
         return gzcompress(serialize($plainText));
     }
 
-
     /**
      * store.
      *
@@ -261,6 +259,4 @@ class File implements Storage
 
         return $this;
     }
-
-
 }

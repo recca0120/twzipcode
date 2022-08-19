@@ -4,11 +4,10 @@ namespace Recca0120\Twzipcode\Tests\Moskytw;
 
 require __DIR__.'/stubs/Directory.php';
 
-use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Moskytw\Directory;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class DirectoryTest extends TestCase
 {

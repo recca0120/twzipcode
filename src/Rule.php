@@ -24,14 +24,14 @@ class Rule
     /**
      * $tokens.
      *
-     * @var \Recca0120\Twzipcode\Address
+     * @var Address
      */
     public $address;
 
     /**
      * $tokens.
      *
-     * @var \Recca0120\Lodash\JArray
+     * @var JArray
      */
     public $tokens;
 
@@ -48,22 +48,9 @@ class Rule
             $rule = $m[2];
         }
 
-        $this->tokens = $this->tokenize(
-            $rule,
-            function ($address) {
-                $this->address = new Address($address);
-            }
-        );
-    }
-
-    /**
-     * zip3.
-     *
-     * @return string
-     */
-    public function zip3()
-    {
-        return $this->zip3;
+        $this->tokens = $this->tokenize($rule, function ($address) {
+            $this->address = new Address($address);
+        });
     }
 
     /**
@@ -87,13 +74,13 @@ class Rule
     }
 
     /**
-     * tokens.
+     * zip3.
      *
-     * @return \Recca0120\Lodash\JArray
+     * @return string
      */
-    public function tokens()
+    public function zip3()
     {
-        return $this->tokens;
+        return $this->zip3;
     }
 
     /**
@@ -135,13 +122,13 @@ class Rule
                 ($token === '以上' && $addressPoint->compare($left, '>=') === false) ||
                 ($token === '以下' && $addressPoint->compare($left, '<=') === false) ||
                 ($token === '至' && (
-                    $right->compare($addressPoint, '<=') && $addressPoint->compare($left, '<=') ||
-                    $this->tokens->includes('含附號全') === true && ($addressPoint->x == $left->x)
+                    ($right->compare($addressPoint, '<=') && $addressPoint->compare($left, '<=')) ||
+                    ($this->tokens->includes('含附號全') === true && ($addressPoint->x === $left->x))
                 ) === false) ||
-                ($token == '含附號' && ($addressPoint->x === $left->x) === false) ||
-                ($token == '附號全' && ($addressPoint->x === $left->x && $addressPoint->y > 0) === false) ||
-                ($token == '及以上附號' && $addressPoint->compare($left, '>=') === false) ||
-                ($token == '含附號以下' && (
+                ($token === '含附號' && ($addressPoint->x === $left->x) === false) ||
+                ($token === '附號全' && ($addressPoint->x === $left->x && $addressPoint->y > 0) === false) ||
+                ($token === '及以上附號' && $addressPoint->compare($left, '>=') === false) ||
+                ($token === '含附號以下' && (
                     $addressPoint->compare($left, '<=') ||
                     $addressPoint->x === $left->x
                 ) === false)
@@ -154,57 +141,52 @@ class Rule
     }
 
     /**
-     * normalizeAddress.
+     * tokens.
      *
-     * @param Address $ruleAddressTokens
-     * @param \Recca0120\Lodash\JArray $ruleAddressTokens
-     * @return array
+     * @return JArray
      */
-    protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
+    public function tokens()
     {
-        $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function ($token) {
-            return isset($token[Address::UNIT]) === true ? $token[Address::UNIT] : '';
-        })->values());
-
-        return new Address(
-            new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
-                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits, true) === false;
-            })->map(function ($token) {
-                return implode('', $token);
-            }))
-        );
+        return $this->tokens;
     }
 
     /**
-     * equalsToken.
+     * tokenize.
      *
-     * @param \Recca0120\Lodash\JArray $ruleAddressTokens
-     * @param \Recca0120\Lodash\JArray $addressTokens
-     * @param int $cur
-     * @return bool
+     * @param string $rule
+     * @param Closure $addressResolver
+     * @return JArray
      */
-    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
+    protected function tokenize($rule, Closure $addressResolver)
     {
-        if ($cur >= $addressTokens->length()) {
-            return false;
-        }
+        $tokens = new JArray();
 
-        $i = $cur;
-        while ($i >= 0) {
-            if ($ruleAddressTokens[$i] !== $addressTokens[$i]) {
-                return false;
+        $pattern = [
+            '及以上附號|含附號以下|含附號全|含附號',
+            '以下|以上',
+            '附號全',
+            '[連至單雙全](?=[\d全]|$)',
+        ];
+
+        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
+            $token = &$m[0];
+            if ($token === '連') {
+                return '';
             }
-            $i -= 1;
-        }
 
-        return true;
+            $tokens->append($token);
+
+            return $token === '附號全' ? '號' : '';
+        }));
+
+        return $tokens;
     }
 
     /**
      * normalize.
      *
      * @param string $rule
-     * @return \Recca0120\Twzipcode\Normalizer
+     * @return Normalizer
      */
     protected function normalize($rule)
     {
@@ -226,34 +208,49 @@ class Rule
     }
 
     /**
-     * tokenize.
+     * normalizeAddress.
      *
-     * @param string $rule
-     * @param \Closure $addressResolver
-     * @return \Recca0120\Lodash\JArray
+     * @param Address $address
+     * @param JArray $ruleAddressTokens
+     * @return Address
      */
-    protected function tokenize($rule, Closure $addressResolver)
+    protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
     {
-        $tokens = new JArray();
+        $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function ($token) {
+            return isset($token[Address::UNIT]) === true ? $token[Address::UNIT] : '';
+        })->values());
 
-        $pattern = [
-            '及以上附號|含附號以下|含附號全|含附號',
-            '以下|以上',
-            '附號全',
-            '[連至單雙全](?=[\d全]|$)',
-        ];
+        return new Address(
+            new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
+                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits, true) === false;
+            })->map(function ($token) {
+                return implode('', $token);
+            }))
+        );
+    }
 
-        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
-            $token = &$m[0];
-            if ($token === '連') {
-                return;
+    /**
+     * equalsToken.
+     *
+     * @param JArray $ruleAddressTokens
+     * @param JArray $addressTokens
+     * @param int $cur
+     * @return bool
+     */
+    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
+    {
+        if ($cur >= $addressTokens->length()) {
+            return false;
+        }
+
+        $i = $cur;
+        while ($i >= 0) {
+            if ($ruleAddressTokens[$i] !== $addressTokens[$i]) {
+                return false;
             }
+            $i--;
+        }
 
-            $tokens->append($token);
-
-            return $token === '附號全' ? '號' : '';
-        }));
-
-        return $tokens;
+        return true;
     }
 }

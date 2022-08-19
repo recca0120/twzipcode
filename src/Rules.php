@@ -2,22 +2,22 @@
 
 namespace Recca0120\Twzipcode;
 
-use Recca0120\Twzipcode\Storages\File;
 use Recca0120\Twzipcode\Contracts\Storage;
+use Recca0120\Twzipcode\Storages\File;
 
 class Rules
 {
     /**
      * $storage.
      *
-     * @var \Recca0120\Twzipcode\Contracts\Storage
+     * @var Storage
      */
     protected $storage;
 
     /**
      * __construct.
      *
-     * @param \Recca0120\Twzipcode\Contracts\Storage $storage
+     * @param Storage $storage
      */
     public function __construct(Storage $storage = null)
     {
@@ -27,8 +27,8 @@ class Rules
     /**
      * match.
      *
-     * @param string $address
-     * @return string
+     * @param Address|string $address
+     * @return string|void
      */
     public function match($address)
     {

@@ -9,7 +9,7 @@ interface Storage
     /**
      * zip3.
      *
-     * @param \Recca0120\Twzipcode\Address $address
+     * @param Address $address
      * @return string
      */
     public function zip3(Address $address);

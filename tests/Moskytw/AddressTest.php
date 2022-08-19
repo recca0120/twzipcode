@@ -4,7 +4,6 @@ namespace Recca0120\Twzipcode\Tests\Moskytw;
 
 require __DIR__.'/stubs/Address.php';
 
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Moskytw\Address;
 use PHPUnit\Framework\TestCase;
 
