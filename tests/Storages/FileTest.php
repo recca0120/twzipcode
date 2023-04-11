@@ -12,6 +12,10 @@ class FileTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
+    private $root;
+
+    private $storage;
+
     protected function setUp(): void
     {
         $this->root = vfsStream::setup();

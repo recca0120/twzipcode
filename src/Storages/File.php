@@ -47,14 +47,14 @@ class File implements Storage
      * zip3.
      *
      * @param Address $address
-     * @return string
+     * @return JString
      */
     public function zip3(Address $address)
     {
         $this->restore('zip3');
         $flat = $address->flat(2);
 
-        return isset(self::$cached['zip3'][$flat]) === true ? self::$cached['zip3'][$flat] : null;
+        return isset(self::$cached['zip3'][$flat]) ? self::$cached['zip3'][$flat] : null;
     }
 
     /**

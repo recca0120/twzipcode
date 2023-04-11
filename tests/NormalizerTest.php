@@ -7,6 +7,8 @@ use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTest extends TestCase
 {
+    private $units;
+
     protected function setUp(): void
     {
         $this->units = ['段', '路', '街', '巷', '弄', '號', '樓'];
