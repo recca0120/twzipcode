@@ -127,10 +127,7 @@ class RulesTest extends TestCase
 
     public function testZip3North()
     {
-        File::$cached = [
-            'zip3' => null,
-            'zip5' => null,
-        ];
+        File::$cached = ['zip3' => null, 'zip5' => null];
         $rules = new Rules();
         $this->assertSame('100', $rules->match('台北市中正區'.uniqid()));
         $this->assertSame('103', $rules->match('台北市大同區'.uniqid()));

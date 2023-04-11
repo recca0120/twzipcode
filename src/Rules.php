@@ -17,7 +17,7 @@ class Rules
     /**
      * __construct.
      *
-     * @param Storage $storage
+     * @param  Storage  $storage
      */
     public function __construct(Storage $storage = null)
     {
@@ -27,7 +27,7 @@ class Rules
     /**
      * match.
      *
-     * @param Address|string $address
+     * @param  Address|string  $address
      * @return string|void
      */
     public function match($address)

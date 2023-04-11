@@ -13,7 +13,7 @@ class DirectoryTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         $root = vfsStream::setup();
         $this->directory = new Directory($root->url());

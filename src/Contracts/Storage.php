@@ -9,7 +9,6 @@ interface Storage
     /**
      * zip3.
      *
-     * @param Address $address
      * @return string
      */
     public function zip3(Address $address);
@@ -17,7 +16,7 @@ interface Storage
     /**
      * rules.
      *
-     * @param string $zip3
+     * @param  string  $zip3
      * @return JString
      */
     public function rules($zip3);
@@ -25,7 +24,7 @@ interface Storage
     /**
      * load.
      *
-     * @param string $source
+     * @param  string  $source
      * @return $this
      */
     public function load($source);
@@ -33,7 +32,7 @@ interface Storage
     /**
      * loadFile.
      *
-     * @param string $file
+     * @param  string  $file
      * @return $this
      */
     public function loadFile($file = null);

@@ -72,7 +72,7 @@ class Tricky
     }
 
     /**
-     * @param Normalizer $normalizer
+     * @param  Normalizer  $normalizer
      * @return Normalizer
      */
     public function hash($normalizer)
@@ -81,7 +81,7 @@ class Tricky
     }
 
     /**
-     * @param string $token
+     * @param  string  $token
      * @return string
      */
     public function flip($token)

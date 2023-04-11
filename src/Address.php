@@ -56,7 +56,7 @@ class Address
     /**
      * __construct.
      *
-     * @param static|array $address
+     * @param  static|array  $address
      */
     public function __construct($address = '')
     {
@@ -69,7 +69,7 @@ class Address
     /**
      * set.
      *
-     * @param static|string $address
+     * @param  static|string  $address
      * @return $this
      */
     public function set($address)
@@ -132,7 +132,7 @@ class Address
     /**
      * getPoint.
      *
-     * @param string $index
+     * @param  string  $index
      * @return Point
      */
     public function getPoint($index)
@@ -151,8 +151,8 @@ class Address
     /**
      * flat.
      *
-     * @param int $length
-     * @param int $offset
+     * @param  int  $length
+     * @param  int  $offset
      * @return string
      */
     public function flat($length = null, $offset = 0)

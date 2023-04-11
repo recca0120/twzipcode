@@ -21,8 +21,8 @@ class Point
     /**
      * __construct.
      *
-     * @param int $x
-     * @param int $y
+     * @param  int  $x
+     * @param  int  $y
      */
     public function __construct($x = 0, $y = 0)
     {
@@ -43,8 +43,7 @@ class Point
     /**
      * compare.
      *
-     * @param Point $point
-     * @param string $operator
+     * @param  string  $operator
      * @return bool
      */
     public function compare(self $point, $operator = '=')

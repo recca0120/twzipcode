@@ -20,12 +20,14 @@ class File implements Storage
         'zip3' => null,
         'zip5' => null,
     ];
+
     /**
      * $path.
      *
      * @var string
      */
     public $path;
+
     /**
      * $suffix.
      *
@@ -36,7 +38,7 @@ class File implements Storage
     /**
      * __construct.
      *
-     * @param string $path
+     * @param  string  $path
      */
     public function __construct($path = null)
     {
@@ -46,7 +48,6 @@ class File implements Storage
     /**
      * zip3.
      *
-     * @param Address $address
      * @return JString
      */
     public function zip3(Address $address)
@@ -60,7 +61,7 @@ class File implements Storage
     /**
      * load.
      *
-     * @param string $source
+     * @param  string  $source
      * @return $this
      */
     public function load($source)
@@ -90,7 +91,7 @@ class File implements Storage
     /**
      * rules.
      *
-     * @param string $zip3
+     * @param  string  $zip3
      * @return JArray
      */
     public function rules($zip3)
@@ -105,7 +106,7 @@ class File implements Storage
     /**
      * loadFile.
      *
-     * @param string $file
+     * @param  string  $file
      * @return $this
      */
     public function loadFile($file = null)
@@ -134,17 +135,17 @@ class File implements Storage
     /**
      * restore.
      *
-     * @param string $filename
+     * @param  string  $filename
      * @return mixed
      */
     protected function restore($filename)
     {
-        if (file_exists($this->path.$filename.$this->suffix) === false) {
-            return false;
+        if (self::$cached[$filename] !== null) {
+            return self::$cached[$filename];
         }
 
-        if (is_null(self::$cached[$filename]) === false) {
-            return self::$cached[$filename];
+        if (file_exists($this->path.$filename.$this->suffix) === false) {
+            return false;
         }
 
         return self::$cached[$filename] = $this->decompress(
@@ -155,7 +156,7 @@ class File implements Storage
     /**
      * decompress.
      *
-     * @param string $compressed
+     * @param  string  $compressed
      * @return mixed
      */
     protected function decompress($compressed)
@@ -166,7 +167,7 @@ class File implements Storage
     /**
      * getSource.
      *
-     * @param string $file
+     * @param  string  $file
      * @return string
      */
     protected function getSource($file)
@@ -190,7 +191,7 @@ class File implements Storage
     /**
      * prepareSource.
      *
-     * @param string $source
+     * @param  string  $source
      * @return array
      */
     protected function prepareSource($source)
@@ -218,8 +219,8 @@ class File implements Storage
     /**
      * each.
      *
-     * @param array $ruleGroup
-     * @param Closure $callback
+     * @param  array  $ruleGroup
+     * @param  Closure  $callback
      */
     protected function each($ruleGroup, $callback)
     {
@@ -235,7 +236,7 @@ class File implements Storage
     /**
      * compress.
      *
-     * @param JArray $plainText
+     * @param  JArray  $plainText
      * @return string
      */
     protected function compress($plainText)
@@ -246,8 +247,8 @@ class File implements Storage
     /**
      * store.
      *
-     * @param string $filename
-     * @param JArray $data
+     * @param  string  $filename
+     * @param  JArray  $data
      * @return $this
      */
     protected function store($filename, $data)

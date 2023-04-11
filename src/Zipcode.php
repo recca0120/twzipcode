@@ -17,6 +17,7 @@ class Zipcode
         'address' => null,
         'shortAddress' => null,
     ];
+
     /**
      * $address.
      *
@@ -27,8 +28,8 @@ class Zipcode
     /**
      * __construct.
      *
-     * @param string $address
-     * @param Rules $rules
+     * @param  string  $address
+     * @param  Rules  $rules
      */
     public function __construct($address, Rules $rules = null)
     {

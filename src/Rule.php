@@ -38,7 +38,7 @@ class Rule
     /**
      * __construct.
      *
-     * @param string $rule
+     * @param  string  $rule
      */
     public function __construct($rule)
     {
@@ -86,7 +86,7 @@ class Rule
     /**
      * match.
      *
-     * @param Address|string $address
+     * @param  Address|string  $address
      * @return bool
      */
     public function match($address)
@@ -153,8 +153,7 @@ class Rule
     /**
      * tokenize.
      *
-     * @param string $rule
-     * @param Closure $addressResolver
+     * @param  string  $rule
      * @return JArray
      */
     protected function tokenize($rule, Closure $addressResolver)
@@ -185,7 +184,7 @@ class Rule
     /**
      * normalize.
      *
-     * @param string $rule
+     * @param  string  $rule
      * @return Normalizer
      */
     protected function normalize($rule)
@@ -210,8 +209,6 @@ class Rule
     /**
      * normalizeAddress.
      *
-     * @param Address $address
-     * @param JArray $ruleAddressTokens
      * @return Address
      */
     protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
@@ -232,9 +229,9 @@ class Rule
     /**
      * equalsToken.
      *
-     * @param JArray $ruleAddressTokens
-     * @param JArray $addressTokens
-     * @param int $cur
+     * @param  JArray  $ruleAddressTokens
+     * @param  JArray  $addressTokens
+     * @param  int  $cur
      * @return bool
      */
     protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
