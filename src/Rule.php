@@ -22,7 +22,7 @@ class Rule
     public $zip5;
 
     /**
-     * $tokens.
+     * $address.
      *
      * @var Address
      */
@@ -31,7 +31,7 @@ class Rule
     /**
      * $tokens.
      *
-     * @var JArray
+     * @var array
      */
     public $tokens;
 
@@ -97,10 +97,11 @@ class Rule
             $ruleAddressTokens
         );
         $addressTokens = $address->tokens();
+        $currentTokens = $this->tokens();
 
         $cur = $ruleAddressTokens->length() - 1;
-        $cur -= $this->tokens->length() > 0 && $this->tokens->includes('全') === false;
-        $cur -= $this->tokens->includes('至');
+        $cur -= $currentTokens->length() > 0 && $currentTokens->includes('全') === false;
+        $cur -= $currentTokens->includes('至');
 
         if ($this->equalsToken($ruleAddressTokens, $addressTokens, $cur) === false) {
             return false;
@@ -108,7 +109,7 @@ class Rule
 
         $addressPoint = $address->getPoint($cur + 1);
 
-        if ($this->tokens->length() > 0 && $addressPoint->isEmpty() === true) {
+        if ($currentTokens->length() > 0 && $addressPoint->isEmpty() === true) {
             return false;
         }
 
@@ -123,7 +124,7 @@ class Rule
                 ($token === '以下' && $addressPoint->compare($left, '<=') === false) ||
                 ($token === '至' && (
                     ($right->compare($addressPoint, '<=') && $addressPoint->compare($left, '<=')) ||
-                    ($this->tokens->includes('含附號全') === true && ($addressPoint->x === $left->x))
+                    ($currentTokens->includes('含附號全') === true && ($addressPoint->x === $left->x))
                 ) === false) ||
                 ($token === '含附號' && ($addressPoint->x === $left->x) === false) ||
                 ($token === '附號全' && ($addressPoint->x === $left->x && $addressPoint->y > 0) === false) ||
@@ -147,18 +148,18 @@ class Rule
      */
     public function tokens()
     {
-        return $this->tokens;
+        return new JArray($this->tokens);
     }
 
     /**
      * tokenize.
      *
      * @param  string  $rule
-     * @return JArray
+     * @return array
      */
     private function tokenize($rule, Closure $addressResolver)
     {
-        $tokens = new JArray();
+        $tokens = [];
 
         $pattern = [
             '及以上附號|含附號以下|含附號全|含附號',
@@ -167,13 +168,13 @@ class Rule
             '[連至單雙全](?=[\d全]|$)',
         ];
 
-        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use ($tokens) {
+        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use (&$tokens) {
             $token = &$m[0];
             if ($token === '連') {
                 return '';
             }
 
-            $tokens->append($token);
+            $tokens[] = $token;
 
             return $token === '附號全' ? '號' : '';
         }));

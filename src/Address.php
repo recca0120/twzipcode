@@ -83,7 +83,7 @@ class Address
     /**
      * tokenize.
      *
-     * @return JArray
+     * @return array
      */
     private function tokenize()
     {
@@ -106,7 +106,7 @@ class Address
             }
         }
 
-        return new JArray($tokens);
+        return $tokens;
     }
 
     /**
@@ -126,7 +126,7 @@ class Address
      */
     public function tokens()
     {
-        return $this->tokens;
+        return new JArray($this->tokens);
     }
 
     /**
@@ -157,10 +157,11 @@ class Address
      */
     public function flat($length = null, $offset = 0)
     {
-        $length = $length ?: $this->tokens->length();
+        $tokens = $this->tokens();
+        $length = $length ?: $tokens->length();
         $end = $offset + $length;
 
-        return (string) $this->tokens->slice($offset, $end)->map(function ($token) {
+        return (string) $tokens->slice($offset, $end)->map(function ($token) {
             return implode('', $token);
         })->join('');
     }

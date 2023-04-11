@@ -18,6 +18,7 @@ if (file_exists($file) === false) {
         $contents = mb_convert_encoding($contents, 'UTF-8', $encoding);
     }
     $contents = preg_replace("/^\xEF\xBB\xBF/", '', $contents);
+    $contents = trim(str_replace('Zip5,City,Area,Road,Scope', '', $contents));
 
     $zip = new ZipArchive();
     $zip->open($file, ZipArchive::OVERWRITE);
