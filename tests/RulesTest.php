@@ -194,7 +194,7 @@ class RulesTest extends TestCase
         $this->assertSame('337', $rules->match('桃園市大園區'.uniqid()));
         $this->assertSame('338', $rules->match('桃園市蘆竹區'.uniqid()));
 
-        // $this->assertSame('300', $rules->match('新竹市'.uniqid()));
+        $this->assertSame('3', $rules->match('新竹市'.uniqid()));
         $this->assertSame('302', $rules->match('新竹縣竹北市'.uniqid()));
         $this->assertSame('303', $rules->match('新竹縣湖口鄉'.uniqid()));
         $this->assertSame('304', $rules->match('新竹縣新豐鄉'.uniqid()));

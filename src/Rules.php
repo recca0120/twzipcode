@@ -12,7 +12,7 @@ class Rules
      *
      * @var Storage
      */
-    protected $storage;
+    private $storage;
 
     /**
      * __construct.

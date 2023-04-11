@@ -2,7 +2,6 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
-use ArrayObject;
 use Closure;
 use Recca0120\Lodash\JArray;
 use Recca0120\Twzipcode\Address;
@@ -54,9 +53,17 @@ class File implements Storage
     public function zip3(Address $address)
     {
         $this->restore('zip3');
-        $flat = $address->flat(2);
 
-        return isset(self::$cached['zip3'][$flat]) ? self::$cached['zip3'][$flat] : null;
+        foreach ([2, 1] as $value) {
+            $flat = $address->flat($value);
+            if (isset(self::$cached['zip3'][$flat])) {
+                $zip3 = self::$cached['zip3'][$flat];
+
+                return $zip3;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -67,9 +74,9 @@ class File implements Storage
      */
     public function load($source)
     {
-        $zip5 = new ArrayObject();
-        $zip3 = new ArrayObject();
-        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip5, $zip3) {
+        $zip5 = [];
+        $zip3 = [];
+        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use (&$zip5, &$zip3) {
             $zip5[$zipcode] = $this->compress(array_map(function ($rule) {
                 return new Rule($rule);
             }, $rules));
@@ -139,7 +146,7 @@ class File implements Storage
      * @param  string  $filename
      * @return mixed
      */
-    protected function restore($filename)
+    private function restore($filename)
     {
         if (self::$cached[$filename] !== null) {
             return self::$cached[$filename];
@@ -160,7 +167,7 @@ class File implements Storage
      * @param  string  $file
      * @return string
      */
-    protected function getSource($file)
+    private function getSource($file)
     {
         $extension = pathinfo($file, PATHINFO_EXTENSION);
 
@@ -182,7 +189,7 @@ class File implements Storage
      * @param  string  $source
      * @return array
      */
-    protected function prepareSource($source)
+    private function prepareSource($source)
     {
         $tricks = [
             '宜蘭縣壯圍鄉' => '263',
@@ -210,7 +217,7 @@ class File implements Storage
      * @param  array  $ruleGroup
      * @param  Closure  $callback
      */
-    protected function each($ruleGroup, $callback)
+    private function each($ruleGroup, $callback)
     {
         foreach ($ruleGroup as $county => $districts) {
             foreach ($districts as $district => $addresses) {
@@ -227,7 +234,7 @@ class File implements Storage
      * @param  array  $array
      * @return string
      */
-    protected function compress($array)
+    private function compress($array)
     {
         return gzcompress(serialize($array));
     }
@@ -238,7 +245,7 @@ class File implements Storage
      * @param  string  $compressed
      * @return array
      */
-    protected function decompress($compressed)
+    private function decompress($compressed)
     {
         return unserialize(gzuncompress($compressed));
     }
@@ -250,7 +257,7 @@ class File implements Storage
      * @param  JArray  $data
      * @return $this
      */
-    protected function store($filename, $data)
+    private function store($filename, $data)
     {
         file_put_contents(
             $this->path.$filename.$this->suffix,

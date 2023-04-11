@@ -156,7 +156,7 @@ class Rule
      * @param  string  $rule
      * @return JArray
      */
-    protected function tokenize($rule, Closure $addressResolver)
+    private function tokenize($rule, Closure $addressResolver)
     {
         $tokens = new JArray();
 
@@ -187,7 +187,7 @@ class Rule
      * @param  string  $rule
      * @return Normalizer
      */
-    protected function normalize($rule)
+    private function normalize($rule)
     {
         $pattern = '((?P<no>\d+)之)?\s*(?P<left>\d+)至之?\s*(?P<right>\d+)(?P<unit>\w)';
 
@@ -211,7 +211,7 @@ class Rule
      *
      * @return Address
      */
-    protected function normalizeAddress(Address $address, JArray $ruleAddressTokens)
+    private function normalizeAddress(Address $address, JArray $ruleAddressTokens)
     {
         $removeUnits = array_diff(['里', '鄰', '巷', '弄'], (array) $ruleAddressTokens->map(function ($token) {
             return isset($token[Address::UNIT]) === true ? $token[Address::UNIT] : '';
@@ -234,7 +234,7 @@ class Rule
      * @param  int  $cur
      * @return bool
      */
-    protected function equalsToken($ruleAddressTokens, $addressTokens, $cur)
+    private function equalsToken($ruleAddressTokens, $addressTokens, $cur)
     {
         if ($cur >= $addressTokens->length()) {
             return false;

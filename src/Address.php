@@ -85,7 +85,7 @@ class Address
      *
      * @return JArray
      */
-    protected function tokenize()
+    private function tokenize()
     {
         $units = [static::NO => 'no', static::SUBNO => 'subno', static::NAME => 'name', static::UNIT => 'unit'];
 

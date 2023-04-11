@@ -23,7 +23,7 @@ class Zipcode
      *
      * @var Address
      */
-    protected $address;
+    private $address;
 
     /**
      * __construct.
