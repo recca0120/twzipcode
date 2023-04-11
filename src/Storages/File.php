@@ -2,6 +2,7 @@
 
 namespace Recca0120\Twzipcode\Storages;
 
+use ArrayObject;
 use Closure;
 use Recca0120\Lodash\JArray;
 use Recca0120\Twzipcode\Address;
@@ -66,12 +67,12 @@ class File implements Storage
      */
     public function load($source)
     {
-        $zip5 = new JArray;
-        $zip3 = new JArray;
+        $zip5 = new ArrayObject();
+        $zip3 = new ArrayObject();
         $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use ($zip5, $zip3) {
-            $zip5[$zipcode] = $this->compress((new JArray($rules))->map(function ($rule) {
+            $zip5[$zipcode] = $this->compress(array_map(function ($rule) {
                 return new Rule($rule);
-            }));
+            }, $rules));
 
             if (isset($zip3[$county]) === false) {
                 $zip3[$county] = substr($zipcode, 0, 1);
@@ -99,7 +100,7 @@ class File implements Storage
         $this->restore('zip5');
 
         return isset(self::$cached['zip5'][$zip3]) === true
-            ? $this->decompress(self::$cached['zip5'][$zip3])
+            ? new JArray($this->decompress(self::$cached['zip5'][$zip3]))
             : new JArray([]);
     }
 
@@ -148,20 +149,9 @@ class File implements Storage
             return false;
         }
 
-        return self::$cached[$filename] = $this->decompress(
+        return self::$cached[$filename] = new JArray($this->decompress(
             file_get_contents($this->path.$filename.$this->suffix)
-        );
-    }
-
-    /**
-     * decompress.
-     *
-     * @param  string  $compressed
-     * @return mixed
-     */
-    protected function decompress($compressed)
-    {
-        return unserialize(gzuncompress($compressed));
+        ));
     }
 
     /**
@@ -177,15 +167,13 @@ class File implements Storage
         if ($extension === 'zip') {
             $zip = new ZipArchive;
             $zip->open($file);
-            $content = $zip->getFromIndex(0);
+            $contents = $zip->getFromIndex(0);
             $zip->close();
         } else {
-            $content = file_get_contents($file);
+            $contents = file_get_contents($file);
         }
 
-        $content = mb_convert_encoding($content, 'UTF-8', 'UCS-2LE');
-
-        return preg_replace("/^\xEF\xBB\xBF/", '', $content);
+        return $contents;
     }
 
     /**
@@ -205,7 +193,7 @@ class File implements Storage
         $rules = preg_split('/\n|\r\n$/', $source);
         foreach ($rules as $rule) {
             if (empty(trim($rule)) === false) {
-                list($zipcode, $county, $district) = explode(',', $rule);
+                [$zipcode, $county, $district] = explode(',', $rule);
                 $zip3 = isset($tricks[$county.$district]) === true
                     ? $tricks[$county.$district]
                     : substr($zipcode, 0, 3);
@@ -236,12 +224,23 @@ class File implements Storage
     /**
      * compress.
      *
-     * @param  JArray  $plainText
+     * @param  array  $array
      * @return string
      */
-    protected function compress($plainText)
+    protected function compress($array)
     {
-        return gzcompress(serialize($plainText));
+        return gzcompress(serialize($array));
+    }
+
+    /**
+     * decompress.
+     *
+     * @param  string  $compressed
+     * @return array
+     */
+    protected function decompress($compressed)
+    {
+        return unserialize(gzuncompress($compressed));
     }
 
     /**

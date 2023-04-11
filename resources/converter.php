@@ -7,14 +7,21 @@ use Recca0120\Twzipcode\Storages\File;
 $start = microtime(true);
 $file = __DIR__.'/Zip32_utf8_10501_1.zip';
 
-// https://sheethub.com/data.gov.tw/%E6%94%BF%E5%BA%9C%E8%B3%87%E6%96%99%E9%96%8B%E6%94%BE%E5%B9%B3%E8%87%BA%E8%B3%87%E6%96%99%E9%9B%86%E6%B8%85%E5%96%AE/linelink/6
-$url = 'http://download.post.gov.tw/post/download/Zip32_utf8_10501_1.csv';
+// https://data.gov.tw/dataset/5948
+$url = 'https://quality.data.gov.tw/dq_download_csv.php?nid=5948&md5_url=b7ce2082883f6b680810828799d4c32e';
 
 if (file_exists($file) === false) {
     touch($file);
-    $zip = new ZipArchive;
-    $zip->open($file);
-    $zip->addFromString(basename($url), file_get_contents($url));
+    $contents = file_get_contents($url);
+    $encoding = mb_detect_encoding($contents, ['UCS-2LE', 'BIG5', 'UTF-8']);
+    if ($encoding !== 'UTF-8') {
+        $contents = mb_convert_encoding($contents, 'UTF-8', $encoding);
+    }
+    $contents = preg_replace("/^\xEF\xBB\xBF/", '', $contents);
+
+    $zip = new ZipArchive();
+    $zip->open($file, ZipArchive::OVERWRITE);
+    $zip->addFromString(pathinfo($file, PATHINFO_FILENAME).'.csv', $contents);
     $zip->close();
 }
 

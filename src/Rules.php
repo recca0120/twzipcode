@@ -43,6 +43,6 @@ class Rules
             return $rule->match($address);
         });
 
-        return is_null($rule) === false ? $rule->zip5() : $zip3;
+        return $rule !== null ? $rule->zip5() : $zip3;
     }
 }
