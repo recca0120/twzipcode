@@ -5,6 +5,7 @@ namespace Recca0120\Twzipcode\Tests;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Rules;
+use Recca0120\Twzipcode\Sources\Text;
 use Recca0120\Twzipcode\Storages\File;
 use Recca0120\Twzipcode\Zipcode;
 
@@ -17,7 +18,7 @@ class ZipcodeTest extends TestCase
         $root = vfsStream::setup();
         $storage = new File($root->url());
         $this->rules = new Rules($storage);
-        $storage->flush()->load('
+        $storage->flush()->load(new Text('
 10043,臺北市,中正區,中華路１段,單  25之   3號以下
 10042,臺北市,中正區,中華路１段,單  27號以上
 10065,臺北市,中正區,中華路２段,單  79號以下
@@ -41,7 +42,7 @@ class ZipcodeTest extends TestCase
 41271,臺中市,大里區,塗城路,單 507號以上
 41274,臺中市,大里區,塗城路,雙 274號以下
 41275,臺中市,大里區,塗城路,雙 276號以上
-        ');
+        '));
     }
 
     public function testZipcode()

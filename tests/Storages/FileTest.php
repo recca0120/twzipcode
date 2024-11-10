@@ -7,6 +7,8 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Address;
+use Recca0120\Twzipcode\Sources\CSV;
+use Recca0120\Twzipcode\Sources\Text;
 use Recca0120\Twzipcode\Storages\File as Storage;
 
 class FileTest extends TestCase
@@ -19,7 +21,7 @@ class FileTest extends TestCase
     {
         $root = vfsStream::setup();
         $this->storage = new Storage($root->url());
-        $this->storage->flush()->load('
+        $this->storage->flush()->load(new Text('
 10058,臺北市,中正區,八德路１段,全
 10079,臺北市,中正區,三元街,單全
 10070,臺北市,中正區,三元街,雙  48號以下
@@ -82,7 +84,7 @@ class FileTest extends TestCase
 81357,高雄市,左營區,大順一路,單  91號至  95號
 81357,高雄市,左營區,大順一路,雙  96號至 568號
 81357,高雄市,左營區,大順一路,單 201號至 389巷
-        ');
+        '));
     }
 
     public function testDefaultPath()
@@ -123,7 +125,7 @@ class FileTest extends TestCase
         Storage::$cached = ['zip3' => null, 'zip5' => null];
         $root = vfsStream::setup();
         $storage = new Storage($root->url());
-        $storage->flush()->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
+        $storage->flush()->load(new CSV(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip'));
 
         $address = m::mock(Address::class);
 

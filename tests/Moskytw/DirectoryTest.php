@@ -8,6 +8,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Moskytw\Directory;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use Recca0120\Twzipcode\Sources\Text;
 
 class DirectoryTest extends TestCase
 {
@@ -19,7 +20,7 @@ class DirectoryTest extends TestCase
     {
         $root = vfsStream::setup();
         $this->directory = new Directory($root->url());
-        $this->directory->load('
+        $this->directory->load(new Text('
 10058,臺北市,中正區,八德路１段,全
 10079,臺北市,中正區,三元街,單全
 10070,臺北市,中正區,三元街,雙  48號以下
@@ -82,7 +83,7 @@ class DirectoryTest extends TestCase
 81357,高雄市,左營區,大順一路,單  91號至  95號
 81357,高雄市,左營區,大順一路,雙  96號至 568號
 81357,高雄市,左營區,大順一路,單 201號至 389巷
-        ');
+        '));
     }
 
     public function test_find()

@@ -2,6 +2,7 @@
 
 include __DIR__.'/../vendor/autoload.php';
 
+use Recca0120\Twzipcode\Sources\CSV;
 use Recca0120\Twzipcode\Storages\File;
 
 set_error_handler(static function ($severity, $message, $file, $line) {
@@ -35,5 +36,5 @@ if (file_exists($file) === false) {
     $zip->close();
 }
 
-(new File)->loadFile($file);
+(new File)->load(new CSV($file));
 echo 'benchmark: '.(microtime(true) - $start)."\n";
