@@ -10,7 +10,7 @@ class AddressTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    public function testGetTokens()
+    public function testGetTokens(): void
     {
         $address = new Address('臺北市大安區市府路1號');
 
@@ -22,7 +22,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function testGetTokensWithZipcode()
+    public function testGetTokensWithZipcode(): void
     {
         $address = new Address('11008臺北市大安區市府路1號');
 
@@ -34,7 +34,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function testGetTokensWithSubno()
+    public function testGetTokensWithSubNo(): void
     {
         $address = new Address('臺北市大安區市府路1之1號');
 
@@ -46,7 +46,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function testGetTokensWithTricky()
+    public function testGetTokensWithTricky(): void
     {
         $address = new Address('桃園縣中壢市普義10號');
 
@@ -58,7 +58,7 @@ class AddressTest extends TestCase
         ], (array) $address->tokens());
     }
 
-    public function testGetTokensWithAddress()
+    public function testGetTokensWithAddress(): void
     {
         // 20742,新北市,萬里區,二坪,全
         // 21042,連江縣,北竿鄉,坂里村,全

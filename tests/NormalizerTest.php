@@ -48,7 +48,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function testDigitize94()
+    public function testDigitize94(): void
     {
         foreach ($this->units as $unit) {
             $normalizer = new Normalizer('臺北市大安區市府九十四'.$unit);
@@ -56,7 +56,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function testDigitize947()
+    public function testDigitize947(): void
     {
         foreach ($this->units as $unit) {
             $normalizer = new Normalizer('臺北市大安區市府九百四十七'.$unit);
@@ -64,7 +64,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function testDigitize9478()
+    public function testDigitize9478(): void
     {
         foreach ($this->units as $unit) {
             $normalizer = new Normalizer('臺北市大安區市府九千四百七十八'.$unit);
@@ -72,7 +72,7 @@ class NormalizerTest extends TestCase
         }
     }
 
-    public function testNormalizeAddress()
+    public function testNormalizeAddress(): void
     {
         $this->assertSame('新北市板橋區', (string) Normalizer::factory('臺北縣板橋市')->normalizeAddress());
         $this->assertSame('臺中市豐原區', (string) Normalizer::factory('臺中縣豐原市')->normalizeAddress());

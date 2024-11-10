@@ -10,7 +10,7 @@ use Recca0120\Twzipcode\Zipcode;
 
 class ZipcodeTest extends TestCase
 {
-    protected $rules = null;
+    protected $rules;
 
     protected function setUp(): void
     {
@@ -44,7 +44,7 @@ class ZipcodeTest extends TestCase
         ');
     }
 
-    public function testZipcode()
+    public function testZipcode(): void
     {
         $address = '台中市大里區金城里14鄰塗城路9478巷9478弄9478號';
         $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
@@ -57,7 +57,7 @@ class ZipcodeTest extends TestCase
         $this->assertSame('金城里14鄰塗城路9478巷9478弄9478號', $zipcode->shortAddress());
     }
 
-    public function testZipcode2()
+    public function testZipcode2(): void
     {
         $address = '宜蘭縣宜蘭市金城里14鄰慶和街同興巷9478弄9478號';
         $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
@@ -70,7 +70,7 @@ class ZipcodeTest extends TestCase
         $this->assertSame('金城里14鄰慶和街同興巷9478弄9478號', $zipcode->shortAddress());
     }
 
-    public function testZipcode3()
+    public function testZipcode3(): void
     {
         $address = '台北市中正區中華路１段25號';
         $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
@@ -83,7 +83,7 @@ class ZipcodeTest extends TestCase
         $this->assertSame('中華路1段25號', $zipcode->shortAddress());
     }
 
-    public function testZipcode4()
+    public function testZipcode4(): void
     {
         $address = '宜蘭縣壯圍鄉環市東路１段374號';
         $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());

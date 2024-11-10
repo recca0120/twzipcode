@@ -7,19 +7,18 @@ use Mockery as m;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Storages\File;
+use Recca0120\Twzipcode\Address;
 
 class FileTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    private $root;
-
     private $storage;
 
     protected function setUp(): void
     {
-        $this->root = vfsStream::setup();
-        $this->storage = new File($this->root->url());
+        $root = vfsStream::setup();
+        $this->storage = new File($root->url());
         $this->storage->flush()->load('
 10058,臺北市,中正區,八德路１段,全
 10079,臺北市,中正區,三元街,單全
@@ -86,15 +85,15 @@ class FileTest extends TestCase
         ');
     }
 
-    public function testDefaultPath()
+    public function testDefaultPath(): void
     {
         $storage = new File();
         $this->assertEquals(realpath(__DIR__.'/../../resources/data').'/', $storage->path);
     }
 
-    public function testZip3()
+    public function testZip3(): void
     {
-        $address = m::mock('Recca0120\Twzipcode\Address');
+        $address = m::mock(Address::class);
 
         $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
         $this->assertSame('100', $this->storage->zip3($address));
@@ -106,7 +105,7 @@ class FileTest extends TestCase
         $this->assertSame('812', $this->storage->zip3($address));
     }
 
-    public function testRules()
+    public function testRules(): void
     {
         $rules = $this->storage->rules('100');
 
@@ -115,7 +114,7 @@ class FileTest extends TestCase
         }
     }
 
-    public function testLoadResources()
+    public function testLoadResources(): void
     {
         File::$cached = [
             'zip3' => null,
@@ -126,7 +125,7 @@ class FileTest extends TestCase
         $storage->flush()
             ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
 
-        $address = m::mock('Recca0120\Twzipcode\Address');
+        $address = m::mock(Address::class);
 
         $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
         $this->assertSame('100', $storage->zip3($address));

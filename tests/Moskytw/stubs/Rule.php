@@ -6,6 +6,8 @@ use Recca0120\Twzipcode\Rule as BaseRule;
 
 class Rule
 {
+    private $rule;
+
     public function __construct($rule)
     {
         $this->rule = new BaseRule($rule);

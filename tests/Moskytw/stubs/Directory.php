@@ -7,6 +7,9 @@ use Recca0120\Twzipcode\Storages\File;
 
 class Directory
 {
+    private $storage;
+    private $rules;
+
     public function __construct($root)
     {
         $this->storage = new File($root);
