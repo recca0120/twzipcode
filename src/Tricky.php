@@ -4,6 +4,10 @@ namespace Recca0120\Twzipcode;
 
 class Tricky
 {
+    /** @var Tricky */
+    private static $instance;
+    private static $cached = [];
+
     /*
      * 20742,新北市,萬里區,二坪,全
      * 21042,連江縣,北竿鄉,坂里村,全
@@ -32,15 +36,6 @@ class Tricky
      * 98392,花蓮縣,富里鄉,東里村復興,全
      * 89442,金門縣,烈嶼鄉,二擔,全
      */
-
-    private static $cached = [];
-
-    public function __construct()
-    {
-        if (! array_key_exists('tricky', self::$cached)) {
-            $this->init();
-        }
-    }
 
     /**
      * @return void
@@ -87,5 +82,15 @@ class Tricky
     public function flip($token)
     {
         return strtr($token, self::$cached['flip']);
+    }
+
+    public static function instance()
+    {
+        if (! self::$instance) {
+            self::$instance = new self();
+            self::$instance->init();
+        }
+
+        return self::$instance;
     }
 }

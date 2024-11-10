@@ -16,7 +16,7 @@ class CSV extends Source
         $this->extension = pathinfo($this->file, PATHINFO_EXTENSION);
     }
 
-    protected function getContents()
+    protected function contents()
     {
         return $this->extension === 'zip' ? static::unzip($this->file) : file_get_contents($this->file);
     }

@@ -81,14 +81,14 @@ class Rule
             return false;
         }
 
-        $addressPoint = $address->getPoint($cur + 1);
+        $addressPoint = $address->point($cur + 1);
 
         if ($currentTokens->length() > 0 && $addressPoint->isEmpty() === true) {
             return false;
         }
 
-        $left = $this->address->getPoint($ruleAddressTokens->length() - 1);
-        $right = $this->address->getPoint($ruleAddressTokens->length() - 2);
+        $left = $this->address->point($ruleAddressTokens->length() - 1);
+        $right = $this->address->point($ruleAddressTokens->length() - 2);
 
         foreach ($this->tokens as $token) {
             if (

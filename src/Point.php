@@ -34,19 +34,20 @@ class Point
      */
     public function compare(self $point, $operator = '=')
     {
-        $sum = $this->x * 10 + $this->y;
-        $sum2 = $point->x * 10 + $point->y;
+        $x = $this->x * 10 + $this->y;
+        $y = $point->x * 10 + $point->y;
+
         switch ($operator) {
             case '>':
-                return $sum > $sum2;
+                return $x > $y;
             case '>=':
-                return $sum >= $sum2;
+                return $x >= $y;
             case '<':
-                return $sum < $sum2;
+                return $x < $y;
             case '<=':
-                return $sum <= $sum2;
+                return $x <= $y;
         }
 
-        return $sum === $sum2;
+        return $x === $y;
     }
 }

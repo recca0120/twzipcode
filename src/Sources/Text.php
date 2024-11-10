@@ -17,7 +17,7 @@ class Text extends Source
         $this->text = $text;
     }
 
-    protected function getContents()
+    protected function contents()
     {
         return $this->text;
     }

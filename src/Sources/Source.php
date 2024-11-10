@@ -21,14 +21,14 @@ abstract class Source implements SourceContract
     /**
      * @return string
      */
-    abstract protected function getContents();
+    abstract protected function contents();
 
     /**
      * @return array{array{zipcode: string, county: string, district: string, text: string}} $rows
      */
     protected function rows()
     {
-        $lines = preg_split('/\n|\r\n$/', $this->getContents());
+        $lines = preg_split('/\n|\r\n$/', $this->contents());
         $lines = array_filter($lines, static function ($line) {
             return ! empty(trim($line));
         });
