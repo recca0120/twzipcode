@@ -18,7 +18,7 @@ use Recca0120\Twzipcode\Zipcode;
 
 $zipcode = Zipcode::parse('台北市中正區中華路１段25號');
 echo $zipcode->zip3(); // 100
-echo $zipcode->zip5(); // 1004;
+echo $zipcode->zip5(); // 10043;
 echo $zipcode->county(); // 臺北市
 echo $zipcode->district(); // 中正區
 echo $zipcode->address(); // 臺北市中正區中華路1段25號
