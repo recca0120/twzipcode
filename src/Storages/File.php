@@ -42,7 +42,7 @@ class File implements Storage
 
         foreach ([2, 1] as $value) {
             $flat = $address->flat($value);
-            if (isset(self::$cached['zip3'][$flat])) {
+            if (! empty(self::$cached['zip3'][$flat])) {
                 return self::$cached['zip3'][$flat];
             }
         }
@@ -65,11 +65,11 @@ class File implements Storage
                     return new Rule($rule);
                 }, $rules));
 
-                if (isset($zip3[$county]) === false) {
+                if (empty($zip3[$county])) {
                     $zip3[$county] = substr($zipcode, 0, 1);
                 }
 
-                if (isset($zip3[$county.$district]) === false) {
+                if (empty($zip3[$county.$district])) {
                     $zip3[$county.$district] = substr($zipcode, 0, 3);
                 }
             });
@@ -88,7 +88,7 @@ class File implements Storage
     {
         $this->restore('zip5');
 
-        return isset(self::$cached['zip5'][$zip3]) === true
+        return ! empty(self::$cached['zip5'][$zip3])
             ? new JArray($this->decompress(self::$cached['zip5'][$zip3]))
             : new JArray([]);
     }
@@ -160,17 +160,13 @@ class File implements Storage
      */
     private function prepareSource($source)
     {
-        $tricks = [
-            '宜蘭縣壯圍鄉' => '263',
-            '新竹縣寶山鄉' => '308',
-            '臺南市新市區' => '744',
-        ];
+        $tricks = ['宜蘭縣壯圍鄉' => '263', '新竹縣寶山鄉' => '308', '臺南市新市區' => '744'];
         $results = [];
         $rules = preg_split('/\n|\r\n$/', $source);
         foreach ($rules as $rule) {
-            if (empty(trim($rule)) === false) {
+            if (! empty(trim($rule))) {
                 list($zipcode, $county, $district) = explode(',', $rule);
-                $zip3 = isset($tricks[$county.$district]) === true
+                $zip3 = ! empty($tricks[$county.$district])
                     ? $tricks[$county.$district]
                     : substr($zipcode, 0, 3);
                 $results[$county][$district][$zip3][] = $rule;
