@@ -7,7 +7,7 @@ use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerKaohsiungTest extends TestCase
 {
-    public function testNormalizeKaohsiungAddress(): void
+    public function testNormalizeKaohsiungAddress()
     {
         $this->assertSame('高雄市鹽埕區藍橋里', (string) Normalizer::factory('高雄市鹽埕區藍橋里')->normalizeAddress());
         $this->assertSame('高雄市鹽埕區慈愛里', (string) Normalizer::factory('高雄市鹽埕區慈愛里')->normalizeAddress());

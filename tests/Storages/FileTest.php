@@ -2,12 +2,12 @@
 
 namespace Recca0120\Twzipcode\Tests\Storages;
 
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Recca0120\Twzipcode\Storages\File;
 use Recca0120\Twzipcode\Address;
+use Recca0120\Twzipcode\Storages\File as Storage;
 
 class FileTest extends TestCase
 {
@@ -15,10 +15,10 @@ class FileTest extends TestCase
 
     private $storage;
 
-    protected function setUp(): void
+    protected function beforeEach()
     {
         $root = vfsStream::setup();
-        $this->storage = new File($root->url());
+        $this->storage = new Storage($root->url());
         $this->storage->flush()->load('
 10058,臺北市,中正區,八德路１段,全
 10079,臺北市,中正區,三元街,單全
@@ -85,14 +85,16 @@ class FileTest extends TestCase
         ');
     }
 
-    public function testDefaultPath(): void
+    public function testDefaultPath()
     {
-        $storage = new File();
+        $this->beforeEach();
+        $storage = new Storage;
         $this->assertEquals(realpath(__DIR__.'/../../resources/data').'/', $storage->path);
     }
 
-    public function testZip3(): void
+    public function testZip3()
     {
+        $this->beforeEach();
         $address = m::mock(Address::class);
 
         $address->shouldReceive('flat')->once()->andReturn('臺北市中正區');
@@ -105,8 +107,9 @@ class FileTest extends TestCase
         $this->assertSame('812', $this->storage->zip3($address));
     }
 
-    public function testRules(): void
+    public function testRules()
     {
+        $this->beforeEach();
         $rules = $this->storage->rules('100');
 
         foreach ($rules as $rule) {
@@ -114,16 +117,13 @@ class FileTest extends TestCase
         }
     }
 
-    public function testLoadResources(): void
+    public function testLoadResources()
     {
-        File::$cached = [
-            'zip3' => null,
-            'zip5' => null,
-        ];
+        $this->beforeEach();
+        Storage::$cached = ['zip3' => null, 'zip5' => null];
         $root = vfsStream::setup();
-        $storage = new File($root->url());
-        $storage->flush()
-            ->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
+        $storage = new Storage($root->url());
+        $storage->flush()->loadFile(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip');
 
         $address = m::mock(Address::class);
 

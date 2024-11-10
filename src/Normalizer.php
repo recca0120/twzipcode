@@ -7,8 +7,6 @@ use Recca0120\Lodash\JString;
 class Normalizer extends JString
 {
     /**
-     * normalizeAddress.
-     *
      * @return static
      */
     public function normalizeAddress()
@@ -49,8 +47,6 @@ class Normalizer extends JString
     }
 
     /**
-     * normalize.
-     *
      * @return static
      */
     public function normalize()
@@ -59,8 +55,6 @@ class Normalizer extends JString
     }
 
     /**
-     * digitize.
-     *
      * @return static
      */
     public function digitize()
@@ -71,8 +65,6 @@ class Normalizer extends JString
     }
 
     /**
-     * regularize.
-     *
      * @return static
      */
     public function regularize()

@@ -4,6 +4,7 @@ namespace Recca0120\Twzipcode\Storages;
 
 use Closure;
 use Recca0120\Lodash\JArray;
+use Recca0120\Lodash\JString;
 use Recca0120\Twzipcode\Address;
 use Recca0120\Twzipcode\Contracts\Storage;
 use Recca0120\Twzipcode\Rule;
@@ -11,21 +12,10 @@ use ZipArchive;
 
 class File implements Storage
 {
-    /**
-     * cached.
-     *
-     * @var array
-     */
-    public static $cached = [
-        'zip3' => null,
-        'zip5' => null,
-    ];
+    /** @var array */
+    public static $cached = ['zip3' => null, 'zip5' => null];
 
-    /**
-     * $path.
-     *
-     * @var string
-     */
+    /** @var string */
     public $path;
 
     /**
@@ -33,11 +23,9 @@ class File implements Storage
      *
      * @var string
      */
-    public $suffix = '.rules';
+    private $suffix = '.rules';
 
     /**
-     * __construct.
-     *
      * @param  string  $path
      */
     public function __construct($path = null)
@@ -46,8 +34,6 @@ class File implements Storage
     }
 
     /**
-     * zip3.
-     *
      * @return JString
      */
     public function zip3(Address $address)
@@ -57,9 +43,7 @@ class File implements Storage
         foreach ([2, 1] as $value) {
             $flat = $address->flat($value);
             if (isset(self::$cached['zip3'][$flat])) {
-                $zip3 = self::$cached['zip3'][$flat];
-
-                return $zip3;
+                return self::$cached['zip3'][$flat];
             }
         }
 
@@ -67,8 +51,6 @@ class File implements Storage
     }
 
     /**
-     * load.
-     *
      * @param  string  $source
      * @return $this
      */
@@ -76,19 +58,21 @@ class File implements Storage
     {
         $zip5 = [];
         $zip3 = [];
-        $this->each($this->prepareSource($source), function ($zipcode, $county, $district, $rules) use (&$zip5, &$zip3) {
-            $zip5[$zipcode] = $this->compress(array_map(function ($rule) {
-                return new Rule($rule);
-            }, $rules));
+        $this->each(
+            $this->prepareSource($source),
+            function ($zipcode, $county, $district, $rules) use (&$zip5, &$zip3) {
+                $zip5[$zipcode] = $this->compress(array_map(static function ($rule) {
+                    return new Rule($rule);
+                }, $rules));
 
-            if (isset($zip3[$county]) === false) {
-                $zip3[$county] = substr($zipcode, 0, 1);
-            }
+                if (isset($zip3[$county]) === false) {
+                    $zip3[$county] = substr($zipcode, 0, 1);
+                }
 
-            if (isset($zip3[$county.$district]) === false) {
-                $zip3[$county.$district] = substr($zipcode, 0, 3);
-            }
-        });
+                if (isset($zip3[$county.$district]) === false) {
+                    $zip3[$county.$district] = substr($zipcode, 0, 3);
+                }
+            });
 
         $this->store('zip3', $zip3);
         $this->store('zip5', $zip5);
@@ -97,8 +81,6 @@ class File implements Storage
     }
 
     /**
-     * rules.
-     *
      * @param  string  $zip3
      * @return JArray
      */
@@ -112,8 +94,6 @@ class File implements Storage
     }
 
     /**
-     * loadFile.
-     *
      * @param  string  $file
      * @return $this
      */
@@ -126,44 +106,35 @@ class File implements Storage
     }
 
     /**
-     * flush.
-     *
      * @return $this
      */
     public function flush()
     {
-        static::$cached = [
-            'zip3' => null,
-            'zip5' => null,
-        ];
+        static::$cached = ['zip3' => null, 'zip5' => null];
 
         return $this;
     }
 
     /**
-     * restore.
-     *
      * @param  string  $filename
-     * @return mixed
+     * @return void
      */
     private function restore($filename)
     {
         if (self::$cached[$filename] !== null) {
-            return self::$cached[$filename];
+            return;
         }
 
         if (file_exists($this->path.$filename.$this->suffix) === false) {
-            return false;
+            return;
         }
 
-        return self::$cached[$filename] = new JArray($this->decompress(
+        self::$cached[$filename] = new JArray($this->decompress(
             file_get_contents($this->path.$filename.$this->suffix)
         ));
     }
 
     /**
-     * getSource.
-     *
      * @param  string  $file
      * @return string
      */
@@ -184,8 +155,6 @@ class File implements Storage
     }
 
     /**
-     * prepareSource.
-     *
      * @param  string  $source
      * @return array
      */
@@ -200,7 +169,7 @@ class File implements Storage
         $rules = preg_split('/\n|\r\n$/', $source);
         foreach ($rules as $rule) {
             if (empty(trim($rule)) === false) {
-                [$zipcode, $county, $district] = explode(',', $rule);
+                list($zipcode, $county, $district) = explode(',', $rule);
                 $zip3 = isset($tricks[$county.$district]) === true
                     ? $tricks[$county.$district]
                     : substr($zipcode, 0, 3);
@@ -212,8 +181,6 @@ class File implements Storage
     }
 
     /**
-     * each.
-     *
      * @param  array  $ruleGroup
      * @param  Closure  $callback
      */
@@ -229,8 +196,6 @@ class File implements Storage
     }
 
     /**
-     * compress.
-     *
      * @param  array  $array
      * @return string
      */
@@ -240,8 +205,6 @@ class File implements Storage
     }
 
     /**
-     * decompress.
-     *
      * @param  string  $compressed
      * @return array
      */
@@ -251,19 +214,12 @@ class File implements Storage
     }
 
     /**
-     * store.
-     *
      * @param  string  $filename
-     * @param  JArray  $data
-     * @return $this
+     * @param  array  $data
+     * @return void
      */
     private function store($filename, $data)
     {
-        file_put_contents(
-            $this->path.$filename.$this->suffix,
-            $this->compress($data)
-        );
-
-        return $this;
+        file_put_contents($this->path.$filename.$this->suffix, $this->compress($data));
     }
 }

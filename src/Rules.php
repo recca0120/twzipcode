@@ -15,18 +15,14 @@ class Rules
     private $storage;
 
     /**
-     * __construct.
-     *
-     * @param  Storage  $storage
+     * @param  Storage|null  $storage
      */
     public function __construct(Storage $storage = null)
     {
-        $this->storage = $storage ?: new File();
+        $this->storage = $storage ?: new File;
     }
 
     /**
-     * match.
-     *
      * @param  Address|string  $address
      * @return string|void
      */

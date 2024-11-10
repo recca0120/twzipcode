@@ -15,7 +15,7 @@ class DirectoryTest extends TestCase
 
     private $directory;
 
-    protected function setUp(): void
+    protected function beforeEach()
     {
         $root = vfsStream::setup();
         $this->directory = new Directory($root->url());
@@ -87,6 +87,7 @@ class DirectoryTest extends TestCase
 
     public function test_find()
     {
+        $this->beforeEach();
         // 10043,臺北市,中正區,中華路１段,單  25之   3號以下
         $this->assertSame('10043', $this->directory->find('臺北市中正區中華路１段25號'));
         $this->assertSame('10043', $this->directory->find('臺北市中正區中華路１段25-2號'));
@@ -121,6 +122,7 @@ class DirectoryTest extends TestCase
 
     public function test_find_gradually()
     {
+        $this->beforeEach();
         $this->assertSame('1', $this->directory->find('臺北市'));
         $this->assertSame('100', $this->directory->find('臺北市中正區'));
         $this->assertSame('100', $this->directory->find('臺北市中正區仁愛路１段'));
@@ -129,6 +131,8 @@ class DirectoryTest extends TestCase
 
     // public function test_find_middle_token(self)
     // {
+
+    //     $this->beforeEach();
     //     $this->assertSame('813', $this->directory->find('左營區'));
     //     $this->assertSame('81362', $this->directory->find('大中一路'));
     //     $this->assertSame('813', $this->directory->find('大中二路'));

@@ -7,37 +7,19 @@ use Recca0120\Lodash\JArray;
 
 class Rule
 {
-    /**
-     * $zip3.
-     *
-     * @var string
-     */
+    /** @var string */
     public $zip3;
 
-    /**
-     * $zip5.
-     *
-     * @var string
-     */
+    /** @var string */
     public $zip5;
 
-    /**
-     * $address.
-     *
-     * @var Address
-     */
+    /** @var Address */
     public $address;
 
-    /**
-     * $tokens.
-     *
-     * @var array
-     */
+    /** @var array */
     public $tokens;
 
     /**
-     * __construct.
-     *
      * @param  string  $rule
      */
     public function __construct($rule)
@@ -54,8 +36,6 @@ class Rule
     }
 
     /**
-     * zip5.
-     *
      * @return string
      */
     public function zip5()
@@ -64,8 +44,6 @@ class Rule
     }
 
     /**
-     * zip.
-     *
      * @return string
      */
     public function zip()
@@ -74,8 +52,6 @@ class Rule
     }
 
     /**
-     * zip3.
-     *
      * @return string
      */
     public function zip3()
@@ -84,8 +60,6 @@ class Rule
     }
 
     /**
-     * match.
-     *
      * @param  Address|string  $address
      * @return bool
      */
@@ -142,8 +116,6 @@ class Rule
     }
 
     /**
-     * tokens.
-     *
      * @return JArray
      */
     public function tokens()
@@ -152,8 +124,6 @@ class Rule
     }
 
     /**
-     * tokenize.
-     *
      * @param  string  $rule
      * @return array
      */
@@ -168,23 +138,22 @@ class Rule
             '[連至單雙全](?=[\d全]|$)',
         ];
 
-        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u', function ($m) use (&$tokens) {
-            $token = &$m[0];
-            if ($token === '連') {
-                return '';
-            }
+        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u',
+            function ($m) use (&$tokens) {
+                $token = &$m[0];
+                if ($token === '連') {
+                    return '';
+                }
 
-            $tokens[] = $token;
+                $tokens[] = $token;
 
-            return $token === '附號全' ? '號' : '';
-        }));
+                return $token === '附號全' ? '號' : '';
+            }));
 
         return $tokens;
     }
 
     /**
-     * normalize.
-     *
      * @param  string  $rule
      * @return Normalizer
      */
@@ -208,8 +177,6 @@ class Rule
     }
 
     /**
-     * normalizeAddress.
-     *
      * @return Address
      */
     private function normalizeAddress(Address $address, JArray $ruleAddressTokens)
@@ -220,7 +187,8 @@ class Rule
 
         return new Address(
             new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
-                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits, true) === false;
+                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits,
+                    true) === false;
             })->map(function ($token) {
                 return implode('', $token);
             }))
@@ -228,8 +196,6 @@ class Rule
     }
 
     /**
-     * equalsToken.
-     *
      * @param  JArray  $ruleAddressTokens
      * @param  JArray  $addressTokens
      * @param  int  $cur

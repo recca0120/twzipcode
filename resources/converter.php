@@ -20,11 +20,11 @@ if (file_exists($file) === false) {
     $contents = preg_replace("/^\xEF\xBB\xBF/", '', $contents);
     $contents = trim(str_replace('Zip5,City,Area,Road,Scope', '', $contents));
 
-    $zip = new ZipArchive();
+    $zip = new ZipArchive;
     $zip->open($file, ZipArchive::OVERWRITE);
     $zip->addFromString(pathinfo($file, PATHINFO_FILENAME).'.csv', $contents);
     $zip->close();
 }
 
-(new File())->loadFile($file);
+(new File)->loadFile($file);
 echo 'benchmark: '.(microtime(true) - $start)."\n";

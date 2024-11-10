@@ -12,7 +12,7 @@ class ZipcodeTest extends TestCase
 {
     protected $rules;
 
-    protected function setUp(): void
+    protected function beforeEach()
     {
         $root = vfsStream::setup();
         $storage = new File($root->url());
@@ -44,10 +44,11 @@ class ZipcodeTest extends TestCase
         ');
     }
 
-    public function testZipcode(): void
+    public function testZipcode()
     {
+        $this->beforeEach();
         $address = '台中市大里區金城里14鄰塗城路9478巷9478弄9478號';
-        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
+        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules);
 
         $this->assertSame('412', $zipcode->zip3());
         $this->assertSame('41275', $zipcode->zip5());
@@ -57,10 +58,11 @@ class ZipcodeTest extends TestCase
         $this->assertSame('金城里14鄰塗城路9478巷9478弄9478號', $zipcode->shortAddress());
     }
 
-    public function testZipcode2(): void
+    public function testZipcode2()
     {
+        $this->beforeEach();
         $address = '宜蘭縣宜蘭市金城里14鄰慶和街同興巷9478弄9478號';
-        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
+        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules);
 
         $this->assertSame('260', $zipcode->zip3());
         $this->assertSame('26044', $zipcode->zip5());
@@ -70,10 +72,11 @@ class ZipcodeTest extends TestCase
         $this->assertSame('金城里14鄰慶和街同興巷9478弄9478號', $zipcode->shortAddress());
     }
 
-    public function testZipcode3(): void
+    public function testZipcode3()
     {
+        $this->beforeEach();
         $address = '台北市中正區中華路１段25號';
-        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
+        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules);
 
         $this->assertSame('100', $zipcode->zip3());
         $this->assertSame('10043', $zipcode->zip5());
@@ -83,10 +86,11 @@ class ZipcodeTest extends TestCase
         $this->assertSame('中華路1段25號', $zipcode->shortAddress());
     }
 
-    public function testZipcode4(): void
+    public function testZipcode4()
     {
+        $this->beforeEach();
         $address = '宜蘭縣壯圍鄉環市東路１段374號';
-        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules());
+        $zipcode = Zipcode::parse($address, $this->rules ?: new Rules);
 
         $this->assertSame('260', $zipcode->zip3());
         $this->assertSame('26060', $zipcode->zip5());

@@ -11,7 +11,7 @@ class RulesTest extends TestCase
 {
     private $rules;
 
-    protected function setUp(): void
+    protected function beforeEach()
     {
         $root = vfsStream::setup();
         $storage = new File($root->url());
@@ -84,6 +84,7 @@ class RulesTest extends TestCase
 
     public function testMatch()
     {
+        $this->beforeEach();
         // 10043,臺北市,中正區,中華路１段,單  25之   3號以下
         $this->assertSame('10043', $this->rules->match('臺北市中正區中華路１段25號'));
         $this->assertSame('10043', $this->rules->match('臺北市中正區中華路１段25-2號'));
@@ -118,6 +119,7 @@ class RulesTest extends TestCase
 
     public function testMatchGradually()
     {
+        $this->beforeEach();
         $this->rules->match('臺北市');
         $this->assertSame('1', $this->rules->match('臺北市'));
         $this->assertSame('100', $this->rules->match('臺北市中正區'));
@@ -127,8 +129,9 @@ class RulesTest extends TestCase
 
     public function testZip3North()
     {
+        $this->beforeEach();
         File::$cached = ['zip3' => null, 'zip5' => null];
-        $rules = new Rules();
+        $rules = new Rules;
         $this->assertSame('100', $rules->match('台北市中正區'.uniqid()));
         $this->assertSame('103', $rules->match('台北市大同區'.uniqid()));
         $this->assertSame('104', $rules->match('台北市中山區'.uniqid()));
@@ -519,6 +522,7 @@ class RulesTest extends TestCase
 
     // public function testMatchMiddleToken()
     // {
+    //     $this->beforeEach();
     //     $this->assertSame('813', $this->rules->match('左營區'));
     //     $this->assertSame('81362', $this->rules->match('大中一路'));
     //     $this->assertSame('813', $this->rules->match('大中二路'));
