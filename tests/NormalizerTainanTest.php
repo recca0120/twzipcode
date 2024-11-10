@@ -7,7 +7,7 @@ use Recca0120\Twzipcode\Normalizer;
 
 class NormalizerTainanTest extends TestCase
 {
-    public function testNormalizeTainanAddress(): void
+    public function testNormalizeTainanAddress()
     {
         $this->assertSame(
             '臺南市新化區[上廿下那]拔里',

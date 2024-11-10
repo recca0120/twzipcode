@@ -4,23 +4,13 @@ namespace Recca0120\Twzipcode;
 
 class Point
 {
-    /**
-     * $x.
-     *
-     * @var int
-     */
+    /** @var int */
     public $x = 0;
 
-    /**
-     * $y.
-     *
-     * @var int
-     */
+    /** @var int */
     public $y = 0;
 
     /**
-     * __construct.
-     *
      * @param  int  $x
      * @param  int  $y
      */
@@ -31,8 +21,6 @@ class Point
     }
 
     /**
-     * empty.
-     *
      * @return bool
      */
     public function isEmpty()
@@ -41,8 +29,6 @@ class Point
     }
 
     /**
-     * compare.
-     *
      * @param  string  $operator
      * @return bool
      */

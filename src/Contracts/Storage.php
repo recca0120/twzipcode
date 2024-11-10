@@ -2,6 +2,7 @@
 
 namespace Recca0120\Twzipcode\Contracts;
 
+use Recca0120\Lodash\JString;
 use Recca0120\Twzipcode\Address;
 
 interface Storage
@@ -30,16 +31,12 @@ interface Storage
     public function load($source);
 
     /**
-     * loadFile.
-     *
-     * @param  string  $file
+     * @param  string|null  $file
      * @return $this
      */
     public function loadFile($file = null);
 
     /**
-     * flush.
-     *
      * @return $this
      */
     public function flush();

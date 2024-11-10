@@ -4,12 +4,8 @@ namespace Recca0120\Twzipcode;
 
 class Zipcode
 {
-    /**
-     * $attributes.
-     *
-     * @var array
-     */
-    public $attributes = [
+    /** @var array */
+    private $attributes = [
         'zip3' => null,
         'zip5' => null,
         'county' => null,
@@ -19,45 +15,36 @@ class Zipcode
     ];
 
     /**
-     * $address.
-     *
-     * @var Address
-     */
-    private $address;
-
-    /**
-     * __construct.
-     *
-     * @param  string  $address
-     * @param  Rules  $rules
+     * @param  string|Address  $address
+     * @param  ?Rules  $rules
      */
     public function __construct($address, Rules $rules = null)
     {
-        $rules = $rules ?: new Rules();
-        $this->address = new Address($address);
-        $zip = (string) $rules->match($this->address);
+        $rules = $rules ?: new Rules;
+        $address = new Address($address);
+        $zip = (string) $rules->match($address);
 
         $this->attributes['zip3'] = strlen($zip) === 5 ? substr($zip, 0, 3) : $zip;
         $this->attributes['zip5'] = $zip;
 
         $this->attributes['county'] = empty($this->attributes['zip3']) === false
-            ? $this->address->flat(1, 0)
+            ? $address->flat(1, 0)
             : null;
 
         $this->attributes['district'] = empty($this->attributes['zip3']) === false
-            ? $this->address->flat(1, 1)
+            ? $address->flat(1, 1)
             : null;
 
         $this->attributes['shortAddress'] = empty($this->attributes['zip3']) === false
-            ? $this->address->flat(null, 2)
-            : $this->address->flat();
+            ? $address->flat(null, 2)
+            : $address->flat();
 
-        $this->attributes['address'] = $this->address->flat();
+        $this->attributes['address'] = $address->flat();
     }
 
     /**
-     * parse.
-     *
+     * @param  string|Address  $address
+     * @param  ?Rules  $rules
      * @return static
      */
     public static function parse($address, Rules $rules = null)
@@ -66,8 +53,6 @@ class Zipcode
     }
 
     /**
-     * zip3.
-     *
      * @return string
      */
     public function zip3()
@@ -76,8 +61,6 @@ class Zipcode
     }
 
     /**
-     * zip5.
-     *
      * @return string
      */
     public function zip5()
@@ -86,8 +69,6 @@ class Zipcode
     }
 
     /**
-     * county.
-     *
      * @return string
      */
     public function county()
@@ -96,8 +77,6 @@ class Zipcode
     }
 
     /**
-     * district.
-     *
      * @return string
      */
     public function district()
@@ -106,8 +85,6 @@ class Zipcode
     }
 
     /**
-     * address.
-     *
      * @return string
      */
     public function address()
@@ -116,8 +93,6 @@ class Zipcode
     }
 
     /**
-     * shortAddress.
-     *
      * @return string
      */
     public function shortAddress()

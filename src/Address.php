@@ -6,69 +6,39 @@ use Recca0120\Lodash\JArray;
 
 class Address
 {
-    /**
-     * NO.
-     *
-     * @var int
-     */
+    /** @var int */
     const NO = 0;
 
-    /**
-     * SUBNO.
-     *
-     * @var int
-     */
+    /** @var int */
     const SUBNO = 1;
 
-    /**
-     * NAME.
-     *
-     * @var int
-     */
+    /** @var int */
     const NAME = 2;
 
-    /**
-     * UNIT.
-     *
-     * @var int
-     */
+    /** @var int */
     const UNIT = 3;
 
-    /**
-     * $normalizer.
-     *
-     * @var Normalizer
-     */
+    /** @var Normalizer */
     public $normalizer;
 
-    /**
-     * @var Tricky
-     */
+    /** @var Tricky */
     public $tricky;
 
-    /**
-     * $tokens.
-     *
-     * @var JArray
-     */
+    /** @var JArray */
     public $tokens = [];
 
     /**
-     * __construct.
-     *
-     * @param  static|array  $address
+     * @param  static|string  $address
      */
     public function __construct($address = '')
     {
-        $this->tricky = new Tricky();
+        $this->tricky = new Tricky;
         if (empty($address) === false) {
             $this->set($address);
         }
     }
 
     /**
-     * set.
-     *
      * @param  static|string  $address
      * @return $this
      */
@@ -81,8 +51,6 @@ class Address
     }
 
     /**
-     * tokenize.
-     *
      * @return array
      */
     private function tokenize()
@@ -110,8 +78,6 @@ class Address
     }
 
     /**
-     * __toString.
-     *
      * @return string
      */
     public function __toString()
@@ -120,8 +86,6 @@ class Address
     }
 
     /**
-     * tokens.
-     *
      * @return JArray
      */
     public function tokens()
@@ -130,8 +94,6 @@ class Address
     }
 
     /**
-     * getPoint.
-     *
      * @param  string  $index
      * @return Point
      */
@@ -149,8 +111,6 @@ class Address
     }
 
     /**
-     * flat.
-     *
      * @param  int  $length
      * @param  int  $offset
      * @return string
