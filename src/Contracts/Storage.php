@@ -23,21 +23,15 @@ interface Storage
     public function rules($zip3);
 
     /**
-     * load.
-     *
-     * @param  string  $source
-     * @return $this
-     */
-    public function load($source);
-
-    /**
-     * @param  string|null  $file
-     * @return $this
-     */
-    public function loadFile($file = null);
-
-    /**
      * @return $this
      */
     public function flush();
+
+    /**
+     * load.
+     *
+     * @param  Source  $source
+     * @return $this
+     */
+    public function load($source);
 }
