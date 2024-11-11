@@ -138,7 +138,8 @@ class Rule
             '[連至單雙全](?=[\d全]|$)',
         ];
 
-        $addressResolver($this->normalize($rule)->replace('/'.implode('|', $pattern).'/u',
+        $addressResolver($this->normalize($rule)->replace(
+            '/'.implode('|', $pattern).'/u',
             function ($m) use (&$tokens) {
                 $token = &$m[0];
                 if ($token === '連') {
@@ -148,7 +149,8 @@ class Rule
                 $tokens[] = $token;
 
                 return $token === '附號全' ? '號' : '';
-            }));
+            }
+        ));
 
         return $tokens;
     }
@@ -187,8 +189,11 @@ class Rule
 
         return new Address(
             new JArray($address->tokens()->filter(function ($token) use ($removeUnits) {
-                return isset($token[Address::UNIT]) === true && in_array($token[Address::UNIT], $removeUnits,
-                    true) === false;
+                return isset($token[Address::UNIT]) === true && in_array(
+                    $token[Address::UNIT],
+                    $removeUnits,
+                    true
+                ) === false;
             })->map(function ($token) {
                 return implode('', $token);
             }))

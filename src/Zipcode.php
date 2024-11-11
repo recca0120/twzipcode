@@ -16,7 +16,6 @@ class Zipcode
 
     /**
      * @param  string|Address  $address
-     * @param  ?Rules  $rules
      */
     public function __construct($address, Rules $rules = null)
     {
@@ -44,7 +43,6 @@ class Zipcode
 
     /**
      * @param  string|Address  $address
-     * @param  ?Rules  $rules
      * @return static
      */
     public static function parse($address, Rules $rules = null)

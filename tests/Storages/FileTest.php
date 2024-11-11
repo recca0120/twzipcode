@@ -7,7 +7,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Recca0120\Twzipcode\Address;
-use Recca0120\Twzipcode\Sources\CSV;
+use Recca0120\Twzipcode\Sources\Json;
 use Recca0120\Twzipcode\Sources\Text;
 use Recca0120\Twzipcode\Storages\File as Storage;
 
@@ -125,7 +125,7 @@ class FileTest extends TestCase
         Storage::$cached = ['zip3' => null, 'zip5' => null];
         $root = vfsStream::setup();
         $storage = new Storage($root->url());
-        $storage->flush()->load(new CSV(__DIR__.'/../../resources/Zip32_utf8_10501_1.zip'));
+        $storage->flush()->load(new Json(__DIR__.'/../../resources/Zip32_11208.json.zip'));
 
         $address = m::mock(Address::class);
 

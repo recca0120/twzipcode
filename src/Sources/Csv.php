@@ -2,7 +2,7 @@
 
 namespace Recca0120\Twzipcode\Sources;
 
-class CSV extends Source
+class Csv extends Source
 {
     /** @var string */
     protected $file;

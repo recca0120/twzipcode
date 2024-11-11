@@ -14,9 +14,6 @@ class Rules
      */
     private $storage;
 
-    /**
-     * @param  Storage|null  $storage
-     */
     public function __construct(Storage $storage = null)
     {
         $this->storage = $storage ?: new File;
