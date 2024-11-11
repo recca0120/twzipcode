@@ -33,10 +33,15 @@ abstract class Source implements SourceContract
             return ! empty(trim($line));
         });
 
-        return array_map(static function ($line) {
-            $data = explode(',', $line);
+        return array_map(static function ($rule) {
+            $data = explode(',', $rule);
 
-            return ['zipcode' => $data[0], 'county' => $data[1], 'district' => $data[2], 'text' => $line];
+            return [
+                'zipcode' => $data[0],
+                'county' => $data[1],
+                'district' => $data[2],
+                'rule' => $rule,
+            ];
         }, $lines);
     }
 
@@ -51,7 +56,7 @@ abstract class Source implements SourceContract
                 ? self::$tricks[$row['county'].$row['district']]
                 : substr($row['zipcode'], 0, 3);
 
-            $results[$row['county']][$row['district']][$zip3][] = $row['text'];
+            $results[$row['county']][$row['district']][$zip3][] = $row['rule'];
 
             return $results;
         }, []);

@@ -1396,7 +1396,8 @@ class NormalizerKaohsiungTest extends TestCase
         );
         $this->assertSame(
             '高雄市桃源區梅山里',
-            (string) Normalizer::factory('高雄縣桃源鄉梅山村')->normalizeAddress());
+            (string) Normalizer::factory('高雄縣桃源鄉梅山村')->normalizeAddress()
+        );
         $this->assertSame(
             '高雄市那瑪夏區達卡努瓦里',
             (string) Normalizer::factory('高雄縣那瑪夏鄉達卡努瓦村')->normalizeAddress()

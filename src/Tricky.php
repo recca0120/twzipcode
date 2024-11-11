@@ -6,6 +6,7 @@ class Tricky
 {
     /** @var Tricky */
     private static $instance;
+
     private static $cached = [];
 
     /*
@@ -87,7 +88,7 @@ class Tricky
     public static function instance()
     {
         if (! self::$instance) {
-            self::$instance = new self();
+            self::$instance = new self;
             self::$instance->init();
         }
 

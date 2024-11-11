@@ -21,9 +21,6 @@ class Address
     /** @var Normalizer */
     public $normalizer;
 
-    /** @var Tricky */
-    public $tricky;
-
     /** @var JArray */
     public $tokens = [];
 
